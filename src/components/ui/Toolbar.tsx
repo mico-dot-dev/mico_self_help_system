@@ -8,7 +8,7 @@ import AddButton from "@/src/components/ui/AddButton";
 function Toolbar({ module, buttonModule, toolBarProps }: DataListProps) {
   return (
     <div className="flex flex-col">
-      <div className="flex flex-row mb-3 items-stretch h-9.5">
+      <div className="flex flex-row mb-3 items-stretch h-12">
         {/* Search Bar */}
         <div className="flex-1 min-h-full ">
           <SearchBar />
