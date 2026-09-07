@@ -88,6 +88,11 @@
   .card-container-base {
     @apply bg-foreground border border-border rounded-md;
   }
+
+  .info-card-base {
+    @apply shadow-[0_4px_4px_rgba(0,0,0,0.25)] rounded bg-foreground;
+  }
+
   /* 
   .step-form-button {
     @apply ;

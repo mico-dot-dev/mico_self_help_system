@@ -34,7 +34,7 @@ function CategoryList({ content, module }: ContentProps) {
             Categories:{" "}
           </p>
           <button
-            className="button-base p-2 py-3 rounded-2xl"
+            className="button-base p-3 rounded-3xl"
             onClick={() => handleCatgoryFilter("all")}
           >
             All Categories
@@ -44,7 +44,7 @@ function CategoryList({ content, module }: ContentProps) {
           {content.map((category) => {
             return (
               <button
-                className="button-base p-2 py-3 rounded-2xl"
+                className="button-base p-3 rounded-3xl"
                 key={category.id}
                 onClick={() => handleCatgoryFilter(category.id)}
               >
