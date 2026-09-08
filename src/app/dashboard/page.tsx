@@ -1,6 +1,6 @@
 import React from "react";
 import InfoCard from "@/src/components/ui/InfoCard";
-import Chart from "@/src/components/ui/Chart";
+import Chart from "@/src/components/Chart/BarGraph";
 
 async function page() {
   return (

@@ -9,6 +9,7 @@ import {
   incomeInputModel,
 } from "../schema/income.schema";
 import { prisma } from "@/src/lib/prisma-client";
+import { error } from "console";
 
 export async function createIncome(
   data: incomeInputModel,
@@ -47,6 +48,40 @@ export async function createIncome(
       return {
         success: false,
         error: "income insert backend error",
+      };
+    }
+  });
+}
+
+export async function getUserIncome(): Promise<
+  ActionResponse<incomeListModel[]>
+> {
+  return authenticateUser(async (userId) => {
+    try {
+      const userIncome = await prisma.income.findMany({
+        where: {
+          user_id: userId,
+        },
+      });
+
+      if (!userIncome) {
+        return {
+          success: false,
+          error: "",
+        };
+      }
+
+      const parsedIncome: incomeListModel = userIncome.map((income) => {
+        return {
+          amount: userIncome.amount!,
+          fromJob: userIncome.amount,
+          dateObtained: userIncome.amount,
+        };
+      });
+    } catch (e) {
+      return {
+        success: false,
+        error: "",
       };
     }
   });
