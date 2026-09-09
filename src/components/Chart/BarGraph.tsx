@@ -1,59 +1,91 @@
 "use client";
 
-export interface AlphabetRow {
-  letter: string;
-  frequency: number;
+import { Chart } from "@tanstack/charts/react/tooltip";
+import { tooltip as exampleTooltip } from "@tanstack/charts/tooltip";
+import {
+  barY,
+  colorLegend,
+  defineChart,
+  group,
+  groupBy,
+} from "@tanstack/charts";
+import { scaleBand, scaleLinear } from "d3-scale";
+
+// 1. Define your own local data structure instead of importing 'penguins'
+interface PenguinRow {
+  species: string;
+  sex: string;
+  bodyMass: number;
 }
 
-export const alphabet: readonly AlphabetRow[] = [
-  { letter: "E", frequency: 0.12702 },
-  { letter: "T", frequency: 0.09056 },
-  { letter: "A", frequency: 0.08167 },
-  { letter: "O", frequency: 0.07507 },
-  { letter: "I", frequency: 0.06966 },
+const localPenguins: PenguinRow[] = [
+  { species: "Adelie", sex: "FEMALE", bodyMass: 3000 },
+  { species: "Adelie", sex: "MALE", bodyMass: 4000 },
+  { species: "Gentoo", sex: "FEMALE", bodyMass: 4500 },
+  { species: "Gentoo", sex: "MALE", bodyMass: 5500 },
+  // ... add more as needed
 ];
-import { scaleBand } from "@tanstack/charts/scales/band";
-import { scaleLinear } from "@tanstack/charts/scales/linear";
-import { barY, defineChart } from "@tanstack/charts";
-import { tooltip } from "@tanstack/charts/tooltip";
-import { Chart } from "@tanstack/charts/react";
 
-const percent = new Intl.NumberFormat("en-US", {
-  style: "percent",
-  maximumFractionDigits: 1,
-});
+const sexDomain = ["FEMALE", "MALE"];
+const sexColors = ["#2563eb", "#f97316"];
 
-const letterFrequencyChart = defineChart({
-  marks: [
-    barY(alphabet, {
-      x: "letter",
-      y: "frequency",
-    }),
-  ],
-  scales: {
-    x: {
-      scale: () => scaleBand().padding(0.18),
+export const createExampleChart = (input: ChartOptions) =>
+  defineChart(
+    ({ width }) => {
+      // 2. Use localPenguins instead of the missing import
+      const observations = localPenguins.filter((row) => row.sex !== null);
+
+      const rows = groupBy(observations, {
+        by: { species: "species", sex: "sex" },
+        outputs: { count: { reduce: "count" } },
+      });
+
+      return {
+        marks: [
+          barY(rows, {
+            id: "penguin-count-bars",
+            x: "species",
+            y: "count",
+            color: "sex",
+            layout: group({
+              scale: scaleBand<string>().domain(sexDomain).paddingInner(0.08),
+            }),
+            inset: 1,
+          }),
+        ],
+        scales: {
+          x: {
+            scale: () =>
+              scaleBand<string>().paddingInner(0.14).paddingOuter(0.06),
+            axis: { tickLabels: { rotate: width < 640 ? -32 : 0 } },
+          },
+          y: {
+            scale: scaleLinear,
+            grid: true,
+            axis: { ticks: { count: 5 }, label: "Penguins" },
+          },
+        },
+        color: {
+          range: sexColors,
+          legend: colorLegend({
+            label: "Sex",
+          }),
+        },
+      };
     },
-    y: {
-      scale: scaleLinear,
-      nice: true,
-      grid: true,
-      axis: {
-        label: "Frequency",
-        ticks: { format: (value) => percent.format(value) },
-      },
-    },
-  },
-
-  tooltip,
-});
-
-export default function App() {
-  return (
-    <Chart
-      definition={letterFrequencyChart}
-      height={320}
-      ariaLabel="English letter frequencies"
-    />
+    { keyboard: true, tooltip: exampleTooltip },
   );
+
+export interface ChartOptions {
+  revision: number;
+}
+
+export const exampleAriaLabel = "Penguins grouped by species";
+
+export const chart = createExampleChart({
+  revision: 0,
+});
+
+export default function Example() {
+  return <Chart ariaLabel={exampleAriaLabel} definition={chart} height={480} />;
 }

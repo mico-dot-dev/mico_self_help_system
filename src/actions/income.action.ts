@@ -71,13 +71,18 @@ export async function getUserIncome(): Promise<
         };
       }
 
-      const parsedIncome: incomeListModel = userIncome.map((income) => {
+      const parsedIncome: incomeListModel[] = userIncome.map((income) => {
         return {
-          amount: userIncome.amount!,
-          fromJob: userIncome.amount,
-          dateObtained: userIncome.amount,
+          amount: income.amount ?? 0,
+          dateObtained: income.date_obtained ?? new Date(),
+          fromJob: income.from_job,
         };
       });
+
+      return {
+        success: true,
+        data: parsedIncome,
+      };
     } catch (e) {
       return {
         success: false,
