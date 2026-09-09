@@ -84,6 +84,6 @@ export const chart = createExampleChart({
   revision: 0,
 });
 
-export default function Example() {
-  return <Chart ariaLabel={exampleAriaLabel} definition={chart} height={480} />;
+export default function BarGraph() {
+  return <Chart ariaLabel={exampleAriaLabel} definition={chart} height={200} />;
 }

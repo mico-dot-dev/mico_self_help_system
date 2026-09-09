@@ -10,45 +10,37 @@ import {
   groupBy,
 } from "@tanstack/charts";
 import { scaleBand, scaleLinear } from "d3-scale";
+import { financeRow } from "@/src/type/chart";
+import { ChartOptions } from "./PieGraph";
 
-// 1. Define your own local data structure instead of importing 'penguins'
-interface PenguinRow {
-  species: string;
-  sex: string;
-  bodyMass: number;
-}
+const financeDomain = ["in", "out"];
+const financeColors = ["#2563eb", "#f97316"]; // Blue for 'in', Orange for 'out'
 
-const localPenguins: PenguinRow[] = [
-  { species: "Adelie", sex: "FEMALE", bodyMass: 3000 },
-  { species: "Adelie", sex: "MALE", bodyMass: 4000 },
-  { species: "Gentoo", sex: "FEMALE", bodyMass: 4500 },
-  { species: "Gentoo", sex: "MALE", bodyMass: 5500 },
-  // ... add more as needed
-];
-
-const sexDomain = ["FEMALE", "MALE"];
-const sexColors = ["#2563eb", "#f97316"];
-
-export const createExampleChart = (input: ChartOptions) =>
+export const createBarChart = (input: ChartOptions, data: financeRow[]) =>
   defineChart(
     ({ width }) => {
-      // 2. Use localPenguins instead of the missing import
-      const observations = localPenguins.filter((row) => row.sex !== null);
+      // const groupType = data
+      //   .slice(0, data.length - input.revision * 12)
+      //   .filter((row): row is financeRow => row.financeType !== null);
 
-      const rows = groupBy(observations, {
-        by: { species: "species", sex: "sex" },
-        outputs: { count: { reduce: "count" } },
+      const groupType = data.filter((row) => row.financeType !== null);
+
+      const rows = groupBy(groupType, {
+        by: { financeType: "financeType", dateRange: "dateRange" },
+        outputs: { totalSum: { reduce: "sum", value: "total" } },
       });
 
       return {
         marks: [
           barY(rows, {
-            id: "penguin-count-bars",
-            x: "species",
-            y: "count",
-            color: "sex",
+            id: "date=range-bars",
+            x: "dateRange",
+            y: "totalSum",
+            color: "financeType",
             layout: group({
-              scale: scaleBand<string>().domain(sexDomain).paddingInner(0.08),
+              scale: scaleBand<string>()
+                .domain(financeDomain)
+                .paddingInner(0.08),
             }),
             inset: 1,
           }),
@@ -62,13 +54,13 @@ export const createExampleChart = (input: ChartOptions) =>
           y: {
             scale: scaleLinear,
             grid: true,
-            axis: { ticks: { count: 5 }, label: "Penguins" },
+            axis: { ticks: { count: 5 }, label: "Total" },
           },
         },
         color: {
-          range: sexColors,
+          range: financeColors,
           legend: colorLegend({
-            label: "Sex",
+            label: "finance",
           }),
         },
       };
@@ -76,16 +68,17 @@ export const createExampleChart = (input: ChartOptions) =>
     { keyboard: true, tooltip: exampleTooltip },
   );
 
-export interface ChartOptions {
-  revision: number;
-}
+export const exampleAriaLabel = "Grouping of Income";
+const example: financeRow[] = [
+  { dateRange: "week 1", financeType: "in", total: 100 },
+  { dateRange: "week 1", financeType: "out", total: 50 },
+  { dateRange: "week 2", financeType: "in", total: 100 },
+  { dateRange: "week 3", financeType: "in", total: 100 },
+  { dateRange: "week 4", financeType: "in", total: 100 },
+];
 
-export const exampleAriaLabel = "Penguins grouped by species";
+export const chart = createBarChart({ revision: 0 }, example);
 
-export const chart = createExampleChart({
-  revision: 0,
-});
-
-export default function Example() {
-  return <Chart ariaLabel={exampleAriaLabel} definition={chart} height={480} />;
+export default function BarGraph() {
+  return <Chart ariaLabel={exampleAriaLabel} definition={chart} height={250} />;
 }
