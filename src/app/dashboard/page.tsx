@@ -1,9 +1,10 @@
 import React from "react";
 import InfoCard from "@/src/components/ui/InfoCard";
-import Chart from "@/src/components/Chart/BarGraph";
-import Pie from "@/src/components/Chart/PieGraph";
+import Chart from "@/src/components/chart/BarGraph";
+import Pie from "@/src/components/chart/PieGraph";
 import AddButton from "@/src/components/ui/AddButton";
 import { Square } from "lucide-react";
+import IncomeList from "@/src/components/income/IncomeList";
 
 async function page() {
   return (
@@ -62,6 +63,9 @@ async function page() {
           <div className="flex flex-row justify-between">
             <p>Income History</p>
             <AddButton content="income" />
+          </div>
+          <div>
+            <IncomeList />
           </div>
         </div>
         <div className="h-36 p-5 info-card-base"></div>

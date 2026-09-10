@@ -14,11 +14,11 @@ function DataShowcase<T extends RowData>({
       <div className="lg:block hidden">
         <DataTable columns={columns} data={data} module={module} />
       </div>
-      <div className="lg:hidden">
+      <ul className="lg:hidden">
         {data.map((item, i) => (
           <CardComponent data={item} key={i} />
         ))}
-      </div>
+      </ul>
     </div>
   );
 }
