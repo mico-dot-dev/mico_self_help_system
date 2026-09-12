@@ -8,11 +8,13 @@ async function page() {
     <div className="content-container-base">
       <div className="flex flex-col flex-1 h-full">
         <div className="overflow-y-scroll flex-1 h-fit pb-24">
-          <DataListContainer
-            module="transaction"
-            toolBarProps={{ categoryContent: [] }}
-            buttonModule="transaction"
-          />
+          <Suspense>
+            <DataListContainer
+              module="transaction"
+              toolBarProps={{ categoryContent: [] }}
+              buttonModule="transaction"
+            />
+          </Suspense>
         </div>
       </div>
     </div>

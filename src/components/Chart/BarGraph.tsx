@@ -19,10 +19,6 @@ const financeColors = ["#2563eb", "#f97316"]; // Blue for 'in', Orange for 'out'
 export const createBarChart = (data: financeRow[]) =>
   defineChart(
     ({ width }) => {
-      // const groupType = data
-      //   .slice(0, data.length - input.revision * 12)
-      //   .filter((row): row is financeRow => row.financeType !== null);
-
       const groupType = data.filter((row) => row.financeType !== null);
 
       const rows = groupBy(groupType, {
