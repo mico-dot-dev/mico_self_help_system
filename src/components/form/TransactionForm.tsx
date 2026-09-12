@@ -15,7 +15,7 @@ import {
 import { DynamicListModel } from "@/src/schema/expense.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { GetUserExpenseByType } from "@/src/actions/expense.action";
-import ExpenseTypeCard from "@/src/components/transaction/TransactionExpenseTypeCard";
+import ExpenseTypeCard from "@/src/components/transaction/TransactionFormCard";
 import { twJoin } from "tailwind-merge";
 import { CreateUserTransaction } from "@/src/actions/transaction.action";
 import Swal from "sweetalert2";
@@ -45,15 +45,6 @@ function TransactionForm({ closeModal }: AddFormProps) {
 
   const [expenseData, setExpenseData] = useState<DynamicListModel[]>();
 
-  useEffect(() => {
-    const fetchExpenseData = async () => {
-      const res = await GetUserExpenseByType(selectedExpenseType);
-      if (!res.success) return null;
-      setExpenseData(res.data);
-    };
-    fetchExpenseData();
-  }, [selectedExpenseType]);
-
   const [step, setStep] = useState(1);
   const nextStep = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -63,6 +54,17 @@ function TransactionForm({ closeModal }: AddFormProps) {
     e.preventDefault();
     setStep((prev) => Math.max(prev - 1, 1));
   };
+
+  useEffect(() => {
+    if (step === 2) {
+      const fetchExpenseData = async () => {
+        const res = await GetUserExpenseByType(selectedExpenseType);
+        if (!res.success) return null;
+        setExpenseData(res.data);
+      };
+      fetchExpenseData();
+    }
+  }, [step]);
 
   const formSubmit = async (data: TransactionListModel) => {
     const res = await CreateUserTransaction(data);
@@ -80,35 +82,17 @@ function TransactionForm({ closeModal }: AddFormProps) {
   };
 
   return (
-    <div className="h-full">
-      <div className="text-xs">
-        <ul className="steps w-full">
-          <li className="step step-primary "></li>
-          <li
-            className={twJoin(
-              "step transition-colors ",
-              step >= 2 ? "  step-primary" : "",
-            )}
-          ></li>
-          <li
-            className={twJoin(
-              "step transition-colors ",
-              step >= 3 ? "step-primary" : "",
-            )}
-          ></li>
-        </ul>
-        <p>Select the Expense Type</p>
-      </div>
-
+    <div className="h-full flex flex-row">
+      {/* <div className="w-25"></div> */}
       <FormProvider {...methods}>
         <form
           onSubmit={handleSubmit(formSubmit, onInvalid)}
-          className="flex flex-col h-[85%]"
+          className="flex flex-col   flex-1"
         >
           <div className="flex-1 h-full">
             {/* Step 1 */}
             {step === 1 && (
-              <fieldset className="grid grid-cols-2">
+              <fieldset className="flex flex-col">
                 {Object.entries(expenseIconMap).map(([typeKey, config]) => {
                   const convertedType = typeKey as ExpenseType;
                   const isSelected = convertedType === selectedExpenseType;
@@ -130,7 +114,7 @@ function TransactionForm({ closeModal }: AddFormProps) {
             {step === 2 && (
               <fieldset>
                 {expenseData ? (
-                  <fieldset className="grid grid-cols-2 gap-3">
+                  <div className="flex flex-col gap-3">
                     {expenseData.map((data) => {
                       const isSelected = data.id === selectedExpenseId;
                       return (
@@ -144,7 +128,7 @@ function TransactionForm({ closeModal }: AddFormProps) {
                         />
                       );
                     })}
-                  </fieldset>
+                  </div>
                 ) : (
                   <p>No Expense Data for this Type</p>
                 )}

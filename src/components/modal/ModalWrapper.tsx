@@ -30,7 +30,7 @@ function AddFormModal({
           {/* Modal Box */}
           <Dialog.Content
             className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
-             bg-foreground border-2 border-border rounded-lg lg:w-[70%] w-full z-50 lg:h-[80%] max-h-screen
+             bg-foreground border-2 border-border rounded-lg lg:w-[30%] w-full z-50 lg:h-[90%] max-h-screen
              flex flex-col p-5"
           >
             <Dialog.Title className="relative text-xl font-bold text-primary-tex mb-3 bg-foreground py-5 border-b-2 border-b-border">

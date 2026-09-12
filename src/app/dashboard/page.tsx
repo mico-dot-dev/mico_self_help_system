@@ -15,8 +15,8 @@ async function page() {
         <InfoCard />
       </header>
 
-      <section className="grid  grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 w-full mt-4 ">
-        <div className="p-5 col-span-2 w-full info-card-base">
+      <section className="flex flex-row w-full mt-4 gap-4">
+        <div className="p-5 col-span-2 w-[60%] info-card-base">
           <div className="flex justify-between mb-4">
             <div>
               <p>Cash Flow Overflow</p>
@@ -47,8 +47,8 @@ async function page() {
           </div>
         </div>
 
-        <div className=" p-5 info-card-base bg-foreground">
-          <div className="flex flex-col">
+        <div className=" p-5 info-card-base flex-1 bg-foreground">
+          <div className="flex flex-col mb-5">
             <p>Expense Breakdown</p>
             <p className="text-muted-text text-sm">
               Distribution across key categories
@@ -68,7 +68,9 @@ async function page() {
             <IncomeList />
           </div>
         </div>
-        <div className="h-36 p-5 info-card-base"></div>
+        <div className="h-36 p-5 info-card-base">
+          <p>Budget Recommendation</p>
+        </div>
       </footer>
     </div>
   );

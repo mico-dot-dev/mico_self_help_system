@@ -11,12 +11,12 @@ import {
 } from "@tanstack/charts";
 import { scaleBand, scaleLinear } from "d3-scale";
 import { financeRow } from "@/src/type/chart";
-import { ChartOptions } from "./PieGraph";
+import { example } from "@/src/actions/dashboard.action";
 
 const financeDomain = ["in", "out"];
 const financeColors = ["#2563eb", "#f97316"]; // Blue for 'in', Orange for 'out'
 
-export const createBarChart = (input: ChartOptions, data: financeRow[]) =>
+export const createBarChart = (data: financeRow[]) =>
   defineChart(
     ({ width }) => {
       // const groupType = data
@@ -59,9 +59,6 @@ export const createBarChart = (input: ChartOptions, data: financeRow[]) =>
         },
         color: {
           range: financeColors,
-          legend: colorLegend({
-            label: "finance",
-          }),
         },
       };
     },
@@ -69,15 +66,8 @@ export const createBarChart = (input: ChartOptions, data: financeRow[]) =>
   );
 
 export const exampleAriaLabel = "Grouping of Income";
-const example: financeRow[] = [
-  { dateRange: "week 1", financeType: "in", total: 100 },
-  { dateRange: "week 1", financeType: "out", total: 50 },
-  { dateRange: "week 2", financeType: "in", total: 100 },
-  { dateRange: "week 3", financeType: "in", total: 100 },
-  { dateRange: "week 4", financeType: "in", total: 100 },
-];
 
-export const chart = createBarChart({ revision: 0 }, example);
+export const chart = createBarChart(example);
 
 export default function BarGraph() {
   return <Chart ariaLabel={exampleAriaLabel} definition={chart} height={250} />;
