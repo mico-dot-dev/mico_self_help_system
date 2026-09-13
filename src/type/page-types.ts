@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { AppModule } from "../type/module";
 import { ModuleWithModals } from "../type/module";
+import { LucideIcon } from "lucide-react";
 
 export type ListParams = {
   category?: string;
@@ -23,4 +24,10 @@ export interface DataListProps {
   buttonModule?: ModuleWithModals;
   toolBarProps: ToolBarProps;
   searchParams?: ListParams;
+}
+
+export interface DashboardProps {
+  title: string;
+  CardIcon: LucideIcon;
+  amount: string;
 }
