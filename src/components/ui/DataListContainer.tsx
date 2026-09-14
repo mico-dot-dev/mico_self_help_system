@@ -30,7 +30,7 @@ function DataListContainer({
             toolBarProps={toolBarProps}
           />
         </div>
-        <div className="overflow-y-scroll flex-1 h-fit  ">
+        <div className=" flex-1 h-fit">
           <Suspense>
             <ListComponent searchParams={searchParams} />
           </Suspense>

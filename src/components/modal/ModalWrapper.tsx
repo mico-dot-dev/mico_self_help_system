@@ -29,16 +29,24 @@ function AddFormModal({
 
           {/* Modal Box */}
           <Dialog.Content
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
-             bg-foreground border-2 border-border rounded-lg lg:w-[30%] w-full z-50 lg:h-[90%] max-h-screen
-             flex flex-col p-5"
+            className="
+            fixed 
+            top-1/2 left-1/2 
+            -translate-x-1/2 -translate-y-1/2
+            bg-foreground 
+            border-2 border-border 
+            rounded-lg 
+            lg:w-[30%] w-full 
+            z-50 
+            lg:h-[90%] max-h-screen
+            flex flex-col p-5"
           >
             <Dialog.Title className="relative text-xl font-bold text-primary-tex mb-3 bg-foreground py-5 border-b-2 border-b-border">
               <p className="">{title}</p>
               <p className="text-sm text-muted-text">{description}</p>
             </Dialog.Title>
 
-            <div className="flex-1 overflow-y-scroll">{children}</div>
+            <div className="flex-1 ">{children}</div>
           </Dialog.Content>
         </Dialog.Portal>
       </Dialog.Root>

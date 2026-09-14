@@ -74,7 +74,7 @@
   }
 
   .content-container-base {
-    @apply flex flex-1 flex-col min-h-full overflow-hidden pt-8 p-5 pr-0;
+    @apply flex flex-1 flex-col min-h-full overflow-hidden pt-8 p-5 pr-0 overflow-y-scroll;
   }
 
   .modal-form-base {
@@ -100,24 +100,4 @@
 }
 
 @layer utilities {
-  .task-list-scrollbar::-webkit-scrollbar {
-    width: 10px;
-  }
-  .task-list-scrollbar::-webkit-scrollbar-track {
-    background: var(--color-foreground);
-    border: 1px solid var(--active);
-    border-radius: 4px;
-  }
-
-  .task-list-scrollbar::-webkit-scrollbar-button {
-    display: none;
-    height: 0;
-    width: 0;
-  }
-
-  .task-list-scrollbar::-webkit-scrollbar-thumb {
-    background-color: var(--primary);
-    border-radius: 4px;
-    border: 1px solid #0b1220; /* Creates a "gap" between thumb and track */
-  }
 }

@@ -31,7 +31,9 @@ function AddFormModal({ isOpen, setIsOpen, content }: ModalProps) {
       title={"Create " + label}
       description={description}
     >
-      <AddFormComponent closeModal={closeModal} />
+      <div>
+        <AddFormComponent closeModal={closeModal} />
+      </div>
     </ModalWrapper>
   );
 }
