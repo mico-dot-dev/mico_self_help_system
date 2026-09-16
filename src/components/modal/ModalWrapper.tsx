@@ -46,7 +46,7 @@ function AddFormModal({
               <p className="text-sm text-muted-text">{description}</p>
             </Dialog.Title>
 
-            <div className="flex-1 ">{children}</div>
+            <div className="flex-1 overflow-y-scroll">{children}</div>
           </Dialog.Content>
         </Dialog.Portal>
       </Dialog.Root>

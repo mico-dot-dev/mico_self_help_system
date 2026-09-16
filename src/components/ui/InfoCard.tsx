@@ -6,8 +6,10 @@ function InfoCard({ title, CardIcon, amount }: DashboardProps) {
   return (
     <div className="flex flex-col justify-between bg-foreground h-36 p-5 shadow-[0_4px_4px_rgba(0,0,0,0.25)] rounded">
       <div className="flex flex-row justify-between">
-        <p className="text-muted-text font-semibold">{title}</p>
-        <CardIcon />
+        <p className="text-muted-text font-semibold ">{title}</p>
+        <div className="text-active bg-background">
+          <CardIcon />
+        </div>
       </div>
       <div>
         <div className="flex flex-row text-2xl font-bold items-center">

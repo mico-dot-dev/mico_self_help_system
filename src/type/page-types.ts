@@ -31,3 +31,10 @@ export interface DashboardProps {
   CardIcon: LucideIcon;
   amount: string;
 }
+
+export interface TaskCardProps {
+  title: string;
+  stats: number;
+  desc: string;
+  color?: string;
+}
