@@ -10,61 +10,50 @@ import {
   groupBy,
 } from "@tanstack/charts";
 import { scaleBand, scaleLinear } from "d3-scale";
-import { financeRow } from "@/src/type/chart";
-import { example } from "@/src/actions/dashboard.action";
+import { CashFlowPoint } from "@/src/type/chart";
 
-const financeDomain = ["in", "out"];
-const financeColors = ["#2563eb", "#f97316"]; // Blue for 'in', Orange for 'out'
+const financeColors = ["#2563eb", "#f97316"];
 
-export const createBarChart = (data: financeRow[]) =>
+export const createBarChart = (data: CashFlowPoint[]) =>
   defineChart(
-    ({ width }) => {
-      const groupType = data.filter((row) => row.financeType !== null);
-
-      const rows = groupBy(groupType, {
-        by: { financeType: "financeType", dateRange: "dateRange" },
-        outputs: { totalSum: { reduce: "sum", value: "total" } },
-      });
-
-      return {
-        marks: [
-          barY(rows, {
-            id: "date=range-bars",
-            x: "dateRange",
-            y: "totalSum",
-            color: "financeType",
-            layout: group({
-              scale: scaleBand<string>()
-                .domain(financeDomain)
-                .paddingInner(0.08),
-            }),
-            inset: 1,
+    ({ width }) => ({
+      marks: [
+        barY(data, {
+          id: "cash-flow-bars",
+          x: "dateRange",
+          y: "total",
+          layout: group({
+            scale: scaleBand<string>().domain(["in", "out"]).paddingInner(0.08),
           }),
-        ],
-        scales: {
-          x: {
-            scale: () =>
-              scaleBand<string>().paddingInner(0.14).paddingOuter(0.06),
-            axis: { tickLabels: { rotate: width < 640 ? -32 : 0 } },
-          },
-          y: {
-            scale: scaleLinear,
-            grid: true,
-            axis: { ticks: { count: 5 }, label: "Total" },
-          },
+          color: "transit",
+        }),
+      ],
+
+      scales: {
+        x: {
+          scale: () =>
+            scaleBand<string>().paddingInner(0.14).paddingOuter(0.06),
+          axis: { tickLabels: { rotate: width < 640 ? -32 : 0 } },
         },
-        color: {
-          range: financeColors,
+        y: {
+          scale: scaleLinear,
+          grid: true,
+          axis: { ticks: { count: 5 }, label: "Total" },
         },
-      };
-    },
+      },
+
+      color: {
+        range: financeColors,
+      },
+    }),
     { keyboard: true, tooltip: exampleTooltip },
   );
 
-export const exampleAriaLabel = "Grouping of Income";
+interface CashFlowProps {
+  data: CashFlowPoint[];
+}
 
-export const chart = createBarChart(example);
-
-export default function BarGraph() {
-  return <Chart ariaLabel={exampleAriaLabel} definition={chart} height={250} />;
+export default function BarGraph({ data }: CashFlowProps) {
+  const chart = createBarChart(data);
+  return <Chart ariaLabel={"Data Chart"} definition={chart} height={250} />;
 }

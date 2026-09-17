@@ -1,8 +1,10 @@
 import { ExpenseType } from "../generated/prisma";
 
-export interface financeRow {
+type ChartGranularity = "day" | "week" | "month";
+
+export interface CashFlowPoint {
   dateRange: string;
-  financeType: "in" | "out";
+  transit: "in" | "out";
   total: number;
 }
 

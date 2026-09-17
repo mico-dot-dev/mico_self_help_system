@@ -1,12 +1,11 @@
-import React from "react";
+import React, { Suspense } from "react";
 import InfoCard from "@/src/components/ui/InfoCard";
-import Chart from "@/src/components/chart/BarGraph";
 import Pie from "@/src/components/chart/PieGraph";
 import AddButton from "@/src/components/ui/AddButton";
-import { Square, CreditCard, TrendingUp, TrendingDown } from "lucide-react";
+import { CreditCard, TrendingUp, TrendingDown } from "lucide-react";
 import IncomeList from "@/src/components/income/IncomeList";
 import { DashboardProps } from "@/src/type/page-types";
-import { object } from "zod";
+import CashFlowChart from "@/src/components/dashboard/CashFlowChart";
 
 async function page() {
   const dashboardCardData: DashboardProps[] = [
@@ -29,29 +28,9 @@ async function page() {
         </div>
       </header>
       <section className="flex flex-row w-full mt-4 gap-4">
-        <div className="p-5 col-span-2 w-[60%] info-card-base">
-          <div className="flex justify-between mb-4">
-            <div>
-              <p>Cash Flow Overflow</p>
-              <p className="text-muted-text text-sm">
-                Comparing monthly income and outbound spend
-              </p>
-            </div>
-            <div className="flex flex-col">
-              <div className="flex flex-row">
-                <Square />
-                <p>Money in</p>
-              </div>
-              <div className="flex flex-row">
-                <Square />
-                <p>Money Out</p>
-              </div>
-            </div>
-          </div>
-          <div>
-            <Chart />
-          </div>
-        </div>
+        <Suspense>
+          <CashFlowChart />
+        </Suspense>
         <div className=" p-5 info-card-base flex-1 bg-foreground">
           <div className="flex flex-col mb-5">
             <p>Expense Breakdown</p>
