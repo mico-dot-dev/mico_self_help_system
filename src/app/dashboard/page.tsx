@@ -1,11 +1,10 @@
 import React, { Suspense } from "react";
 import InfoCard from "@/src/components/ui/InfoCard";
-import Pie from "@/src/components/chart/PieGraph";
 import AddButton from "@/src/components/ui/AddButton";
 import { CreditCard, TrendingUp, TrendingDown } from "lucide-react";
 import IncomeList from "@/src/components/income/IncomeList";
 import { DashboardProps } from "@/src/type/page-types";
-import CashFlowChart from "@/src/components/dashboard/CashFlowChart";
+import CashFlowChart from "@/src/components/dashboard/CashCharts";
 
 async function page() {
   const dashboardCardData: DashboardProps[] = [
@@ -27,19 +26,10 @@ async function page() {
           })}
         </div>
       </header>
-      <section className="flex flex-row w-full mt-4 gap-4">
+      <section className=" mt-4 ">
         <Suspense>
           <CashFlowChart />
         </Suspense>
-        <div className=" p-5 info-card-base flex-1 bg-foreground">
-          <div className="flex flex-col mb-5">
-            <p>Expense Breakdown</p>
-            <p className="text-muted-text text-sm">
-              Distribution across key categories
-            </p>
-          </div>
-          <Pie />
-        </div>
       </section>
       <footer className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-2 w-full mt-4">
         <div className="h-36 p-5 info-card-base">

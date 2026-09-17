@@ -3,16 +3,21 @@
 import { ActionResponse } from "../schema/auth.schema";
 import { prisma } from "@/src/lib/prisma-client";
 import { authenticateUser } from "../lib/utils/validation-wrapper";
-import { CashFlowPoint } from "@/src/type/chart";
+import {
+  CashFlowPoint,
+  ChartGranularity,
+  granularityMap,
+} from "@/src/type/chart";
 
-export async function getUserStatistics(): Promise<
-  ActionResponse<CashFlowPoint[]>
-> {
+export async function getUserStatistics(
+  dateGranuality: ChartGranularity,
+): Promise<ActionResponse<CashFlowPoint[]>> {
+  const dateGroup = granularityMap[dateGranuality];
+
   return authenticateUser(async (userId) => {
     try {
       const res = await prisma.$queryRaw<CashFlowPoint[]>`SELECT
-  date_trunc('month', stats_data.created_at) as month_start,
-  to_char(date_trunc('month', stats_data.created_at), 'Mon') as month,
+  date_trunc(${dateGroup}, stats_data.created_at) as dateStart,
   stats_data.transit,
   SUM(stats_data.amount) as total
 FROM (
@@ -25,8 +30,8 @@ FROM (
   JOIN public.transaction t ON t.expense_id = e.id
    WHERE e.user_id = ${userId}
 ) as stats_data
-GROUP BY month_start, transit
-ORDER BY month_start`;
+GROUP BY dateStart, transit
+ORDER BY dateStart`;
 
       if (!res) {
         return {
@@ -34,7 +39,6 @@ ORDER BY month_start`;
           error: "",
         };
       }
-
       return {
         success: true,
         data: res,

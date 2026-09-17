@@ -1,9 +1,9 @@
 import { ExpenseType } from "../generated/prisma";
 
-type ChartGranularity = "day" | "week" | "month";
+export type ChartGranularity = "day" | "week" | "month";
 
 export interface CashFlowPoint {
-  dateRange: string;
+  dateStart: Date;
   transit: "in" | "out";
   total: number;
 }
@@ -12,3 +12,9 @@ export interface financeFrequency {
   type: ExpenseType;
   frequency: number;
 }
+
+export const granularityMap = {
+  month: "month",
+  week: "week",
+  day: "day",
+} as const;
