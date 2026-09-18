@@ -43,12 +43,12 @@ export const createBarChart = (
 ) =>
   defineChart(
     ({ width }) => {
-      const rows = data.map((item) => ({
-        ...item,
-        dateRange: createDateRange(item.dateStart, granularity),
-      }));
-      console.dir("frontend data" + rows);
-
+      const rows = data.map((item) => {
+        return {
+          ...item,
+          dateRange: createDateRange(item.dateStart, granularity),
+        };
+      });
       return {
         marks: [
           barY(rows, {

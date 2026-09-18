@@ -2,16 +2,21 @@
 import React from "react";
 import { Square } from "lucide-react";
 import BarGraph from "@/src/components/chart/BarGraph";
-import { getUserStatistics } from "@/src/actions/dashboard.action";
-import Pie from "@/src/components/chart/PieGraph";
+import {
+  getUserBarStatistics,
+  getUserExpenseBreakdown,
+} from "@/src/actions/dashboard.action";
+import PieGraph from "@/src/components/chart/PieGraph";
 
 async function CashFlowChart() {
-  const res = await getUserStatistics("month");
-  if (!res.success) {
+  const granularity = "month";
+  const [barData, pieData] = await Promise.all([
+    getUserBarStatistics(granularity),
+    getUserExpenseBreakdown(),
+  ]);
+  if (!barData.success || !pieData.success) {
     return <p>No data Found</p>;
   }
-
-  console.log("backend data: " + res.data);
 
   return (
     <div className="flex flex-row w-full gap-4">
@@ -35,7 +40,7 @@ async function CashFlowChart() {
           </div>
         </div>
         <div>
-          <BarGraph data={res.data} granularity="month" />
+          <BarGraph data={barData.data} granularity={granularity} />
         </div>
       </div>
       <div className=" p-5 info-card-base flex-1 bg-foreground">
@@ -45,7 +50,7 @@ async function CashFlowChart() {
             Distribution across key categories
           </p>
         </div>
-        <Pie />
+        <PieGraph data={pieData.data} />
       </div>
     </div>
   );

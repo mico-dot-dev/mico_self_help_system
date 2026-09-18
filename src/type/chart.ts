@@ -8,7 +8,7 @@ export interface CashFlowPoint {
   total: number;
 }
 
-export interface financeFrequency {
+export interface ExpenseFrequency {
   type: ExpenseType;
   frequency: number;
 }

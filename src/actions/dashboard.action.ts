@@ -7,9 +7,11 @@ import {
   CashFlowPoint,
   ChartGranularity,
   granularityMap,
+  ExpenseFrequency,
 } from "@/src/type/chart";
+import { success } from "zod";
 
-export async function getUserStatistics(
+export async function getUserBarStatistics(
   dateGranuality: ChartGranularity,
 ): Promise<ActionResponse<CashFlowPoint[]>> {
   const dateGroup = granularityMap[dateGranuality];
@@ -17,7 +19,7 @@ export async function getUserStatistics(
   return authenticateUser(async (userId) => {
     try {
       const res = await prisma.$queryRaw<CashFlowPoint[]>`SELECT
-  date_trunc(${dateGroup}, stats_data.created_at) as dateStart,
+  date_trunc(${dateGroup}, stats_data.created_at) as "dateStart",
   stats_data.transit,
   SUM(stats_data.amount) as total
 FROM (
@@ -26,12 +28,12 @@ FROM (
 
   UNION ALL
 
-  SELECT t.amount, t.created_at, 'out' as transit FROM expense e
+  SELECT t.price as amount, t.created_at, 'out' as transit FROM expense e
   JOIN public.transaction t ON t.expense_id = e.id
    WHERE e.user_id = ${userId}
 ) as stats_data
-GROUP BY dateStart, transit
-ORDER BY dateStart`;
+GROUP BY "dateStart", transit
+ORDER BY "dateStart"`;
 
       if (!res) {
         return {
@@ -39,6 +41,7 @@ ORDER BY dateStart`;
           error: "",
         };
       }
+
       return {
         success: true,
         data: res,
@@ -52,33 +55,35 @@ ORDER BY dateStart`;
   });
 }
 
-// export const example: financeRow[] = [
-//   { dateRange: "Jan", financeType: "in", total: 1200 },
-//   { dateRange: "Jan", financeType: "out", total: 450 },
-//   { dateRange: "Feb", financeType: "in", total: 950 },
-//   { dateRange: "Feb", financeType: "out", total: 300 },
-//   { dateRange: "Mar", financeType: "in", total: 1500 },
-//   { dateRange: "Mar", financeType: "out", total: 600 },
-//   { dateRange: "Apr", financeType: "in", total: 1100 },
-//   { dateRange: "Apr", financeType: "out", total: 400 },
-//   { dateRange: "May", financeType: "in", total: 1350 },
-//   { dateRange: "May", financeType: "out", total: 750 },
-//   { dateRange: "Jun", financeType: "in", total: 1600 },
-//   { dateRange: "Jun", financeType: "out", total: 500 },
-//   { dateRange: "Jul", financeType: "in", total: 100 },
-//   { dateRange: "Jul", financeType: "in", total: 850 },
-//   { dateRange: "Jul", financeType: "out", total: 620 },
-//   { dateRange: "Aug", financeType: "in", total: 1400 },
-//   { dateRange: "Aug", financeType: "out", total: 550 },
-//   { dateRange: "Sep", financeType: "in", total: 1250 },
-//   { dateRange: "Sep", financeType: "out", total: 480 },
-//   { dateRange: "Oct", financeType: "in", total: 1900 },
-//   { dateRange: "Oct", financeType: "out", total: 800 },
-//   { dateRange: "Nov", financeType: "in", total: 1750 },
-//   { dateRange: "Nov", financeType: "out", total: 900 },
-//   { dateRange: "Dec", financeType: "in", total: 2200 },
-//   { dateRange: "Dec", financeType: "out", total: 1100 },
-// ];
+export async function getUserExpenseBreakdown(): Promise<
+  ActionResponse<ExpenseFrequency[]>
+> {
+  return authenticateUser(async (userID) => {
+    try {
+      const res = await prisma.$queryRaw<ExpenseFrequency[]>`SELECT
+    e.expense_type AS "type",
+    COUNT(t.id)::int AS frequency
+  FROM public.expense e
+  JOIN public.transaction t
+    ON t.expense_id = e.id
+  WHERE e.user_id = ${userID}
+    AND e.is_archived = false
+  GROUP BY e.expense_type
+  ORDER BY frequency DESC;`;
+
+      if (!res) {
+        return { success: false, error: "err" };
+      }
+
+      return {
+        success: true,
+        data: res,
+      };
+    } catch (e) {
+      return { success: false, error: "err" };
+    }
+  });
+}
 
 // export const financeExample: readonly financeFrequency[] = [
 //   { type: "GROCERY", frequency: 0.095 },
