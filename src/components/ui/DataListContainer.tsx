@@ -22,7 +22,7 @@ function DataListContainer({
   return (
     <>
       {" "}
-      <div className="flex flex-col flex-1 h-full bg-foreground border border-border rounded-2xl p-5">
+      <div className="flex flex-col flex-1 bg-foreground border border-border rounded-2xl p-5">
         <div className="mb-4">
           <ToolBar
             module={module}
@@ -30,7 +30,7 @@ function DataListContainer({
             toolBarProps={toolBarProps}
           />
         </div>
-        <div className=" flex-1 h-fit">
+        <div className="flex-1 ">
           <Suspense>
             <ListComponent searchParams={searchParams} />
           </Suspense>

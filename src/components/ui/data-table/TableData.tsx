@@ -8,6 +8,7 @@ import {
   useTable,
   RowData,
   sortFns,
+  createPaginatedRowModel,
 } from "@tanstack/react-table";
 import type { ColumnDef } from "@tanstack/react-table";
 import { ChevronUp, ChevronDown } from "lucide-react";
@@ -25,6 +26,7 @@ function TableData<T extends RowData>({ columns, data }: TableDataProps<T>) {
     rowSortingFeature,
     sortedRowModel: createSortedRowModel(),
     sortFns,
+    // paginatedRowModel: createPaginatedRowModel(),
   });
   const table = useTable({
     data,

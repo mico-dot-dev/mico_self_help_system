@@ -15,6 +15,7 @@ import { useSearchParams } from "next/navigation";
 import { GetUserCategory } from "@/src/actions/category.action";
 import { CategoryListModel } from "@/src/schema/category.schema";
 import { DateRepeatType } from "@/src/generated/prisma";
+import { upperCaseFormat } from "@/src/lib/utils/formatter";
 
 interface AddFormProps {
   closeModal: () => void;
@@ -198,11 +199,9 @@ function TaskForm({ closeModal }: AddFormProps) {
             value={watch("repeating_type")}
           >
             {Object.values(DateRepeatType).map((type) => {
-              const formattedLabel =
-                type.charAt(0).toUpperCase() + type.slice(1).toLowerCase();
               return (
                 <option key={type} value={type}>
-                  {formattedLabel}
+                  {upperCaseFormat(type)}
                 </option>
               );
             })}

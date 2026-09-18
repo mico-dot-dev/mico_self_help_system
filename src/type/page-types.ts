@@ -34,7 +34,9 @@ export interface DashboardProps {
 
 export interface TaskCardProps {
   title: string;
+  amount: number;
   stats: number;
-  desc: string;
   color?: string;
+  HeaderIcon: LucideIcon;
+  status?: "up" | "down";
 }

@@ -94,7 +94,9 @@ export async function CreateExpense(
           },
         });
 
+        //Conditional Insert into related tables
         switch (data.expense_type) {
+          //For Bill Table
           case ExpenseType.HOUSE:
           case ExpenseType.PERSONAL:
             await tsc.bill_expense.create({
@@ -106,7 +108,7 @@ export async function CreateExpense(
             });
 
             if (data.repeating_type !== DateRepeatType.MANUAL) {
-              //insert into transaction table
+              //insert into transaction table if an expense is repeating
               const repeatingDate = getNextDueDate(data.repeating_type);
               await tsc.transaction.create({
                 data: {
@@ -119,6 +121,7 @@ export async function CreateExpense(
               });
             }
             break;
+          //For Transportation table
           case ExpenseType.TRANSPORTATION:
             const costList: number[] = data.cost_list.map((item) =>
               Number(item.amount),
@@ -130,6 +133,7 @@ export async function CreateExpense(
               },
             });
             break;
+          //For Stock table
           case ExpenseType.GROCERY:
             await tsc.stock.create({
               data: {
@@ -137,6 +141,7 @@ export async function CreateExpense(
                 min_amount: data.min_amount,
               },
             });
+            break;
 
           default:
         }

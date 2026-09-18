@@ -33,6 +33,7 @@ model task {
   task_category_id BigInt?
   repeating_type   DateRepeatType?
   expense_id       BigInt?
+  is_archived      Boolean         @default(false)
   expense          expense?        @relation(fields: [expense_id], references: [id], onDelete: Cascade)
   task_category    task_category?  @relation(fields: [task_category_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 

@@ -137,7 +137,8 @@ exports.Prisma.TaskScalarFieldEnum = {
   due_date: 'due_date',
   task_category_id: 'task_category_id',
   repeating_type: 'repeating_type',
-  expense_id: 'expense_id'
+  expense_id: 'expense_id',
+  is_archived: 'is_archived'
 };
 
 exports.Prisma.Task_categoryScalarFieldEnum = {

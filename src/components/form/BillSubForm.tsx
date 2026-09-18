@@ -2,6 +2,7 @@ import React from "react";
 import { DateRepeatType } from "@/src/generated/prisma";
 import { useFormContext } from "react-hook-form";
 import { DynamicFormModel } from "@/src/schema/expense.schema";
+import { upperCaseFormat } from "@/src/lib/utils/formatter";
 
 function BillSubForm() {
   const { register, watch } = useFormContext<DynamicFormModel>();
@@ -17,11 +18,9 @@ function BillSubForm() {
           value={watch("repeating_type")}
         >
           {Object.values(DateRepeatType).map((type) => {
-            const formattedLabel =
-              type.charAt(0).toUpperCase() + type.slice(1).toLowerCase();
             return (
               <option value={type} key={type}>
-                {formattedLabel}
+                {upperCaseFormat(type)}
               </option>
             );
           })}

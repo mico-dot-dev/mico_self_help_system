@@ -1,11 +1,57 @@
 import React from "react";
 import { TaskCardProps } from "@/src/type/page-types";
+import {
+  TrendingUp,
+  TrendingDown,
+  ArrowUp,
+  LucideIcon,
+  ArrowDown,
+} from "lucide-react";
+import { twJoin } from "tailwind-merge";
 
-function TaskInfoCard({ title, stats, desc }: TaskCardProps) {
+function TaskInfoCard({
+  title,
+  stats,
+  amount,
+  HeaderIcon,
+  color,
+  status,
+}: TaskCardProps) {
+  const bgColor = color + "80";
+  const ArrowIcon: LucideIcon = status === "up" ? ArrowUp : ArrowDown;
+  let trendColor = "text-[#ef4444]"; // Default to red
+
+  // Make it green under these specific conditions:
+  if (status === "down" && title === "Overdue") {
+    trendColor = "text-[#22c55e]"; // Green
+  } else if (status === "up" && title !== "Overdue") {
+    trendColor = "text-[#22c55e]"; // Green
+  }
   return (
-    <>
-      <div className="w-70 h-18 bg-gray-500 opacity-25 border border-border rounded-2xl"></div>
-    </>
+    <div className="flex bg-foreground border-2 border-border rounded-2xl p-5">
+      <div
+        className="h-fit p-3 rounded-4xl"
+        style={{ backgroundColor: bgColor }}
+      >
+        <HeaderIcon
+          className={twJoin("rounded-2xl ")}
+          color={color}
+          size={24}
+        />
+      </div>
+      <div className="flex-col flex-1  px-3">
+        <p className="">{title}</p>
+        <p className="text-2xl font-semibold">{amount}</p>
+        <span className={twJoin("flex flex-row items-center ", trendColor)}>
+          <ArrowIcon size={15} />
+          <p>{stats}%</p>
+        </span>
+        <p className="text-sm text-muted-text">vs last 7 days</p>
+      </div>
+      <div>
+        <TrendingUp />
+      </div>
+    </div>
   );
 }
 

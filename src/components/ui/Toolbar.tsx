@@ -22,9 +22,14 @@ function Toolbar({ module, buttonModule, toolBarProps }: DataListProps) {
           {buttonModule && <AddButton content={buttonModule} />}
         </div>
       </div>
-      <Suspense>
-        <CategoryList module={module} content={toolBarProps.categoryContent} />
-      </Suspense>
+      <div className="w-full overflow-x-scroll">
+        <Suspense>
+          <CategoryList
+            module={module}
+            content={toolBarProps.categoryContent}
+          />
+        </Suspense>
+      </div>
     </div>
   );
 }

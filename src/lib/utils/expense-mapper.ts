@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import { ExpenseType } from "@/src/generated/prisma";
 import { DynamicListModel } from "@/src/schema/expense.schema";
+import { upperCaseFormat } from "./formatter";
 
 //Move to types
 export interface expenseCardSubContent {
@@ -66,10 +67,8 @@ export function getExpenseListSubContent(
     case ExpenseType.HOUSE:
     case ExpenseType.PERSONAL:
       const type = expense.repeating_type;
-      const formattedLabel =
-        type.charAt(0).toUpperCase() + type.slice(1).toLowerCase();
       return {
-        primary: formattedLabel,
+        primary: upperCaseFormat(type),
         secondary: "Repeating Cost: " + "₱" + expense.running_bill.toString(),
       };
 

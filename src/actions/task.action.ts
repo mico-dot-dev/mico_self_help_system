@@ -14,6 +14,7 @@ import { revalidatePath } from "next/cache";
 import { DateRepeatType, Prisma } from "@/src/generated/prisma";
 import { ReturnErrorMessage } from "@/src/hook/ReturnErrorMessage";
 import { ListParams } from "../type/page-types";
+import { success } from "zod";
 
 export async function GetUserTasks({
   category,
@@ -32,6 +33,7 @@ export async function GetUserTasks({
           title: true,
           task: {
             where: {
+              is_archived: false,
               ...(searchText
                 ? {
                     title: { contains: searchText, mode: "insensitive" },
@@ -174,16 +176,15 @@ export async function CreateTask(
 }
 
 export async function UpdateTaskCompletion(taskID: string) {
+  const tasknum = parseInt(taskID);
+  if (isNaN(tasknum)) {
+    return {
+      success: false,
+      error: `Invalid task ID: ${taskID}`,
+    };
+  }
   const res = await authenticateUser(async (userId) => {
     try {
-      const tasknum = parseInt(taskID);
-      if (isNaN(tasknum)) {
-        return {
-          success: false,
-          error: `Invalid task ID: ${taskID}`,
-        };
-      }
-
       const existingTask = await prisma.task.findUnique({
         where: {
           id: tasknum,
@@ -230,29 +231,54 @@ export async function UpdateTaskCompletion(taskID: string) {
   }
 }
 
-// export async function DeleteTask(taskID: string) {
-//   try {
-//     const tasknum = parseInt(taskID, 10);
-//     if (isNaN(tasknum)) {(`Invalid task ID: ${taskID}`);}
+export async function DeleteTask(taskID: string) {
+  return authenticateUser(async (userId) => {
+    const tasknum = parseInt(taskID, 10);
+    if (isNaN(tasknum)) {
+      return {
+        success: false,
+        error: `Invalid task ID: ${taskID}`,
+      };
+    }
+    try {
+      // const task = await prisma.task.findUnique({
+      //   select: { id: true },
+      //   where: { id: tasknum },
+      // });
 
-//     const task = await prisma.task.findUnique({
-//       select: { id: true },
-//       where: { id: tasknum },
-//     });
+      // if (!task) {(`Task not found: ${taskID}`);}
 
-//     if (!task) {(`Task not found: ${taskID}`);}
+      const res = await prisma.task.update({
+        where: {
+          id: tasknum,
+          task_category: {
+            user_id: userId,
+          },
+        },
+        data: { is_archived: true },
+      });
 
-//     await prisma.task.delete({
-//       where: { id: tasknum },
-//     });
-//     revalidatePath("/(dashboard)/tasks");
+      if (!res) {
+        return {
+          success: false,
+          error: "e",
+        };
+      }
 
-//     console.log("Deleting task:", taskID);
-//   } catch (error) {
-//     console.error("Error occurred while deleting task:", error);
-//     ("Failed to delete task");
-//   }
-// }
+      revalidatePath("/(dashboard)/tasks");
+      return {
+        success: true,
+        data: res,
+      };
+    } catch (error) {
+      console.error("Error occurred while deleting task:", error);
+      return {
+        success: false,
+        error: "e",
+      };
+    }
+  });
+}
 
 export async function GetTaskByID(
   taskID: string,
@@ -297,34 +323,45 @@ export async function GetTaskByID(
   }
 }
 
-// export async function UpdateTask(
-//   data: TaskFormModelUpdate,
-// ): Promise<ActionResponse<TaskFormModelBase>> {
-//   try {
-//     const tasknum = parseInt(data.id, 10);
+export async function UpdateTask(
+  data: TaskFormModelUpdate,
+): Promise<ActionResponse<{ message: string }>> {
+  const tasknum = parseInt(data.id, 10);
+  const parsedTask = await TaskFormSchema.safeParseAsync(data);
+  if (!parsedTask.success || !tasknum) {
+    return { success: false, error: "" };
+  }
 
-//     if (isNaN(tasknum))(`Invalid task ID: ${data.id}`);
+  return authenticateUser(async (userId) => {
+    try {
+      const res = await prisma.task.update({
+        where: {
+          id: tasknum,
+          task_category: {
+            user_id: userId,
+          },
+        },
+        data: {
+          title: data.title,
+          description: data.description,
+          completed: data.completed,
+        },
+      });
 
-//     const updatedTask = await prisma.task.update({
-//       where: { id: tasknum },
-//       data: {
-//         title: data.title,
-//         description: data.description,
-//         completed: data.completed,
-//       },
-//     });
-//     revalidatePath("/(dashboard)/tasks");
-//     return {
-//       success: true,
-//       data: {
-//         title: updatedTask.title!,
-//         description: updatedTask.description!,
-//         completed: updatedTask.completed!,
-//         priority_level: 0,
-//         repeating_type: DateRepeatType.MANUAL, // Default to Manual if not provided
-//       },
-//     };
-//   } catch (error) {
-//     ("Failed to update task");
-//   }
-// }
+      if (!res) {
+        return { success: false, error: "" };
+      }
+
+      revalidatePath("/(dashboard)/tasks");
+      return {
+        success: true,
+        data: {
+          message: "",
+        },
+      };
+    } catch (error) {
+      ("Failed to update task");
+      return { success: false, error: "" };
+    }
+  });
+}

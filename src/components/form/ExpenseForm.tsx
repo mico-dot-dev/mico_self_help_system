@@ -12,6 +12,7 @@ import BillSubForm from "./BillSubForm";
 import StockSubForm from "./StockSubForm";
 import { CreateExpense } from "@/src/actions/expense.action";
 import Swal from "sweetalert2";
+import { upperCaseFormat } from "@/src/lib/utils/formatter";
 
 interface AddFormProps {
   closeModal: () => void;
@@ -96,11 +97,9 @@ function ExpenseForm({ closeModal }: AddFormProps) {
             {...register("expense_type")}
           >
             {Object.values(ExpenseType).map((type) => {
-              const formattedLabel =
-                type.charAt(0).toUpperCase() + type.slice(1).toLowerCase();
               return (
                 <option key={type} value={type}>
-                  {formattedLabel}
+                  {upperCaseFormat(type)}
                 </option>
               );
             })}

@@ -4,6 +4,7 @@ import { GetUserCategory } from "@/src/actions/category.action";
 import DataListContainer from "@/src/components/ui/DataListContainer";
 import TaskInfoCard from "@/src/components/ui/TaskInfoCard";
 import { TaskCardProps } from "@/src/type/page-types";
+import { Check, Clock, CircleAlert, CalendarRange } from "lucide-react";
 
 //Extract the search from REST
 interface PageProps {
@@ -19,32 +20,49 @@ async function page({ searchParams }: PageProps) {
 
   const cardInfo: TaskCardProps[] = [
     {
-      title: "Total Backlog",
-      stats: 8,
-      desc: "registered issues",
-    },
-    {
       title: "Completed",
-      stats: 1,
-      desc: "tasks in archive",
+      amount: 8,
+      stats: 33,
+      HeaderIcon: Check,
+      color: "#22c55e",
+      status: "up",
     },
     {
-      title: "Pending Queue",
-      stats: 5,
-      desc: "scheduled events",
+      title: "Pending",
+      amount: 5,
+      stats: 17,
+      HeaderIcon: Clock,
+      color: "#a2bbfa",
+      status: "down",
     },
     {
-      title: "Overdue / Blocked",
+      title: "Overdue",
       stats: 2,
-      desc: "requires operator action",
+      amount: 50,
+      HeaderIcon: CircleAlert,
+      color: "#ef4444",
+      status: "down",
+    },
+    {
+      title: "Total Task",
+      stats: 15,
+      amount: 25,
+      HeaderIcon: CalendarRange,
+      color: "#388df8",
+      status: "up",
     },
   ];
 
   return (
     <div className="content-container-base h-full overflow-y-scroll">
       <header className="flex flex-col mb-5 gap-3">
-        <p className="text-2xl font-bold text-primary-text">Hi Aki</p>
-        <div className="grid grid-cols-4">
+        <div>
+          <p className="text-2xl font-bold text-primary-text">Hi Aki</p>
+          <p className="p-0 m-0">
+            Here's whhat's happening with your task today
+          </p>
+        </div>
+        <div className="grid grid-cols-4 gap-5">
           {cardInfo.map((info, i) => {
             return <TaskInfoCard key={i} {...info} />;
           })}
