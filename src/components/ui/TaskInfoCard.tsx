@@ -19,13 +19,16 @@ function TaskInfoCard({
 }: TaskCardProps) {
   const bgColor = color + "80";
   const ArrowIcon: LucideIcon = status === "up" ? ArrowUp : ArrowDown;
-  let trendColor = "text-[#ef4444]"; // Default to red
+  let TrendingIcon: LucideIcon = TrendingDown;
+  let trendColor = "text-[#ef4444]";
 
   // Make it green under these specific conditions:
   if (status === "down" && title === "Overdue") {
-    trendColor = "text-[#22c55e]"; // Green
+    trendColor = "text-[#22c55e]";
+    TrendingIcon = TrendingUp;
   } else if (status === "up" && title !== "Overdue") {
-    trendColor = "text-[#22c55e]"; // Green
+    trendColor = "text-[#22c55e]";
+    TrendingIcon = TrendingUp;
   }
   return (
     <div className="flex bg-foreground border-2 border-border rounded-2xl p-5">
@@ -49,7 +52,7 @@ function TaskInfoCard({
         <p className="text-sm text-muted-text">vs last 7 days</p>
       </div>
       <div>
-        <TrendingUp />
+        <TrendingIcon />
       </div>
     </div>
   );

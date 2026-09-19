@@ -66,6 +66,7 @@ export async function ManageStockAmount(
       error: "Current amount cannot be less than 0",
     };
   }
+
   const insertRes = await authenticateUser(async (userId) => {
     try {
       const res = await prisma.$transaction(async (tsc) => {
