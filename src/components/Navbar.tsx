@@ -12,7 +12,7 @@ import {
 
 function Navbar() {
   return (
-    <div className="drawer md:fixed lg:drawer-open lg:w-64 lg:relative bg-transparent text-primary-text z-9">
+    <div className="drawer md:fixed lg:drawer-open lg:w-64 lg:relative bg-transparent text-text-primary z-9">
       <input id="drawer" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex lg:hidden">
         {/* Page content here */}
@@ -33,7 +33,7 @@ function Navbar() {
             <div className="rounded-lg bg-primary text-background p-1">
               <Trophy className="" size={32} strokeWidth={1.5} />
             </div>
-            <span className="text-header-text font-semibold tracking-wider text-2xl ">
+            <span className="text-text-primary font-semibold tracking-wider text-2xl ">
               TaskTracker
             </span>
           </div>

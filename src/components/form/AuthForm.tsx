@@ -90,7 +90,7 @@ function AccountForm() {
 
   return (
     <>
-      <div className="flex text-primary-text h-screen w-full items-center justify-center">
+      <div className="flex text-text-primary h-screen w-full items-center justify-center">
         <div className="flex flex-col h-3/4 lg:w-1/4 items-center sm:w-full">
           <p className="lg:text-3xl sm:text-2xl text-center font-bold lg:mb-20 mb-10">
             {content.title}
@@ -151,7 +151,7 @@ function AccountForm() {
           <fieldset className="flex flex-col w-full">
             <div className="text-center px-2 mb-3 relative w-full self-center">
               <div className="absolute inset-0 flex items-center w-full">
-                <div className="w-full border-t border-primary-text" />
+                <div className="w-full border-t border-text-primary" />
               </div>
               <span className="relative bg-background px-2">
                 or {content.mode} with

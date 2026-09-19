@@ -3,7 +3,7 @@ import React from "react";
 
 function layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex h-dvh w-full text-primary-text">
+    <div className="flex h-dvh w-full text-text-primary">
       <div className="">
         <Navbar />
       </div>

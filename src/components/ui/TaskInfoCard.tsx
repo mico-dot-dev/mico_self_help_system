@@ -31,7 +31,7 @@ function TaskInfoCard({
     TrendingIcon = TrendingUp;
   }
   return (
-    <div className="flex bg-foreground border-2 border-border rounded-2xl p-5">
+    <div className="flex bg-surface border-2 border-border rounded-2xl p-5">
       <div
         className="h-fit p-3 rounded-4xl"
         style={{ backgroundColor: bgColor }}
@@ -49,7 +49,7 @@ function TaskInfoCard({
           <ArrowIcon size={15} />
           <p>{stats}%</p>
         </span>
-        <p className="text-sm text-muted-text">vs last 7 days</p>
+        <p className="text-sm text-text-muted">vs last 7 days</p>
       </div>
       <div>
         <TrendingIcon />

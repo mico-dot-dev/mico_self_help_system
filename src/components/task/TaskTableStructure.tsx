@@ -21,7 +21,7 @@ export const taskColumns: Array<ColumnDef<{}, TaskListModel>> = [
     cell: ({ row }) => (
       <div>
         <p>{row.original.title}</p>
-        <p className="text-muted-text text-sm">{row.original.description}</p>
+        <p className="text-text-muted text-sm">{row.original.description}</p>
       </div>
     ),
   },

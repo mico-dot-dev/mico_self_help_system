@@ -14,7 +14,7 @@ async function page({ searchParams }: PageProps) {
   return (
     <div className="content-container-base">
       <header className="flex flex-col mb-5 gap-3">
-        <p className="text-2xl font-bold text-primary-text">Expenses</p>
+        <p className="text-2xl font-bold text-text-primary">Expenses</p>
         <div className="flex flex-row justify-between">
           <div className="w-70 h-18 bg-gray-500 opacity-25 border border-border rounded-2xl"></div>
           <div className="w-70 h-18 bg-gray-500 opacity-25 border border-border rounded-2xl"></div>

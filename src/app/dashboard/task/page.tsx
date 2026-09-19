@@ -57,7 +57,7 @@ async function page({ searchParams }: PageProps) {
     <div className="content-container-base h-full overflow-y-scroll">
       <header className="flex flex-col mb-5 gap-3">
         <div>
-          <p className="text-2xl font-bold text-primary-text">Hi Aki</p>
+          <p className="text-2xl font-bold text-text-primary">Hi Aki</p>
           <p className="p-0 m-0">
             Here's whhat's happening with your task today
           </p>

@@ -9,7 +9,7 @@ function IncomeItemCard({ data }: ModuleCardProps<incomeListModel>) {
       <div className="flex flex-row m-5">
         <div className="self-start flex flex-col ml-3 flex-1">
           <p className="text-base flex w-full">{data.amount}</p>
-          <p className="text-sm text-muted-text">{data.amount}</p>
+          <p className="text-sm text-text-muted">{data.amount}</p>
           <div className="flex lg:flex-row text-sm justify-between mt-3 md:flex-col">
             <p className="">Due: June 15, 2026</p>
             <p className="">{data.amount}</p>

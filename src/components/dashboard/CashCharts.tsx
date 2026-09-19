@@ -24,7 +24,7 @@ async function CashFlowChart() {
         <div className="flex justify-between mb-4">
           <div>
             <p>Cash Flow Overflow</p>
-            <p className="text-muted-text text-sm">
+            <p className="text-text-muted text-sm">
               Comparing monthly income and outbound spend
             </p>
           </div>
@@ -43,10 +43,10 @@ async function CashFlowChart() {
           <BarGraph data={barData.data} granularity={granularity} />
         </div>
       </div>
-      <div className=" p-5 info-card-base flex-1 bg-foreground">
+      <div className=" p-5 info-card-base flex-1 bg-surface">
         <div className="flex flex-col mb-5">
           <p>Expense Breakdown</p>
-          <p className="text-muted-text text-sm">
+          <p className="text-text-muted text-sm">
             Distribution across key categories
           </p>
         </div>

@@ -31,7 +31,7 @@ function ExpenseItemCard({ data }: ModuleCardProps<DynamicListModel>) {
         <div className="flex-1">
           {" "}
           <p>{data.title}</p>
-          <p className="text-sm text-muted-text">{data.description}</p>
+          <p className="text-sm text-text-muted">{data.description}</p>
         </div>
         <div className="">
           <EllipsisVertical size={20} />
@@ -40,7 +40,7 @@ function ExpenseItemCard({ data }: ModuleCardProps<DynamicListModel>) {
 
       <div className="flex flex-row items-end justify-between pt-3">
         <p>{subInfo.primary}</p>
-        <p className="text-sm text-muted-text">{subInfo.secondary}</p>
+        <p className="text-sm text-text-muted">{subInfo.secondary}</p>
       </div>
     </li>
   );

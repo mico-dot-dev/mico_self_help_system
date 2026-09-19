@@ -26,7 +26,7 @@ function TaskItemCard({ data }: ModuleCardProps<TaskListModel>) {
       <div
         className={twJoin(
           "flex flex-row m-5",
-          data.completed && "text-muted-text",
+          data.completed && "text-text-muted",
         )}
       >
         <button
@@ -40,7 +40,7 @@ function TaskItemCard({ data }: ModuleCardProps<TaskListModel>) {
 
         <div className="self-start flex flex-col ml-3 flex-1">
           <p className="text-base flex w-full">{data.title}</p>
-          <p className="text-sm text-muted-text">{data.description}</p>
+          <p className="text-sm text-text-muted">{data.description}</p>
           <div className="flex lg:flex-row text-sm justify-between mt-3 md:flex-col">
             <p className="">Due: June 15, 2026</p>
             <p className="">{data.category}</p>

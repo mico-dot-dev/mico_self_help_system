@@ -30,7 +30,7 @@ function CategoryList({ content, module }: ContentProps) {
     <>
       <div className="flex flex-row text-sm">
         <div className="flex flex-row gap-3 text-background">
-          <p className="text-muted-text font-semibold uppercase self-center">
+          <p className="text-text-muted font-semibold uppercase self-center">
             Categories:{" "}
           </p>
           <button
@@ -54,7 +54,7 @@ function CategoryList({ content, module }: ContentProps) {
           })}
           {module === "task" && (
             <button
-              className="flex text-header-text cursor-pointer items-center "
+              className="flex text-text-primary cursor-pointer items-center "
               onClick={() => setModalOpen(true)}
             >
               {" "}

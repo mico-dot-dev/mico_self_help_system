@@ -23,8 +23,8 @@ function ExpenseTypeCard({
   return (
     <button
       className={twJoin(
-        "border bg-background border-border w-full cursor-pointer flex mb-3 py-3.5 items-center rounded-xl hover:border-primary hover:bg-foreground",
-        isSelected && "border-primary font-semibold text-primary bg-foreground",
+        "border bg-background border-border w-full cursor-pointer flex mb-3 py-3.5 items-center rounded-xl hover:border-primary hover:bg-surface",
+        isSelected && "border-primary font-semibold text-primary bg-surface",
       )}
       type="button"
       onClick={() => onSelectType(expenseType)}

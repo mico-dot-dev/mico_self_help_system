@@ -1,9 +1,210 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
+@import "tailwindcss";
+
+/* =========================================================
+   DARK MODE — DEFAULT
+   ========================================================= */
+
+:root {
+  /* ---------- Backgrounds / Surfaces ---------- */
+  --background: #000000;
+  --surface: #0d0d12;
+  --card: #111111;
+  --card-hover: #16161f;
+
+  /* ---------- Borders ---------- */
+  --border: #2a2a3a;
+  --border-subtle: #1f1f2a;
+  --divider: #24242e;
+
+  /* ---------- Primary / Brand ---------- */
+  --primary: #8b5cf6;
+  --primary-hover: #7c3aed;
+  --primary-pressed: #6d28d9;
+  --primary-light: #a78bfa;
+  --primary-dark: #4c1d95;
+
+  /* ---------- Text ---------- */
+  --text-primary: #f5f3ff;
+  --text-body: #e4e4e7;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+  --text-disabled: #52525b;
+
+  /* ---------- Status ---------- */
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --error: #ef4444;
+  --info: #38bdf8;
+
+  /* ---------- Status Dark ---------- */
+  --success-dark: #166534;
+  --warning-dark: #92400e;
+  --error-dark: #991b1b;
+  --info-dark: #075985;
+
+  /* ---------- Inputs ---------- */
+  --input-background: #0d0d12;
+  --input-border: #2a2a3a;
+  --input-hover: #3f3f46;
+  --input-focus: #8b5cf6;
+
+  /* ---------- Navigation ---------- */
+  --nav-background: #0d0d12;
+  --nav-active: #8b5cf6;
+
+  /* ---------- Charts ---------- */
+  --chart-primary: #8b5cf6;
+  --chart-secondary: #6366f1;
+  --chart-tertiary: #a78bfa;
+
+  /* ---------- Overlay ---------- */
+  --overlay: rgb(0 0 0 / 75%);
+
+  /* ---------- Shadows ---------- */
+  --shadow-card: 0 8px 30px rgb(0 0 0 / 25%);
+}
+
+/* =========================================================
+   LIGHT MODE
+   Apply .light to html/body/root wrapper
+   ========================================================= */
+
+.light {
+  /* ---------- Backgrounds / Surfaces ---------- */
+  --background: #f8f7fc;
+  --surface: #ffffff;
+  --card: #ffffff;
+  --card-hover: #f5f3ff;
+
+  /* ---------- Borders ---------- */
+  --border: #e5e1f0;
+  --border-subtle: #eeeaf7;
+  --divider: #e8e5ef;
+
+  /* ---------- Primary / Brand ---------- */
+  --primary: #7c3aed;
+  --primary-hover: #6d28d9;
+  --primary-pressed: #5b21b6;
+  --primary-light: #8b5cf6;
+  --primary-dark: #4c1d95;
+
+  /* ---------- Text ---------- */
+  --text-primary: #18111f;
+  --text-body: #332f3a;
+  --text-secondary: #625e6e;
+  --text-muted: #85808f;
+  --text-disabled: #aaa5b2;
+
+  /* ---------- Status ---------- */
+  --success: #16a34a;
+  --warning: #d97706;
+  --error: #dc2626;
+  --info: #0284c7;
+
+  /* ---------- Status Dark ---------- */
+  --success-dark: #14532d;
+  --warning-dark: #78350f;
+  --error-dark: #7f1d1d;
+  --info-dark: #075985;
+
+  /* ---------- Inputs ---------- */
+  --input-background: #ffffff;
+  --input-border: #ddd8e8;
+  --input-hover: #cfc8dc;
+  --input-focus: #7c3aed;
+
+  /* ---------- Navigation ---------- */
+  --nav-background: #ffffff;
+  --nav-active: #7c3aed;
+
+  /* ---------- Charts ---------- */
+  --chart-primary: #7c3aed;
+  --chart-secondary: #6366f1;
+  --chart-tertiary: #8b5cf6;
+
+  /* ---------- Overlay ---------- */
+  --overlay: rgb(24 17 31 / 40%);
+
+  /* ---------- Shadows ---------- */
+  --shadow-card: 0 8px 30px rgb(24 17 31 / 8%);
+}
+
+/* =========================================================
+   TAILWIND THEME
+   ========================================================= */
+
+@theme inline {
+  /* ---------- Typography ---------- */
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-geist-mono);
+
+  /* ---------- Backgrounds ---------- */
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-card: var(--card);
+  --color-card-hover: var(--card-hover);
+
+  /* ---------- Borders ---------- */
+  --color-border: var(--border);
+  --color-border-subtle: var(--border-subtle);
+  --color-divider: var(--divider);
+
+  /* ---------- Primary ---------- */
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-pressed: var(--primary-pressed);
+  --color-primary-light: var(--primary-light);
+  --color-primary-dark: var(--primary-dark);
+
+  /* ---------- Text ---------- */
+  --color-text-primary: var(--text-primary);
+  --color-text-body: var(--text-body);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-text-disabled: var(--text-disabled);
+
+  /* ---------- Status ---------- */
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+  --color-info: var(--info);
+
+  /* ---------- Status Dark ---------- */
+  --color-success-dark: var(--success-dark);
+  --color-warning-dark: var(--warning-dark);
+  --color-error-dark: var(--error-dark);
+  --color-info-dark: var(--info-dark);
+
+  /* ---------- Inputs ---------- */
+  --color-input: var(--input-background);
+  --color-input-border: var(--input-border);
+  --color-input-hover: var(--input-hover);
+  --color-input-focus: var(--input-focus);
+
+  /* ---------- Navigation ---------- */
+  --color-nav: var(--nav-background);
+  --color-nav-active: var(--nav-active);
+
+  /* ---------- Charts ---------- */
+  --color-chart-primary: var(--chart-primary);
+  --color-chart-secondary: var(--chart-secondary);
+  --color-chart-tertiary: var(--chart-tertiary);
+
+  /* ---------- Overlay ---------- */
+  --color-overlay: var(--overlay);
+
+  /* ---------- Shadows ---------- */
+  --shadow-card: var(--shadow-card);
+}
+/* 
 @theme inline {
   --color-background: #000000;
-  --color-foreground: #0d0d11;
+  --color-surface: #0d0d12;
+  --color-card: #111111;
+
   --color-side-nav-background: #07070a;
   --color-border: #1e1b4b;
   --color-input-background: #050507;
@@ -21,28 +222,29 @@
 
   /* --color-button-aura: #38bdf8; */
 
-  /* Status Types */
-  --color-text-success: #34d399;
+/* Status Types */
+/* --color-text-success: #34d399;
   --color-text-warning: #fb923c;
   --color-text-error: #f87171;
-  --color-text-info: #38bdf8;
+  --color-text-info: #38bdf8; */
 
-  /* Expense Categories */
-  /* --color-personal: #091e3a;
+/* Expense Categories */
+/* --color-personal: #091e3a;
   --color-transportation: #2b1a04;
   --color-stock: #2e1e05;
   --color-misc: #062c1b; */
 
-  /* Transaction Status */
-  --color-text-pending: #fbbf24;
-  --color-text-cancelled: #f87171;
-}
+/* Transaction Status */
+/* --color-text-pending: #fbbf24;
+  --color-text-cancelled: #f87171; */
+/*} 
+*/
 
 @layer components {
   .input-base {
     @apply rounded-lg 
-    bg-input-background border-b-3 border-border 
-    placeholder:text-muted-text text-header-text 
+    bg-input border-b-3 border-border 
+    placeholder:text-text-muted text-text-primary 
     transition-colors duration-300
     focus:border-primary focus:outline-none;
   }
@@ -51,14 +253,14 @@
   .input-base:-webkit-autofill:hover,
   .input-base:-webkit-autofill:focus,
   .input-base:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 1000px var(--color-input-background) inset !important;
-    -webkit-text-fill-color: var(--color-header-text) !important;
+    -webkit-box-shadow: 0 0 0 1000px var(--color-input) inset !important;
+    -webkit-text-fill-color: var(--color-text-primary) !important;
     transition: background-color 9999s ease-in-out 0s;
   }
 
   .button-base {
     @apply cursor-pointer 
-    bg-foreground text-primary-text 
+    bg-surface text-text-primary 
     border-2 border-border
     items-center
     transition-all duration-200 ease-in-out 
@@ -70,7 +272,7 @@
       active:scale-95;
   }
   .nav-item-base {
-    @apply cursor-pointer w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all text-muted-text border border-transparent hover:text-header-text hover:bg-white/3;
+    @apply cursor-pointer w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all text-text-muted border border-transparent hover:text-text-primary hover:bg-white/3;
   }
 
   .content-container-base {
@@ -86,11 +288,11 @@
   }
 
   .card-container-base {
-    @apply bg-foreground border border-border rounded-md;
+    @apply bg-surface border border-border rounded-md;
   }
 
   .info-card-base {
-    @apply shadow-[0_4px_4px_rgba(0,0,0,0.25)] rounded bg-foreground;
+    @apply shadow-[0_4px_4px_rgba(0,0,0,0.25)] rounded bg-surface;
   }
 
   /* 
