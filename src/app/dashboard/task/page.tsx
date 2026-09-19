@@ -5,6 +5,7 @@ import DataListContainer from "@/src/components/ui/DataListContainer";
 import TaskInfoCard from "@/src/components/ui/TaskInfoCard";
 import { TaskCardProps } from "@/src/type/page-types";
 import { Check, Clock, CircleAlert, CalendarRange } from "lucide-react";
+import TaskStatisticsWrapper from "@/src/components/task/TaskStatisticsWrapper";
 
 //Extract the search from REST
 interface PageProps {
@@ -59,7 +60,7 @@ async function page({ searchParams }: PageProps) {
         <div>
           <p className="text-2xl font-bold text-text-primary">Hi Aki</p>
           <p className="p-0 m-0">
-            Here's whhat's happening with your task today
+            Here's what's happening with your task today
           </p>
         </div>
         <div className="grid grid-cols-4 gap-5">
@@ -67,6 +68,7 @@ async function page({ searchParams }: PageProps) {
             return <TaskInfoCard key={i} {...info} />;
           })}
         </div>
+        <TaskStatisticsWrapper />
       </header>
       <div className="flex flex-col flex-1 h-full">
         <DataListContainer
