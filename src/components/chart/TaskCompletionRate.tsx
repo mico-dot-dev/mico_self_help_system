@@ -1,4 +1,3 @@
-// src/components/chart/CompletionAreaGraph.tsx
 "use client";
 
 import { areaY, d3Curve, defineChart, dot, lineY } from "@tanstack/charts";
@@ -50,6 +49,7 @@ const createCompletionChart = (data: CompletionPoint[]) =>
       scales: {
         x: {
           scale: scalePoint, // "Mon".."Sun" as points, not bands
+          grid: true,
           axis: { line: false, ticks: { size: 0, padding: 10 } },
         },
         y: {
@@ -77,7 +77,7 @@ const createCompletionChart = (data: CompletionPoint[]) =>
       margin: { top: 10, right: 12, bottom: 30, left: 36 },
       theme: {
         foreground: "#6b7280",
-        grid: "#1e1b4b",
+        grid: "rgba(255, 255, 255, 0.5)",
         background: "transparent",
       },
     },
@@ -93,7 +93,7 @@ export default function CompletionAreaGraph({
     <Chart
       ariaLabel="Task completion rate"
       definition={createCompletionChart(data)}
-      height={240}
+      height={300}
     />
   );
 }

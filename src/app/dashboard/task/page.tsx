@@ -63,10 +63,13 @@ async function page({ searchParams }: PageProps) {
             Here's what's happening with your task today
           </p>
         </div>
-        <div className="grid grid-cols-4 gap-5">
+        <div className="grid grid-cols-6 gap-5 ">
           {cardInfo.map((info, i) => {
             return <TaskInfoCard key={i} {...info} />;
           })}
+          <div className="card-base col-span-2 p-3">
+            <p>Focus Mode</p>
+          </div>
         </div>
         <TaskStatisticsWrapper />
       </header>

@@ -31,9 +31,9 @@ function TaskInfoCard({
     TrendingIcon = TrendingUp;
   }
   return (
-    <div className="flex bg-surface border-2 border-border rounded-2xl p-5">
+    <div className="flex flex-col card-base p-5 gap-3">
       <div
-        className="h-fit p-3 rounded-4xl"
+        className="h-fit p-3 rounded-4xl w-fit"
         style={{ backgroundColor: bgColor }}
       >
         <HeaderIcon
@@ -42,18 +42,17 @@ function TaskInfoCard({
           size={24}
         />
       </div>
-      <div className="flex-col flex-1  px-3">
+      <div className="flex flex-col flex-1 gap-3">
         <p className="">{title}</p>
         <p className="text-2xl font-semibold">{amount}</p>
-        <span className={twJoin("flex flex-row items-center ", trendColor)}>
+        <span
+          className={twJoin("flex flex-row items-center text-sm", trendColor)}
+        >
           <ArrowIcon size={15} />
-          <p>{stats}%</p>
+          <p>{stats}% from last week</p>
         </span>
-        <p className="text-sm text-text-muted">vs last 7 days</p>
       </div>
-      <div>
-        <TrendingIcon />
-      </div>
+      <div></div>
     </div>
   );
 }

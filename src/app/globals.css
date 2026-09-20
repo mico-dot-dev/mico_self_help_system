@@ -295,6 +295,10 @@
     @apply shadow-[0_4px_4px_rgba(0,0,0,0.25)] rounded bg-surface;
   }
 
+  .card-base {
+    @apply bg-surface border border-border rounded-xl;
+  }
+
   /* 
   .step-form-button {
     @apply ;
