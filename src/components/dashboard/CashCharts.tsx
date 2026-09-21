@@ -1,4 +1,3 @@
-"use server";
 import React from "react";
 import { Square } from "lucide-react";
 import BarGraph from "@/src/components/chart/BarGraph";
