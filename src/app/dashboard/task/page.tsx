@@ -6,6 +6,7 @@ import TaskInfoCard from "@/src/components/ui/TaskInfoCard";
 import { TaskCardProps } from "@/src/type/page-types";
 import { Check, Clock, CircleAlert, CalendarRange } from "lucide-react";
 import TaskStatisticsWrapper from "@/src/components/task/TaskStatisticsWrapper";
+import AddButton from "@/src/components/ui/AddButton";
 
 //Extract the search from REST
 interface PageProps {
@@ -57,11 +58,16 @@ async function page({ searchParams }: PageProps) {
   return (
     <div className="content-container-base h-full overflow-y-scroll">
       <header className="flex flex-col mb-5 gap-3">
-        <div>
-          <p className="text-2xl font-bold text-text-primary">Hi Aki</p>
-          <p className="p-0 m-0">
-            Here's what's happening with your task today
-          </p>
+        <div className="flex flex-row justify-between">
+          <div>
+            <p className="text-2xl font-bold text-text-primary">Hi Aki</p>
+            <p className="p-0 m-0">
+              Here's what's happening with your task today
+            </p>
+          </div>
+          <div>
+            <AddButton content="task" />
+          </div>
         </div>
         <div className="grid grid-cols-6 gap-5 ">
           {cardInfo.map((info, i) => {

@@ -5,8 +5,11 @@ import { CreditCard, TrendingUp, TrendingDown } from "lucide-react";
 import IncomeList from "@/src/components/income/IncomeList";
 import { DashboardProps } from "@/src/type/page-types";
 import CashFlowChart from "@/src/components/dashboard/CashCharts";
+import Swal from "sweetalert2";
 
 async function page() {
+  await Swal.close();
+
   const dashboardCardData: DashboardProps[] = [
     { title: "Total Balance", CardIcon: CreditCard, amount: "24,563.80" },
     { title: "Monthly Income", CardIcon: TrendingUp, amount: "8,350.00" },

@@ -28,7 +28,7 @@ function AddFormModal({ isOpen, setIsOpen, content }: ModalProps) {
     <ModalWrapper
       isOpen={true}
       setIsOpen={setIsOpen}
-      title={"Create " + label}
+      title={"Create New " + label}
       description={description}
     >
       <div>

@@ -67,7 +67,6 @@ function AccountForm() {
       if (mode === "login") {
         router.push("/dashboard");
         router.refresh();
-        Swal.close();
         // Sign up
       } else {
         await Swal.fire({
