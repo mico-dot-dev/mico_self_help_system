@@ -19,7 +19,7 @@ function Toolbar({ module, buttonModule, toolBarProps }: DataListProps) {
         </div>
         {/* Add Button */}
         <div className="flex min-h-full pl-3">
-          {buttonModule && <AddButton content={buttonModule} />}
+          {buttonModule && <AddButton content={buttonModule} size="md" />}
         </div>
       </div>
       <div className="w-full overflow-x-auto scrollbar-styled">

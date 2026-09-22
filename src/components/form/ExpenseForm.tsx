@@ -13,6 +13,8 @@ import StockSubForm from "./StockSubForm";
 import { CreateExpense } from "@/src/actions/expense.action";
 import Swal from "sweetalert2";
 import { upperCaseFormat } from "@/src/lib/utils/formatter";
+import { FormField } from "../ui/FormField";
+import { Button } from "../ui/Button";
 
 interface AddFormProps {
   closeModal: () => void;
@@ -72,6 +74,12 @@ function ExpenseForm({ closeModal }: AddFormProps) {
           console.log("❌ Form Validation Failed:", invalidErrors);
         })}
       >
+        <FormField
+          label="Expense Name"
+          placeholder="Tricycle"
+          {...register("title")}
+        />
+        {/* 
         <div className="flex flex-col">
           <label htmlFor="title">Expense Name</label>
           <input
@@ -80,39 +88,40 @@ function ExpenseForm({ closeModal }: AddFormProps) {
             className="input-base p-2"
             {...register("title")}
           />
-        </div>
-        <div className="flex flex-col">
-          <label htmlFor="description">Expense Description</label>
+        </div> */}
+        <fieldset className="form-field-container">
+          <label htmlFor="description" className="input-label">
+            Expense Description
+          </label>
           <textarea
             id="description"
-            className="input-base p-2 h-24 resize-none"
+            className="input-textarea p-2 h-24 resize-none"
+            placeholder="E.G., The list of expense that for tricycle transportation"
             {...register("description")}
           />
-        </div>
-        <div className="flex flex-col">
-          <label htmlFor="expense_type">Expsense Category</label>
+        </fieldset>
+
+        <fieldset className="form-field-container">
+          <label htmlFor="expense_type" className="input-label">
+            Expsense Category
+          </label>
           <select
             id="expense_type"
-            className="input-base p-2"
+            className="input-select"
             {...register("expense_type")}
           >
             {Object.values(ExpenseType).map((type) => {
               return (
-                <option key={type} value={type}>
+                <option key={type} value={type} className="input-option">
                   {upperCaseFormat(type)}
                 </option>
               );
             })}
           </select>
-        </div>
+        </fieldset>
         {SubForm && <SubForm />}
         <div className="flex flex-1 items-end">
-          <button
-            type="submit"
-            className="button-base rounded-4xl py-1.5 text-lg flex items-center justify-center font-semibold w-full h-10"
-          >
-            Add Expense
-          </button>
+          <Button type="submit">Add Expense</Button>
         </div>
       </form>
     </FormProvider>

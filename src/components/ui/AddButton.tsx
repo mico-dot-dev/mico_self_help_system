@@ -4,22 +4,22 @@ import { Plus } from "lucide-react";
 import AddFormModal from "../modal/AddModal";
 import { ModuleWithModals } from "@/src/type/module";
 import { Button } from "./Button";
+import { size } from "@/src/type/component";
 
 interface AddButtonProps {
   content: ModuleWithModals;
+  size: size;
 }
 
-function AddButton({ content }: AddButtonProps) {
+function AddButton({ content, size }: AddButtonProps) {
   const [modalOpen, setModalOpen] = useState(false);
 
   return (
     <>
-      <div>
-        <Button size={"md"} onClick={() => setModalOpen(true)}>
-          <Plus className="" size={20} />
-          <p className="hidden lg:block capitalize">Add {content}</p>
-        </Button>
-      </div>
+      <Button size={size} onClick={() => setModalOpen(true)}>
+        <Plus className="" size={20} />
+        <p className="hidden lg:block capitalize">Add {content}</p>
+      </Button>
 
       <AddFormModal
         isOpen={modalOpen}

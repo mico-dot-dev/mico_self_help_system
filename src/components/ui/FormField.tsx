@@ -3,7 +3,7 @@ import { forwardRef } from "react";
 import { twMerge } from "tailwind-merge";
 
 interface FormFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  label: string;
+  label?: string;
   error?: string;
 }
 
@@ -12,10 +12,12 @@ export const FormField = forwardRef<HTMLInputElement, FormFieldProps>(
     const inputId = id ?? rest.name; // falls back to the RHF field name
 
     return (
-      <fieldset className="form-field-container">
-        <label htmlFor={inputId} className="input-label">
-          {label}
-        </label>
+      <fieldset className="form-field-container w-full">
+        {label && (
+          <label htmlFor={inputId} className="input-label">
+            {label}
+          </label>
+        )}
         <input
           type={type}
           id={inputId}

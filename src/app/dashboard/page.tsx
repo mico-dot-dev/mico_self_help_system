@@ -38,7 +38,7 @@ async function page() {
         <div className="h-36 p-5 info-card-base">
           <div className="flex flex-row justify-between">
             <p>Income History</p>
-            <AddButton content="income" />
+            <AddButton content="income" size="sm" />
           </div>
           <div>
             <IncomeList />

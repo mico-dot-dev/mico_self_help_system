@@ -2,7 +2,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { twMerge } from "tailwind-merge";
 
 const button = cva(
-  "inline-flex items-center justify-center cursor-pointer transition-all duration-200 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:opacity-70 disabled:cursor-not-allowed",
+  "inline-flex items-center justify-center cursor-pointer transition-all duration-200 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:opacity-70 disabled:cursor-not-allowed w-full",
   {
     variants: {
       variant: {
@@ -27,7 +27,7 @@ type Props = React.ButtonHTMLAttributes<HTMLButtonElement> &
 export function Button({ variant, size, shape, className, ...rest }: Props) {
   return (
     <button
-      className={twMerge(button({ variant, size, shape }), className, "w-full")}
+      className={twMerge(button({ variant, size, shape }), className)}
       {...rest}
     />
   );

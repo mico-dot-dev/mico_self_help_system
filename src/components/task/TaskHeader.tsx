@@ -50,8 +50,8 @@ function TaskHeader() {
             Here's what's happening with your task today
           </p>
         </div>
-        <div>
-          <AddButton content="task" />
+        <div className="w-50 content-center">
+          <AddButton content="task" size="sm" />
         </div>
       </div>
       <div className="grid grid-cols-6 gap-5 ">
