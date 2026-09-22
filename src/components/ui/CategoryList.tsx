@@ -6,6 +6,7 @@ import AddCategoryModal from "../modal/AddModal";
 import { useRouter, useSearchParams } from "next/navigation";
 import { CategoryFilterModel } from "@/src/type/page-types";
 import { AppModule } from "@/src/type/module";
+import { Button } from "./Button";
 
 interface ContentProps {
   module: AppModule;
@@ -15,6 +16,7 @@ function CategoryList({ content, module }: ContentProps) {
   const [modalOpen, setModalOpen] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
+  const activeCategory = searchParams.get("category");
 
   const handleCatgoryFilter = (id: string) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -33,23 +35,28 @@ function CategoryList({ content, module }: ContentProps) {
           <p className="text-text-muted font-semibold uppercase self-center">
             Categories:{" "}
           </p>
-          <button
-            className="button-base min-w-fit p-3 rounded-3xl"
+          <Button
+            size={"sm"}
+            variant={!activeCategory ? "primary" : "secondary"}
+            className="min-w-fit"
             onClick={() => handleCatgoryFilter("all")}
           >
             All Categories
-          </button>
+          </Button>
 
           {/* Loop for category content */}
           {content.map((category) => {
             return (
-              <button
-                className="button-base p-3 rounded-3xl min-w-fit"
+              <Button
+                size={"sm"}
+                variant={
+                  activeCategory === category.id ? "primary" : "secondary"
+                }
                 key={category.id}
                 onClick={() => handleCatgoryFilter(category.id)}
               >
                 {category.label}
-              </button>
+              </Button>
             );
           })}
           {module === "task" && (

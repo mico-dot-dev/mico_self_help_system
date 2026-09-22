@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { twJoin } from "tailwind-merge";
 
-function TaskInfoCard({
+function TaskHeaderInfoCard({
   title,
   stats,
   amount,
@@ -33,7 +33,7 @@ function TaskInfoCard({
   return (
     <div className="flex flex-col card-base p-5 gap-3">
       <div
-        className="h-fit p-3 rounded-4xl w-fit"
+        className="h-fit p-2 rounded-4xl w-fit"
         style={{ backgroundColor: bgColor }}
       >
         <HeaderIcon
@@ -42,6 +42,7 @@ function TaskInfoCard({
           size={24}
         />
       </div>
+
       <div className="flex flex-col flex-1 gap-3">
         <p className="">{title}</p>
         <p className="text-2xl font-semibold">{amount}</p>
@@ -57,4 +58,4 @@ function TaskInfoCard({
   );
 }
 
-export default TaskInfoCard;
+export default TaskHeaderInfoCard;

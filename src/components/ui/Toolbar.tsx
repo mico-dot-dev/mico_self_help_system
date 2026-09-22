@@ -22,7 +22,7 @@ function Toolbar({ module, buttonModule, toolBarProps }: DataListProps) {
           {buttonModule && <AddButton content={buttonModule} />}
         </div>
       </div>
-      <div className="w-full overflow-x-scroll">
+      <div className="w-full overflow-x-auto scrollbar-styled">
         <Suspense>
           <CategoryList
             module={module}

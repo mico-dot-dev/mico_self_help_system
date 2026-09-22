@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Plus } from "lucide-react";
 import AddFormModal from "../modal/AddModal";
 import { ModuleWithModals } from "@/src/type/module";
+import { Button } from "./Button";
 
 interface AddButtonProps {
   content: ModuleWithModals;
@@ -13,22 +14,11 @@ function AddButton({ content }: AddButtonProps) {
 
   return (
     <>
-      <div
-        className="
-            font-semibold text-sm tracking-wide lg:px-6 h-full rounded-lg
-            flex items-center gap-2
-            button-base
-            bg-primary
-            text-background
-            hover:bg-hover"
-      >
-        <button
-          className="flex cursor-pointer"
-          onClick={() => setModalOpen(true)}
-        >
+      <div>
+        <Button size={"md"} onClick={() => setModalOpen(true)}>
           <Plus className="" size={20} />
           <p className="hidden lg:block capitalize">Add {content}</p>
-        </button>
+        </Button>
       </div>
 
       <AddFormModal

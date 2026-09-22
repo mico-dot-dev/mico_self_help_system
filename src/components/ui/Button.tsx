@@ -1,14 +1,13 @@
-// src/components/ui/Button.tsx
 import { cva, type VariantProps } from "class-variance-authority";
 import { twMerge } from "tailwind-merge";
 
 const button = cva(
-  "inline-flex items-center justify-center cursor-pointer border-2 transition-all duration-200 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:opacity-70 disabled:cursor-not-allowed border-none",
+  "inline-flex items-center justify-center cursor-pointer transition-all duration-200 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:opacity-70 disabled:cursor-not-allowed",
   {
     variants: {
       variant: {
         secondary: "button-secondary",
-        primary: "button-primary",
+        primary: "button-primary border-none",
         ghost: "bg-transparent border-transparent hover:bg-white/5",
       },
       size: {

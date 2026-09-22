@@ -1,8 +1,6 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
-@import "tailwindcss";
-
 /* =========================================================
    DARK MODE — DEFAULT
    ========================================================= */
@@ -255,7 +253,7 @@
   }
 
   .input-textarea {
-    @apply w-full min-h-[100px]
+    @apply w-full min-h-25
   bg-input
   border border-input-border
   hover:border-input-hover
@@ -317,12 +315,10 @@
   /* ---------- Button ---------- */
   .button-primary {
     @apply inline-flex items-center justify-center
-  h-10 px-4
-  rounded-lg
   bg-primary
   hover:bg-primary-hover
   active:bg-primary-pressed
-  text-sm font-semibold
+
   text-white
   transition-colors
   cursor-pointer
@@ -333,12 +329,9 @@
 
   .button-secondary {
     @apply inline-flex items-center justify-center
-  h-10 px-4
-  rounded-lg
   bg-transparent
-  border border-input-hover
+  border border-primary/30
   hover:bg-white/5
-  text-sm font-semibold
   text-text-body
   transition-colors
   disabled:bg-border-subtle
@@ -386,6 +379,26 @@
 
   .nav-item-base {
     @apply cursor-pointer w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all text-text-muted border border-transparent hover:text-text-primary hover:bg-white/3;
+  }
+  /* ---------- Scrollbar ---------- */
+  .scrollbar-styled {
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: var(--primary) var(--surface); /* Firefox */
+  }
+  .scrollbar-styled::-webkit-scrollbar {
+    /* Chrome/Safari/Edge */
+    width: 8px;
+    height: 8px;
+  }
+  .scrollbar-styled::-webkit-scrollbar-track {
+    background: var(--surface);
+  }
+  .scrollbar-styled::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 9999px;
+  }
+  .scrollbar-styled::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-hover);
   }
 
   .content-container-base {
