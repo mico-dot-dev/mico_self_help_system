@@ -26,7 +26,7 @@ function AddFormModal({
       <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
         <Dialog.Portal>
           {/* Backdrop overlay */}
-          <Dialog.Overlay className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 animate-fade-in" />
+          <Dialog.Overlay className="fixed inset-0 card-shadow backdrop-blur-sm z-50 animate-fade-in" />
 
           {/* Modal Box */}
           <Dialog.Content
@@ -44,14 +44,19 @@ function AddFormModal({
             <Dialog.Title className="flex flex-row relative text-xl font-bold text-primary-tex mb-3 py-5 border-b-2 border-b-border">
               <div className="flex flex-col ">
                 <p className="">{title}</p>
-                <p className="text-xs text-text-muted">{description}</p>
+                <p className="text-xs text-text-secondary">{description}</p>
               </div>
-              <div onClick={() => setIsOpen(false)} className="cursor-pointer">
+              <div
+                onClick={() => setIsOpen(false)}
+                className="cursor-pointer text-text-muted hover:text-text-primary"
+              >
                 <X />
               </div>
             </Dialog.Title>
 
-            <div className="flex-1 overflow-y-scroll">{children}</div>
+            <div className="flex-1 overflow-y-scroll modal-body">
+              {children}
+            </div>
           </Dialog.Content>
         </Dialog.Portal>
       </Dialog.Root>

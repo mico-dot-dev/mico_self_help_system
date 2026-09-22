@@ -27,8 +27,8 @@
   --primary-dark: #4c1d95;
 
   /* ---------- Text ---------- */
-  --text-primary: #f5f3ff;
   --text-body: #e4e4e7;
+  --text-primary: #f5f3ff;
   --text-secondary: #a1a1aa;
   --text-muted: #71717a;
   --text-disabled: #52525b;
@@ -199,49 +199,12 @@
   /* ---------- Shadows ---------- */
   --shadow-card: var(--shadow-card);
 }
-/* 
-@theme inline {
-  --color-background: #000000;
-  --color-surface: #0d0d12;
-  --color-card: #111111;
 
-  --color-side-nav-background: #07070a;
-  --color-border: #1e1b4b;
-  --color-input-background: #050507;
-  --color-input-border-ring: #3b82f633;
-  --color-table-header: #161622;
-  --color-header-text: #f3f4f6;
-  --color-primary-text: #d1d5db;
-  --color-muted-text: #6b7280;
-  --color-muted-icon: #9ca3af;
-
-  --color-primary: #a855f7;
-  --color-hover: #c084fc;
-  --color-focus: #eab308;
-  --color-active: #8b5cf6;
-
-  /* --color-button-aura: #38bdf8; */
-
-/* Status Types */
-/* --color-text-success: #34d399;
-  --color-text-warning: #fb923c;
-  --color-text-error: #f87171;
-  --color-text-info: #38bdf8; */
-
-/* Expense Categories */
-/* --color-personal: #091e3a;
-  --color-transportation: #2b1a04;
-  --color-stock: #2e1e05;
-  --color-misc: #062c1b; */
-
-/* Transaction Status */
-/* --color-text-pending: #fbbf24;
-  --color-text-cancelled: #f87171; */
-/*} 
-*/
+/* ---------- Custom Fields ---------- */
 
 @layer components {
-  .input-base {
+  /* ---------- Auth Input ---------- */
+  .auth-input-base {
     @apply rounded-lg 
     bg-input border-b-3 border-border 
     placeholder:text-text-muted text-text-primary 
@@ -249,16 +212,141 @@
     focus:border-primary focus:outline-none;
   }
 
-  .input-base:-webkit-autofill,
-  .input-base:-webkit-autofill:hover,
-  .input-base:-webkit-autofill:focus,
-  .input-base:-webkit-autofill:active {
+  .auth-input-base:-webkit-autofill,
+  .auth-input-base:-webkit-autofill:hover,
+  .auth-input-base:-webkit-autofill:focus,
+  .auth-input-base:-webkit-autofill:active {
     -webkit-box-shadow: 0 0 0 1000px var(--color-input) inset !important;
     -webkit-text-fill-color: var(--color-text-primary) !important;
     transition: background-color 9999s ease-in-out 0s;
   }
 
-  .button-base {
+  /* ---------- Input Fields ---------- */
+
+  .input-label {
+    @apply text-sm font-medium leading-5
+  text-text-body;
+  }
+
+  .input-label-required {
+    @apply text-error;
+  }
+
+  .input-helper {
+    @apply mt-1
+  text-xs font-normal leading-4
+  text-text-muted;
+  }
+
+  .input-base {
+    @apply w-full
+  bg-input
+  border border-input-border
+  hover:border-input-hover
+  focus:border-input-focus
+  focus:outline-none
+  focus:ring-2 focus:ring-primary/15
+  rounded-lg
+  px-3 py-2.5
+  text-sm font-normal leading-5
+  text-text-primary
+  placeholder:text-text-muted
+  transition-colors;
+  }
+
+  .input-textarea {
+    @apply w-full min-h-[100px]
+  bg-input
+  border border-input-border
+  hover:border-input-hover
+  focus:border-input-focus
+  focus:outline-none
+  focus:ring-2 focus:ring-primary/15
+  rounded-lg
+  px-3 py-2.5
+  text-sm font-normal leading-5
+  text-text-primary
+  placeholder:text-text-muted
+  resize-y
+  transition-colors;
+  }
+
+  .input-select {
+    @apply w-full
+  bg-input
+  border border-input-border
+  hover:border-input-hover
+  focus:border-input-focus
+  focus:outline-none
+  focus:ring-2 focus:ring-primary/15
+  rounded-lg
+  px-3 py-2.5
+  text-sm font-normal leading-5
+  text-text-primary
+  transition-colors;
+  }
+
+  .input-dropdown {
+    @apply bg-card
+  border border-border
+  rounded-lg
+  shadow-card
+  overflow-hidden;
+  }
+
+  /* ---------- For Custom Dropdown Fields ---------- */
+
+  .input-dropdown-option {
+    @apply px-3 py-2.5
+  text-sm font-normal
+  text-text-body
+  hover:bg-primary/10
+  transition-colors;
+  }
+
+  .input-dropdown-option-selected {
+    @apply bg-primary/15
+  text-primary-light
+  font-medium;
+  }
+
+  .form-field-container {
+    @apply flex flex-col gap-1;
+  }
+
+  /* ---------- Button ---------- */
+  .button-primary {
+    @apply inline-flex items-center justify-center
+  h-10 px-4
+  rounded-lg
+  bg-primary
+  hover:bg-primary-hover
+  active:bg-primary-pressed
+  text-sm font-semibold
+  text-white
+  transition-colors
+  cursor-pointer
+  disabled:bg-border-subtle
+  disabled:text-text-disabled
+  disabled:cursor-not-allowed;
+  }
+
+  .button-secondary {
+    @apply inline-flex items-center justify-center
+  h-10 px-4
+  rounded-lg
+  bg-transparent
+  border border-input-hover
+  hover:bg-white/5
+  text-sm font-semibold
+  text-text-body
+  transition-colors
+  disabled:bg-border-subtle
+  disabled:text-text-disabled
+  disabled:cursor-not-allowed;
+  }
+
+  /* .button-base {
     @apply cursor-pointer 
     bg-surface text-text-primary 
     border-2 border-border
@@ -270,7 +358,32 @@
       focus:outline-2 focus:outline-info focus:outline-offset-1 
       not-hover:outline-none
       active:scale-95;
+  } */
+
+  /* ---------- Modal ---------- */
+
+  .modal-body {
+    scrollbar-width: thin;
+    scrollbar-color: var(--input-hover) transparent;
   }
+
+  .modal-body::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .modal-body::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .modal-body::-webkit-scrollbar-thumb {
+    @apply bg-input-hover rounded-full;
+  }
+
+  .modal-body::-webkit-scrollbar-thumb:hover {
+    @apply bg-text-disabled;
+  }
+  /* ---------- NavBar ---------- */
+
   .nav-item-base {
     @apply cursor-pointer w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all text-text-muted border border-transparent hover:text-text-primary hover:bg-white/3;
   }
@@ -280,7 +393,7 @@
   }
 
   .modal-form-base {
-    @apply flex flex-col gap-10 text-base h-full overflow-y-scroll;
+    @apply flex flex-col gap-5 h-full;
   }
 
   .card-list-base {
@@ -291,18 +404,9 @@
     @apply bg-surface border border-border rounded-md;
   }
 
-  .info-card-base {
-    @apply shadow-[0_4px_4px_rgba(0,0,0,0.25)] rounded bg-surface;
-  }
-
   .card-base {
-    @apply bg-surface border border-border rounded-xl;
+    @apply bg-card border border-border rounded-xl hover:bg-card-hover;
   }
-
-  /* 
-  .step-form-button {
-    @apply ;
-  } */
 }
 
 @layer utilities {

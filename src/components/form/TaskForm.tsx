@@ -16,6 +16,8 @@ import { GetUserCategory } from "@/src/actions/category.action";
 import { CategoryListModel } from "@/src/schema/category.schema";
 import { DateRepeatType } from "@/src/generated/prisma";
 import { upperCaseFormat } from "@/src/lib/utils/formatter";
+import { FormField } from "../ui/FormField";
+import { Button } from "../ui/Button";
 
 interface AddFormProps {
   closeModal: () => void;
@@ -139,9 +141,22 @@ function TaskForm({ closeModal }: AddFormProps) {
 
   return (
     <form onSubmit={handleSubmit(TaskSubmit)} className="modal-form-base">
-      <div className="flex flex-col gap-3">
-        <div className="flex flex-col">
-          <label htmlFor="task-title">Task Title</label>
+      <div className="flex flex-col gap-5">
+        <FormField
+          label=" Task Title"
+          placeholder="Do 10 Pushups"
+          {...register("title")}
+        />
+        <FormField
+          label=" Priority Level"
+          placeholder="1 = Highest Priority"
+          {...register("priority_level")}
+        />
+
+        {/* <div className="flex flex-col"> */}
+        {/* <label htmlFor="task-title" className="input-label">
+            Task Title
+          </label>
           <input
             {...register("title")}
             required
@@ -149,11 +164,13 @@ function TaskForm({ closeModal }: AddFormProps) {
             type="text"
             placeholder="Task Title"
             className="input-base p-2"
-          />
-        </div>
+          /> */}
+        {/* </div> */}
 
-        <div className="flex flex-col">
-          <label htmlFor="priority_level">Priority Level</label>
+        {/* <div className="flex flex-col">
+          <label htmlFor="priority_level" className="input-label">
+            Priority Level
+          </label>
           <input
             {...register("priority_level", { valueAsNumber: true })}
             required
@@ -162,24 +179,28 @@ function TaskForm({ closeModal }: AddFormProps) {
             placeholder="Priority Level"
             className="input-base p-2"
           />
-        </div>
+        </div> */}
 
-        <div className="flex flex-col">
-          <label htmlFor="task-description">Task Description</label>
+        <fieldset className="form-field-container">
+          <label htmlFor="task-description" className="input-label">
+            Task Description
+          </label>
           <textarea
             {...register("description")}
             id="task-description"
-            placeholder="Task Description"
-            className="input-base resize-none p-2 h-24"
+            placeholder="E.G., Daily task for health improvement"
+            className="input-textarea resize-none p-2 h-24"
           />
-        </div>
+        </fieldset>
 
-        <div className="flex flex-col">
-          <label htmlFor="task-category">Category</label>
+        <div className="form-field-container">
+          <label htmlFor="task-category" className="input-label">
+            Category
+          </label>
           <select
             {...register("category_id", { valueAsNumber: true })}
             id="task-category"
-            className="input-base p-2"
+            className="input-select p-2"
             required
           >
             {userCategories.map((category) => (
@@ -191,10 +212,12 @@ function TaskForm({ closeModal }: AddFormProps) {
         </div>
 
         <div className="flex flex-col">
-          <label htmlFor="repeating_type">Repeating Type</label>
+          <label htmlFor="repeating_type" className="input-label">
+            Repeating Type
+          </label>
           <select
             id=""
-            className="capitalize input-base p-2"
+            className="input-select input-base p-2"
             {...register("repeating_type")}
             value={watch("repeating_type")}
           >
@@ -207,26 +230,26 @@ function TaskForm({ closeModal }: AddFormProps) {
             })}
           </select>
         </div>
+        {repeatType === DateRepeatType.MANUAL && (
+          <FormField
+            label=" Due Date"
+            {...register("due_date", { valueAsDate: true })}
+            type="date"
+          />
+          // <div className="flex flex-col">
+
+          //   <label htmlFor="">Due Date</label>
+          //   <input
+          //     type="date"
+          //     className="input-base p-2"
+          //     {...register("due_date", { valueAsDate: true })}
+          //   />
+          // </div>
+        )}
       </div>
 
-      {repeatType === DateRepeatType.MANUAL && (
-        <div className="flex flex-col">
-          <label htmlFor="">Due Date</label>
-          <input
-            type="date"
-            className="input-base p-2"
-            {...register("due_date", { valueAsDate: true })}
-          />
-        </div>
-      )}
-
       <div className="flex flex-1 items-end">
-        <button
-          type="submit"
-          className="button-base rounded-4xl py-1.5 text-lg flex items-center justify-center font-semibold w-full h-10"
-        >
-          {taskId ? "Update Task" : "Add Task"}
-        </button>
+        <Button type="submit">{taskId ? "Update Task" : "Add Task"}</Button>
       </div>
     </form>
   );

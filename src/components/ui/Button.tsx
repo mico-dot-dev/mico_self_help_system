@@ -3,13 +3,12 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { twMerge } from "tailwind-merge";
 
 const button = cva(
-  "inline-flex items-center justify-center cursor-pointer border-2 transition-all duration-200 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:opacity-70 disabled:cursor-not-allowed",
+  "inline-flex items-center justify-center cursor-pointer border-2 transition-all duration-200 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:opacity-70 disabled:cursor-not-allowed border-none",
   {
     variants: {
       variant: {
-        secondary:
-          "bg-foreground text-primary-text border-border hover:bg-primary hover:text-background",
-        primary: "bg-primary text-background border-primary hover:bg-hover",
+        secondary: "button-secondary",
+        primary: "button-primary",
         ghost: "bg-transparent border-transparent hover:bg-white/5",
       },
       size: {
@@ -19,7 +18,7 @@ const button = cva(
       },
       shape: { rounded: "rounded-lg", pill: "rounded-full" },
     },
-    defaultVariants: { variant: "secondary", size: "md", shape: "rounded" },
+    defaultVariants: { variant: "primary", size: "md", shape: "rounded" },
   },
 );
 
@@ -29,7 +28,7 @@ type Props = React.ButtonHTMLAttributes<HTMLButtonElement> &
 export function Button({ variant, size, shape, className, ...rest }: Props) {
   return (
     <button
-      className={twMerge(button({ variant, size, shape }), className)}
+      className={twMerge(button({ variant, size, shape }), className, "w-full")}
       {...rest}
     />
   );
