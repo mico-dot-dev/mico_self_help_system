@@ -10,7 +10,7 @@ import {
 import { ActionResponse } from "../schema/auth.schema";
 import { DateRepeatType, ExpenseType, Prisma } from "../generated/prisma";
 import { authenticateUser } from "../lib/utils/validation-wrapper";
-import { ListParams } from "@/src/type/page-types";
+import { ListParams } from "@/src/type/data-list";
 import { getNextDueDate } from "../lib/utils/date-formatter";
 import { success } from "zod";
 import { da } from "zod/v4/locales";

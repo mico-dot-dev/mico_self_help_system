@@ -4,7 +4,7 @@ import { Plus } from "lucide-react";
 import AddFormModal from "../modal/AddModal";
 import { ModuleWithModals } from "@/src/type/module";
 import { Button } from "./Button";
-import { size } from "@/src/type/component";
+import { size } from "@/src/type/ui";
 
 interface AddButtonProps {
   content: ModuleWithModals;
