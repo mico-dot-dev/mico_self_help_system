@@ -1,41 +1,49 @@
 import React from "react";
 import AddButton from "@/src/components/ui/AddButton";
-import TaskInfoCard from "@/src/components/ui/TaskHeaderInfoCard";
-import { TaskCardProps } from "@/src/type/page-types";
+import TaskInfoCard from "@/src/components/task/HeaderInfoCard";
+import { HeaderCardProps } from "@/src/type/component";
 import { Check, Clock, CircleAlert, CalendarRange } from "lucide-react";
 
 function TaskHeader() {
-  const cardInfo: TaskCardProps[] = [
+  const cardInfo: HeaderCardProps[] = [
     {
       title: "Completed",
+      CardIcon: {
+        Icon: Check,
+        iconColorScheme: "green",
+      },
       amount: 8,
-      stats: 33,
-      HeaderIcon: Check,
-      color: "#22c55e",
+      statsAmount: 12.5,
       status: "up",
     },
     {
       title: "Pending",
+      CardIcon: {
+        Icon: Clock,
+        iconColorScheme: "violet",
+      },
       amount: 5,
-      stats: 17,
-      HeaderIcon: Clock,
-      color: "#a2bbfa",
+      statsAmount: 17,
       status: "down",
     },
     {
       title: "Overdue",
-      stats: 2,
+      CardIcon: {
+        Icon: CircleAlert,
+        iconColorScheme: "red",
+      },
       amount: 50,
-      HeaderIcon: CircleAlert,
-      color: "#ef4444",
+      statsAmount: 2,
       status: "down",
     },
     {
       title: "Total Task",
-      stats: 15,
+      CardIcon: {
+        Icon: CalendarRange,
+        iconColorScheme: "blue",
+      },
       amount: 25,
-      HeaderIcon: CalendarRange,
-      color: "#388df8",
+      statsAmount: 15,
       status: "up",
     },
   ];

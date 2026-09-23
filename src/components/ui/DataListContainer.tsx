@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import AddButton from "@/src/components/ui/AddButton";
 import ToolBar from "@/src/components/ui/Toolbar";
-import { DataListProps } from "@/src/type/page-types";
+import { DataListProps } from "@/src/type/data-list";
 import { dataListRegistry } from "@/src/lib/utils/data-list-registry";
 
 function DataListContainer({

@@ -1,5 +1,5 @@
 import React from "react";
-import { TaskCardProps } from "@/src/type/page-types";
+import { HeaderCardProps } from "@/src/type/component";
 import {
   TrendingUp,
   TrendingDown,
@@ -7,17 +7,16 @@ import {
   LucideIcon,
   ArrowDown,
 } from "lucide-react";
+import IconContainer from "../ui/IconContainer";
 import { twJoin } from "tailwind-merge";
 
-function TaskHeaderInfoCard({
+function HeaderInfoCard({
   title,
-  stats,
+  CardIcon,
   amount,
-  HeaderIcon,
-  color,
+  statsAmount,
   status,
-}: TaskCardProps) {
-  const bgColor = color + "80";
+}: HeaderCardProps) {
   const ArrowIcon: LucideIcon = status === "up" ? ArrowUp : ArrowDown;
   let TrendingIcon: LucideIcon = TrendingDown;
   let trendColor = "text-[#ef4444]";
@@ -32,14 +31,10 @@ function TaskHeaderInfoCard({
   }
   return (
     <div className="flex flex-col card-base p-5 gap-3">
-      <div
-        className="h-fit p-2 rounded-4xl w-fit"
-        style={{ backgroundColor: bgColor }}
-      >
-        <HeaderIcon
-          className={twJoin("rounded-2xl ")}
-          color={color}
-          size={24}
+      <div className={twJoin("h-fit p-2 rounded-4xl w-fit")}>
+        <IconContainer
+          Icon={CardIcon.Icon}
+          iconColorScheme={CardIcon.iconColorScheme}
         />
       </div>
 
@@ -50,7 +45,7 @@ function TaskHeaderInfoCard({
           className={twJoin("flex flex-row items-center text-sm", trendColor)}
         >
           <ArrowIcon size={15} />
-          <p>{stats}% from last week</p>
+          <p>{statsAmount}% from last week</p>
         </span>
       </div>
       <div></div>
@@ -58,4 +53,4 @@ function TaskHeaderInfoCard({
   );
 }
 
-export default TaskHeaderInfoCard;
+export default HeaderInfoCard;

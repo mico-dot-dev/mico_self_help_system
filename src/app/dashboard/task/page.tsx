@@ -1,5 +1,5 @@
 import React, { Suspense, use } from "react";
-import { ListParams } from "@/src/type/page-types";
+import { ListParams } from "@/src/type/data-list";
 import { GetUserCategory } from "@/src/actions/category.action";
 import DataListContainer from "@/src/components/ui/DataListContainer";
 import TaskStatisticsWrapper from "@/src/components/task/TaskStatisticsWrapper";

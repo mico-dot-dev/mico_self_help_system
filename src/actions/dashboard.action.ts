@@ -85,30 +85,6 @@ export async function getUserExpenseBreakdown(): Promise<
   });
 }
 
-// export const financeExample: readonly financeFrequency[] = [
-//   { type: "GROCERY", frequency: 0.095 },
-//   { type: "HOUSE", frequency: 0.065 },
-//   { type: "TRANSPORTATION", frequency: 0.045 },
-//   { type: "PERSONAL", frequency: 0.028 },
-//   { type: "MISC", frequency: 0.01 },
-//   { type: "GROCERY", frequency: 0.085 },
-//   { type: "HOUSE", frequency: 0.058 },
-//   { type: "TRANSPORTATION", frequency: 0.04 },
-//   { type: "PERSONAL", frequency: 0.022 },
-//   { type: "MISC", frequency: 0.009 },
-//   { type: "GROCERY", frequency: 0.08 },
-//   { type: "HOUSE", frequency: 0.052 },
-//   { type: "TRANSPORTATION", frequency: 0.038 },
-//   { type: "PERSONAL", frequency: 0.02 },
-//   { type: "MISC", frequency: 0.008 },
-//   { type: "GROCERY", frequency: 0.075 },
-//   { type: "HOUSE", frequency: 0.05 },
-//   { type: "TRANSPORTATION", frequency: 0.035 },
-//   { type: "PERSONAL", frequency: 0.018 },
-//   { type: "MISC", frequency: 0.007 },
-//   { type: "GROCERY", frequency: 0.065 },
-//   { type: "HOUSE", frequency: 0.045 },
-//   { type: "TRANSPORTATION", frequency: 0.032 },
-//   { type: "PERSONAL", frequency: 0.012 },
-//   { type: "MISC", frequency: 0.006 },
-// ];
+// export async function getUserDashboardHeader():Promise<ActionResponse<{balance:number, income: number, expense:number}>>{
+
+// }

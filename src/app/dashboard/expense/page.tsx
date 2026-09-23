@@ -2,7 +2,7 @@ import React from "react";
 import DataListContainer from "@/src/components/ui/DataListContainer";
 import { ExpenseType } from "@/src/generated/prisma";
 import { upperCaseFormat } from "@/src/lib/utils/formatter";
-import { ListParams } from "@/src/type/page-types";
+import { ListParams } from "@/src/type/data-list";
 
 interface PageProps {
   searchParams?: Promise<ListParams>;

@@ -1,6 +1,6 @@
 import React from "react";
 import { GetUserTasks } from "@/src/actions/task.action";
-import { ListParams } from "@/src/type/page-types";
+import { ListParams } from "@/src/type/data-list";
 import { taskColumns } from "@/src/components/task/TaskTableStructure";
 import DataShowcase from "@/src/components/ui/DataShowcase";
 import TaskItemCard from "./TaskItemCard";

@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import SearchBar from "@/src/components/ui/SearchBar";
 import CategoryList from "@/src/components/ui/CategoryList";
 import Filter from "@/src/components/ui/Filter";
-import { DataListProps } from "@/src/type/page-types";
+import { DataListProps } from "@/src/type/data-list";
 import AddButton from "@/src/components/ui/AddButton";
 
 function Toolbar({ module, buttonModule, toolBarProps }: DataListProps) {

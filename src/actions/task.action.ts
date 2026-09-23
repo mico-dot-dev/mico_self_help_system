@@ -13,7 +13,7 @@ import { authenticateUser } from "@/src/lib/utils/validation-wrapper";
 import { revalidatePath } from "next/cache";
 import { DateRepeatType, Prisma } from "@/src/generated/prisma";
 import { ReturnErrorMessage } from "@/src/hook/ReturnErrorMessage";
-import { ListParams } from "../type/page-types";
+import { ListParams } from "../type/data-list";
 import { success } from "zod";
 
 export async function GetUserTasks({

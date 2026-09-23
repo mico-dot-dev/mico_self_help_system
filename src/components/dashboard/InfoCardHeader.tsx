@@ -1,27 +1,40 @@
 import React from "react";
-import InfoCard from "@/src/components/ui/InfoCard";
-import { StatisticCardProps } from "@/src/type/page-types";
+import InfoCard from "@/src/components/dashboard/InfoCard";
+import { HeaderCardProps } from "@/src/type/component";
 import { CreditCard, TrendingUp, TrendingDown } from "lucide-react";
 
 function InfoCardHeader() {
-  const dashboardCardData: StatisticCardProps[] = [
+  const dashboardCardData: HeaderCardProps[] = [
     {
       title: "Total Balance",
-      CardIcon: CreditCard,
-      amount: "24,563.80",
-      iconColor: "violet",
+      CardIcon: {
+        Icon: CreditCard,
+        iconColorScheme: "violet",
+      },
+      amount: 24563.8,
+      statsAmount: 12.5,
+      status: "up",
     },
     {
       title: "Monthly Income",
-      CardIcon: TrendingUp,
-      amount: "8,350.00",
-      iconColor: "green",
+      CardIcon: {
+        Icon: TrendingUp,
+        iconColorScheme: "green",
+      },
+
+      amount: 8350.0,
+      statsAmount: 12.5,
+      status: "up",
     },
     {
       title: "Monthly Expenses",
-      CardIcon: TrendingDown,
-      amount: "5,127.45",
-      iconColor: "violet",
+      CardIcon: {
+        Icon: TrendingDown,
+        iconColorScheme: "violet",
+      },
+      amount: 5127.45,
+      statsAmount: 12.5,
+      status: "down",
     },
   ];
   return (

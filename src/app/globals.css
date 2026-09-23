@@ -66,6 +66,8 @@
 
   /* ---------- Icon ---------- */
   --green-icon: #4ade80;
+  --amber-icon: #fbbf24;
+  --red-icon: #f87171;
 }
 
 /* =========================================================
@@ -205,6 +207,8 @@
 
   /* ---------- Icon ---------- */
   --color-green-icon: var(--green-icon);
+  --color-amber-icon: var(--amber-icon);
+  --color-red-icon: var(--red-icon);
 }
 
 /* ---------- Custom Fields ---------- */

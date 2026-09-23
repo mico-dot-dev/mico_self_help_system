@@ -1,14 +1,23 @@
 import React from "react";
-import { StatisticCardProps } from "@/src/type/page-types";
+import { HeaderCardProps } from "@/src/type/component";
 import { PhilippinePeso } from "lucide-react";
-import IconContainer from "./IconContainer";
+import IconContainer from "../ui/IconContainer";
 
-function InfoCard({ title, CardIcon, amount, iconColor }: StatisticCardProps) {
+function InfoCard({
+  title,
+  CardIcon,
+  amount,
+  status,
+  statsAmount,
+}: HeaderCardProps) {
   return (
     <div className="flex flex-col p-5 shadow-shadow card-base gap-3">
       <div className="flex flex-row items-center gap-3">
         <div className="">
-          <IconContainer Icon={CardIcon} iconColorScheme={iconColor} />
+          <IconContainer
+            Icon={CardIcon.Icon}
+            iconColorScheme={CardIcon.iconColorScheme}
+          />
         </div>
         <p className="text-text-muted font-semibold ">{title}</p>
       </div>
@@ -19,7 +28,7 @@ function InfoCard({ title, CardIcon, amount, iconColor }: StatisticCardProps) {
         </div>
       </div>
       <div>
-        <p className="text-sm text-success">+12.5% from last month</p>
+        <p className="text-sm text-success">+{statsAmount}% from last month</p>
       </div>
     </div>
   );

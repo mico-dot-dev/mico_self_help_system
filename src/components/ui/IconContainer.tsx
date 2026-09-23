@@ -1,5 +1,6 @@
 import React from "react";
-import { colorRegistry, IconContainerModel } from "@/src/type/page-types";
+import { IconContainerModel } from "@/src/type/ui";
+import { colorRegistry } from "@/src/lib/theme/color-registry";
 import { twJoin } from "tailwind-merge";
 
 function IconContainer({ Icon, iconColorScheme }: IconContainerModel) {

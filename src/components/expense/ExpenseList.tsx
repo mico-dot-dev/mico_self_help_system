@@ -1,6 +1,6 @@
 import React from "react";
 import { GetUserExpenses } from "@/src/actions/expense.action";
-import { ListParams } from "@/src/type/page-types";
+import { ListParams } from "@/src/type/data-list";
 import { expenseColumns } from "./ExpenseTableStructure";
 import DataShowcase from "../ui/DataShowcase";
 import ExpenseItemCard from "./ExpenseItemCard";
