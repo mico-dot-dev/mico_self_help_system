@@ -63,6 +63,9 @@
 
   /* ---------- Shadows ---------- */
   --shadow-card: 0 8px 30px rgb(0 0 0 / 25%);
+
+  /* ---------- Icon ---------- */
+  --green-icon: #4ade80;
 }
 
 /* =========================================================
@@ -128,6 +131,9 @@
 
   /* ---------- Shadows ---------- */
   --shadow-card: 0 8px 30px rgb(24 17 31 / 8%);
+
+  /* ---------- Icon ---------- */
+  --green-icon: #4ade80;
 }
 
 /* =========================================================
@@ -196,6 +202,9 @@
 
   /* ---------- Shadows ---------- */
   --shadow-card: var(--shadow-card);
+
+  /* ---------- Icon ---------- */
+  --color-green-icon: var(--green-icon);
 }
 
 /* ---------- Custom Fields ---------- */
@@ -383,6 +392,8 @@
   .scrollbar-styled {
     scrollbar-width: thin; /* Firefox */
     scrollbar-color: var(--primary) var(--surface); /* Firefox */
+    scroll-snap-align: start;
+    scroll-margin-top: 10rem;
   }
   .scrollbar-styled::-webkit-scrollbar {
     /* Chrome/Safari/Edge */
@@ -417,7 +428,7 @@
   }
 
   .card-base {
-    @apply bg-card border border-border rounded-xl hover:bg-card-hover;
+    @apply bg-card border border-border rounded-xl hover:bg-card-hover p-5;
   }
 }
 

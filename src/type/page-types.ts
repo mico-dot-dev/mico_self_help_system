@@ -3,6 +3,22 @@ import { AppModule } from "../type/module";
 import { ModuleWithModals } from "../type/module";
 import { LucideIcon } from "lucide-react";
 
+//Reusable Icon  Color Mapping
+type IconTypes = "violet" | "green";
+interface IconContents {
+  color: string;
+  background: string;
+}
+export const colorRegistry: Record<IconTypes, IconContents> = {
+  violet: { color: "text-primary-light", background: "bg-primary/15" },
+  green: { color: "text-green-icon", background: "bg-success/15" },
+};
+
+export interface IconContainerModel {
+  Icon: LucideIcon;
+  iconColorScheme: IconTypes;
+}
+
 export type ListParams = {
   category?: string;
   searchText?: string;
@@ -26,10 +42,12 @@ export interface DataListProps {
   searchParams?: ListParams;
 }
 
-export interface DashboardProps {
+export interface StatisticCardProps {
   title: string;
   CardIcon: LucideIcon;
-  amount: string;
+  amount?: string;
+  iconColor: IconTypes;
+  status?: "up" | "down";
 }
 
 export interface TaskCardProps {

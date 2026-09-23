@@ -1,50 +1,36 @@
 import React, { Suspense } from "react";
-import InfoCard from "@/src/components/ui/InfoCard";
 import AddButton from "@/src/components/ui/AddButton";
-import { CreditCard, TrendingUp, TrendingDown } from "lucide-react";
 import IncomeList from "@/src/components/income/IncomeList";
-import { DashboardProps } from "@/src/type/page-types";
 import CashFlowChart from "@/src/components/dashboard/CashCharts";
 import Swal from "sweetalert2";
+import InfoCardHeader from "@/src/components/dashboard/InfoCardHeader";
 
 async function page() {
   await Swal.close();
 
-  const dashboardCardData: DashboardProps[] = [
-    { title: "Total Balance", CardIcon: CreditCard, amount: "24,563.80" },
-    { title: "Monthly Income", CardIcon: TrendingUp, amount: "8,350.00" },
-    { title: "Monthly Expenses", CardIcon: TrendingDown, amount: "5,127.45" },
-  ];
-
   return (
-    <div className="w-full pl-5 pt-5 border border-border overflow-hidden overflow-y-scroll h-full pb-15">
-      <header className=" w-full ">
-        <div>
-          <p>Welcome</p>
-          <p>Your Finance Statistics</p>
-        </div>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {dashboardCardData.map((data, i) => {
-            return <InfoCard key={i} {...data} />;
-          })}
-        </div>
+    <div className="w-full pl-5 pt-5 border border-border overflow-hidden overflow-y-scroll h-full pb-15 scrollbar-styled">
+      <header className=" w-full mb-5">
+        <InfoCardHeader />
       </header>
-      <section className=" mt-4 ">
+      <section className=" ">
         <Suspense>
           <CashFlowChart />
         </Suspense>
       </section>
-      <footer className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-2 w-full mt-4">
-        <div className="h-36 p-5 info-card-base">
+      <footer className=" grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-2 w-full mt-4">
+        <div className="flex flex-col p-5 card-base gap-2">
           <div className="flex flex-row justify-between">
-            <p>Income History</p>
-            <AddButton content="income" size="sm" />
+            <p className="self-end">Income History</p>
+            <div>
+              <AddButton content="income" size="sm" />
+            </div>
           </div>
-          <div>
+          <div className="">
             <IncomeList />
           </div>
         </div>
-        <div className="h-36 p-5 info-card-base">
+        <div className="card-base">
           <p>Budget Recommendation</p>
         </div>
       </footer>

@@ -1,22 +1,25 @@
 import React from "react";
-import { DashboardProps } from "@/src/type/page-types";
+import { StatisticCardProps } from "@/src/type/page-types";
 import { PhilippinePeso } from "lucide-react";
+import IconContainer from "./IconContainer";
 
-function InfoCard({ title, CardIcon, amount }: DashboardProps) {
+function InfoCard({ title, CardIcon, amount, iconColor }: StatisticCardProps) {
   return (
-    <div className="flex flex-col justify-between bg-surface h-36 p-5 shadow-[0_4px_4px_rgba(0,0,0,0.25)] rounded">
-      <div className="flex flex-row justify-between">
+    <div className="flex flex-col p-5 shadow-shadow card-base gap-3">
+      <div className="flex flex-row items-center gap-3">
+        <div className="">
+          <IconContainer Icon={CardIcon} iconColorScheme={iconColor} />
+        </div>
         <p className="text-text-muted font-semibold ">{title}</p>
-        <div className="text-active bg-background">
-          <CardIcon />
+      </div>
+      <div className="flex flex-col gap-1">
+        <div className="flex flex-row text-2xl font-bold items-center gap-1">
+          <PhilippinePeso size={22} className="text-text-secondary" />
+          <p> {amount}</p>
         </div>
       </div>
       <div>
-        <div className="flex flex-row text-2xl font-bold items-center">
-          <PhilippinePeso size={22} />
-          <p> {amount}</p>
-        </div>
-        <p className="text-sm text-primary">+12.5% from last month</p>
+        <p className="text-sm text-success">+12.5% from last month</p>
       </div>
     </div>
   );

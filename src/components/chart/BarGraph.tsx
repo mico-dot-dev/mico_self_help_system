@@ -13,7 +13,7 @@ import { scaleBand, scaleLinear } from "d3-scale";
 import { CashFlowPoint } from "@/src/type/chart";
 import { ChartGranularity } from "@/src/type/chart";
 
-const financeColors = ["#2563eb", "#f97316"];
+const financeColors = ["#22c55e", "#ef4444"];
 
 const createDateRange = (date: Date, granularity: ChartGranularity): string => {
   // CHANGED: Format monthly periods, e.g. "Jan", "Feb", "Mar".
@@ -92,5 +92,5 @@ interface CashFlowProps {
 
 export default function BarGraph({ data, granularity }: CashFlowProps) {
   const chart = createBarChart(data, granularity);
-  return <Chart ariaLabel={"Data Chart"} definition={chart} height={250} />;
+  return <Chart ariaLabel={"Data Chart"} definition={chart} width={680} />;
 }

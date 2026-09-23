@@ -19,21 +19,21 @@ async function CashFlowChart() {
 
   return (
     <div className="flex flex-row w-full gap-4">
-      <div className="p-5 col-span-2 w-[60%] info-card-base">
+      <div className="p-5 col-span-2 w-[60%] card-base ">
         <div className="flex justify-between mb-4">
           <div>
-            <p>Cash Flow Overflow</p>
+            <p>Cash Flow Overview</p>
             <p className="text-text-muted text-sm">
-              Comparing monthly income and outbound spend
+              Comparison of income and expense spending
             </p>
           </div>
-          <div className="flex flex-col">
-            <div className="flex flex-row">
-              <Square />
+          <div className="flex flex-col text-sm self-center gap-0.5">
+            <div className="flex flex-row items-center gap-2">
+              <Square size={15} className="text-success" fill="#22c55e" />
               <p>Money in</p>
             </div>
-            <div className="flex flex-row">
-              <Square />
+            <div className="flex flex-row items-center gap-2">
+              <Square size={15} className="text-error" fill="#ef4444" />
               <p>Money Out</p>
             </div>
           </div>
@@ -42,7 +42,7 @@ async function CashFlowChart() {
           <BarGraph data={barData.data} granularity={granularity} />
         </div>
       </div>
-      <div className=" p-5 info-card-base flex-1 bg-surface">
+      <div className=" p-5 info-card-base flex-1 bg-surface card-base">
         <div className="flex flex-col mb-5">
           <p>Expense Breakdown</p>
           <p className="text-text-muted text-sm">

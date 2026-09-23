@@ -26,7 +26,7 @@ function Navbar() {
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <nav className="menu h-full w-64 lg:border-r lg:border-border bg-side-nav-background pl-5 pt-8 ">
+        <nav className="menu h-full w-64 lg:border-r lg:border-border-subtle bg-surface pl-5 pt-8 ">
           {/* Sidebar content here */}
           <div className="flex items-center gap-3 mb-6">
             {/* Decorative Velvet Theme Logo Mark */}
