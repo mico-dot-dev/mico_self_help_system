@@ -48,7 +48,7 @@ function InfoCardHeader() {
             Here's Your Finance Statistics Overview
           </p>
         </div>
-        <div className="flex items-center mr-3 flex-1 ">
+        <div className="flex items-center mr-3 ">
           <DateRangeButton />
         </div>
       </div>

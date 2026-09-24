@@ -28,7 +28,9 @@ function InfoCard({
         </div>
       </div>
       <div>
-        <p className="text-sm text-success">+{statsAmount}% from last month</p>
+        <p className="text-sm text-green-icon">
+          +{statsAmount}% from last month
+        </p>
       </div>
     </div>
   );

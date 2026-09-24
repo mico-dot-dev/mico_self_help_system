@@ -92,5 +92,12 @@ interface CashFlowProps {
 
 export default function BarGraph({ data, granularity }: CashFlowProps) {
   const chart = createBarChart(data, granularity);
-  return <Chart ariaLabel={"Data Chart"} definition={chart} width={680} />;
+  return (
+    <Chart
+      ariaLabel={"Data Chart"}
+      definition={chart}
+      width={680}
+      height={240}
+    />
+  );
 }

@@ -68,6 +68,13 @@
   --green-icon: #4ade80;
   --amber-icon: #fbbf24;
   --red-icon: #f87171;
+
+  /* ---------- Pie Chart ---------- */
+  --chart-bills: #8b5cf6;
+  --chart-food: #f97316;
+  --chart-transport: #f59e0b;
+  --chart-shopping: #14b8a6;
+  --chart-other: #ec4899;
 }
 
 /* =========================================================
@@ -209,6 +216,14 @@
   --color-green-icon: var(--green-icon);
   --color-amber-icon: var(--amber-icon);
   --color-red-icon: var(--red-icon);
+
+  /* ---------- Pie Chart ---------- */
+
+  --color-chart-bills: var(--chart-bills);
+  --color-chart-food: var(--chart-food);
+  --color-chart-transport: var(--chart-transport);
+  --color-chart-shopping: var(--chart-shopping);
+  --color-chart-other: var(--chart-other);
 }
 
 /* ---------- Custom Fields ---------- */

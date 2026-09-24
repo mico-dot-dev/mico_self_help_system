@@ -4,6 +4,7 @@ import { Chart } from "@tanstack/charts/react/tooltip";
 import { tooltip as exampleTooltip } from "@tanstack/charts/tooltip";
 import { defineChart } from "@tanstack/charts";
 import { pie, polar, radialArc } from "@tanstack/charts/polar";
+import { scaleOrdinal } from "@tanstack/charts/scales/ordinal";
 import { Circle } from "lucide-react";
 import { ExpenseFrequency } from "@/src/type/chart";
 
@@ -13,8 +14,16 @@ export function selectDonutData(rows: ExpenseFrequency[], revision = 0) {
   const start = Math.abs(revision % 2) * sliceSize;
   return rows.slice(start, start + sliceSize);
 }
-
-const colors = ["#0ea5e9", "#6366f1", "#a855f7", "#ec4899", "#f97316"];
+const expenseColorScale = scaleOrdinal(
+  ["Bills", "Food", "Transportation", "Shopping", "Other"],
+  [
+    "var(--chart-bills)",
+    "var(--chart-food)",
+    "var(--chart-transport)",
+    "var(--chart-shopping)",
+    "var(--chart-other)",
+  ],
+);
 const percentage = new Intl.NumberFormat("en-US", {
   style: "percent",
   maximumFractionDigits: 2,
@@ -49,7 +58,7 @@ export const createPieChart = (data: ExpenseFrequency[]) => {
         x: null,
         y: null,
       },
-      color: { range: colors },
+      color: { scale: expenseColorScale },
       margin: 0,
     },
     {
