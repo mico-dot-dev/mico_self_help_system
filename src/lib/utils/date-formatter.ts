@@ -34,3 +34,12 @@ export function getNextDueDate(repeatType: DateRepeatType) {
 
   return date;
 }
+
+export function formatDate(dateInput: Date): string {
+  const date = new Date(dateInput);
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  }).format(date);
+}

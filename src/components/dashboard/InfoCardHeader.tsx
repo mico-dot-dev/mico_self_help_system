@@ -2,6 +2,7 @@ import React from "react";
 import InfoCard from "@/src/components/dashboard/InfoCard";
 import { HeaderCardProps } from "@/src/type/component";
 import { CreditCard, TrendingUp, TrendingDown } from "lucide-react";
+import DateRangeButton from "../ui/DateRangeButton";
 
 function InfoCardHeader() {
   const dashboardCardData: HeaderCardProps[] = [
@@ -37,6 +38,7 @@ function InfoCardHeader() {
       status: "down",
     },
   ];
+
   return (
     <>
       <div className="flex flex-row justify-between min-w-full mb-3">
@@ -46,8 +48,8 @@ function InfoCardHeader() {
             Here's Your Finance Statistics Overview
           </p>
         </div>
-        <div>
-          <input type="date" />
+        <div className="flex items-center mr-3 flex-1 ">
+          <DateRangeButton />
         </div>
       </div>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">

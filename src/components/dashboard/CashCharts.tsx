@@ -42,14 +42,16 @@ async function CashFlowChart() {
           <BarGraph data={barData.data} granularity={granularity} />
         </div>
       </div>
-      <div className=" p-5 info-card-base flex-1 bg-surface card-base">
+      <div className=" card-base flex-1">
         <div className="flex flex-col mb-5">
           <p>Expense Breakdown</p>
           <p className="text-text-muted text-sm">
             Distribution across key categories
           </p>
         </div>
-        <PieGraph data={pieData.data} />
+        <div>
+          <PieGraph data={pieData.data} />
+        </div>
       </div>
     </div>
   );
