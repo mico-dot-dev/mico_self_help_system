@@ -106,18 +106,11 @@ function DateRangeModal({
                 type="button"
                 onClick={() => handlePreset(preset.value)}
                 variant={"ghost"}
-                className="justify-start py-2 px-5"
+                className="justify-start py-2 px-8"
               >
                 {preset.label}
               </Button>
             ))}
-            <Button
-              type="button"
-              variant={"ghost"}
-              className="justify-start py-2 px-5"
-            >
-              Custom Range
-            </Button>
           </div>
         </section>
 
