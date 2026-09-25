@@ -8,6 +8,8 @@ import {
 } from "@/src/schema/income.schema";
 import { createIncome } from "@/src/actions/income.action";
 import Swal from "sweetalert2";
+import { FormField } from "../ui/FormField";
+import { Button } from "../ui/Button";
 
 interface AddFormProps {
   closeModal: () => void;
@@ -41,26 +43,39 @@ function IncomeForm({ closeModal }: AddFormProps) {
         onSubmit={handleSubmit(IncomeSubmit, (invalidErrors) => {
           console.log("❌ Form Validation Failed:", invalidErrors);
         })}
+        className="flex flex-col gap-3"
       >
-        <fieldset>
+        <div className="flex flex-row">
+          <FormField
+            label="Amount"
+            {...register("amount", { valueAsNumber: true })}
+          />
+          <fieldset className="">
+            <label htmlFor="">Came from Job</label>
+            <input type="checkbox" {...register("fromJob")} />
+          </fieldset>
+        </div>
+        <FormField
+          label="Date Obtained"
+          type="date"
+          {...register("dateObtained", { valueAsDate: true })}
+        />
+        {/* <fieldset>
           <label htmlFor="">Amount</label>
           <input type="text" {...register("amount", { valueAsNumber: true })} />
-        </fieldset>
-        <fieldset>
-          <label htmlFor="">Came from Job</label>
-          <input type="checkbox" {...register("fromJob")} />
-        </fieldset>
-        <fieldset>
+        </fieldset> */}
+
+        {/* <fieldset>
           <label htmlFor="">Date obtained</label>
           <input
             type="date"
             {...register("dateObtained", { valueAsDate: true })}
           />
-        </fieldset>
+        </fieldset> */}
 
-        <button type="submit" className="button-base">
+        <Button type="submit" variant={"primary"}>
           Submit
-        </button>
+        </Button>
       </form>
     </FormProvider>
   );
