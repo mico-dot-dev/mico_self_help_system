@@ -5,8 +5,10 @@ import { tooltip as exampleTooltip } from "@tanstack/charts/tooltip";
 import { defineChart } from "@tanstack/charts";
 import { pie, polar, radialArc } from "@tanstack/charts/polar";
 import { scaleOrdinal } from "@tanstack/charts/scales/ordinal";
-import { Circle } from "lucide-react";
+import { Circle, PhilippinePeso } from "lucide-react";
 import { ExpenseFrequency } from "@/src/type/chart";
+import { ExpenseType } from "@/src/generated/prisma";
+import { upperCaseFormat } from "@/src/lib/utils/formatter";
 
 const sliceSize = 5;
 
@@ -15,7 +17,7 @@ export function selectDonutData(rows: ExpenseFrequency[], revision = 0) {
   return rows.slice(start, start + sliceSize);
 }
 const expenseColorScale = scaleOrdinal(
-  ["Bills", "Food", "Transportation", "Shopping", "Other"],
+  [...ExpenseType.toString()],
   [
     "var(--chart-bills)",
     "var(--chart-food)",
@@ -24,6 +26,9 @@ const expenseColorScale = scaleOrdinal(
     "var(--chart-other)",
   ],
 );
+
+const c = expenseColorScale;
+
 const percentage = new Intl.NumberFormat("en-US", {
   style: "percent",
   maximumFractionDigits: 2,
@@ -94,27 +99,25 @@ export default function PieGraph({ data }: PieGraphProps) {
       />
       <div className=" flex-1">
         <ul className=" flex flex-col w-full">
-          <li className="flex flex-row justify-between">
-            <div className="flex flex-row gap-3">
-              <Circle size={15} className="self-center" />
-              <p className="">Bills</p>
-            </div>
-            <p>$1,794.60</p>
-          </li>
-          <li className="flex flex-row justify-between">
-            <div className="flex flex-row gap-3">
-              <Circle size={15} className="self-center" />
-              <p className="">Bills</p>
-            </div>
-            <p>$1,794.60</p>
-          </li>
-          <li className="flex flex-row justify-between">
-            <div className="flex flex-row gap-3">
-              <Circle size={15} className="self-center" />
-              <p className="">Bills</p>
-            </div>
-            <p>$1,794.60</p>
-          </li>
+          {data.map((d, i) => {
+            return (
+              <li className="flex flex-row justify-between" key={i}>
+                <div className="flex flex-row gap-1">
+                  <Circle
+                    size={12}
+                    className="self-center"
+                    fill={expenseColorScale(d.type)}
+                    color={expenseColorScale(d.type)}
+                  />
+                  <p className="">{upperCaseFormat(d.type)}</p>
+                </div>
+                <div className="flex flex-row">
+                  <PhilippinePeso size={12} className="self-center" />
+                  <span>{d.frequency}</span>
+                </div>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </div>

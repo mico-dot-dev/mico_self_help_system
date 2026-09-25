@@ -1,6 +1,7 @@
 import React from "react";
 import { twJoin } from "tailwind-merge";
 import { DynamicListModel } from "@/src/schema/expense.schema";
+import { Button } from "../ui/Button";
 
 interface TransactionExpenseCardProps {
   data: DynamicListModel;
@@ -14,19 +15,16 @@ function TransactionExpenseCard({
   onSelectType,
 }: TransactionExpenseCardProps) {
   return (
-    <button
+    <Button
       key={data.id}
       type="button"
-      className={twJoin(
-        "border border-border w-full cursor-pointer flex py-3.5",
-        isSelected && "border-primary",
-      )}
+      variant={isSelected ? "primary" : "secondary"}
       onClick={() => {
         onSelectType(Number(data.id));
       }}
     >
       {data.title}
-    </button>
+    </Button>
   );
 }
 

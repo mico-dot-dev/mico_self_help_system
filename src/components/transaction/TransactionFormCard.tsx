@@ -4,6 +4,8 @@ import { twJoin } from "tailwind-merge";
 import { expenseIconProps } from "@/src/lib/utils/expense-mapper";
 import { ExpenseType } from "@/src/generated/prisma";
 import { Circle } from "lucide-react";
+import { Button } from "../ui/Button";
+import IconContainer from "../ui/IconContainer";
 
 type expenseButtonProps = {
   isSelected: boolean;
@@ -21,24 +23,20 @@ function ExpenseTypeCard({
   const IconComponent = iconConfig.icon;
 
   return (
-    <button
-      className={twJoin(
-        "border bg-background border-border w-full cursor-pointer flex mb-3 py-3.5 items-center rounded-xl hover:border-primary hover:bg-surface",
-        isSelected && "border-primary font-semibold text-primary bg-surface",
-      )}
+    <Button
+      variant={isSelected ? "primary" : "secondary"}
       type="button"
       onClick={() => onSelectType(expenseType)}
+      className="flex flex-row justify-items-start"
     >
-      <div className=" ml-3">
-        <Circle size={18} fill={isSelected ? "#a855f7" : ""} />
-      </div>
-      <div className=" mx-3 p-2">
+      <IconContainer Icon={IconComponent} iconColorScheme="none" fill={true} />
+      {/* <div className="p-2">
         <IconComponent />
-      </div>
-      <div className="flex flex-col text-start">
+      </div> */}
+      <div className="flex flex-col ">
         <p className="p-0 m-0 ">{iconConfig.title}</p>
       </div>
-    </button>
+    </Button>
   );
 }
 

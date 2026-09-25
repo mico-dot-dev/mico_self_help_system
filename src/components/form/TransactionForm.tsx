@@ -20,10 +20,14 @@ import { twJoin } from "tailwind-merge";
 import { CreateUserTransaction } from "@/src/actions/transaction.action";
 import Swal from "sweetalert2";
 import TransactionExpenseCard from "@/src/components/transaction/TransactionExpenseCard";
+import { Stepper } from "@/src/components/ui/Steps";
+import { FormField } from "../ui/FormField";
+import { Button } from "../ui/Button";
 
 interface AddFormProps {
   closeModal: () => void;
 }
+const STEPS = ["Expense Type", "Select Item", "Amount"];
 
 function TransactionForm({ closeModal }: AddFormProps) {
   const methods = useForm<TransactionFormModel>({
@@ -82,17 +86,19 @@ function TransactionForm({ closeModal }: AddFormProps) {
   };
 
   return (
-    <div className="h-full flex flex-row">
-      {/* <div className="w-25"></div> */}
+    <div className="h-full flex flex-col gap-5">
+      <div className="">
+        <Stepper steps={STEPS} currentStep={step} />
+      </div>
       <FormProvider {...methods}>
         <form
           onSubmit={handleSubmit(formSubmit, onInvalid)}
-          className="flex flex-col   flex-1"
+          className="flex flex-col flex-1 gap-5"
         >
           <div className="flex-1 h-full">
             {/* Step 1 */}
             {step === 1 && (
-              <fieldset className="flex flex-col">
+              <fieldset className="flex flex-col gap-3">
                 {Object.entries(expenseIconMap).map(([typeKey, config]) => {
                   const convertedType = typeKey as ExpenseType;
                   const isSelected = convertedType === selectedExpenseType;
@@ -136,51 +142,64 @@ function TransactionForm({ closeModal }: AddFormProps) {
             )}
             {step === 3 && (
               <fieldset className="flex flex-col">
-                <label htmlFor="">Amount</label>
+                <FormField
+                  label="Amount"
+                  {...register("amount", { valueAsNumber: true })}
+                  type="number"
+                />
+                <FormField
+                  label="Price"
+                  {...register("price", { valueAsNumber: true })}
+                  type="number"
+                />
+                {/* <label htmlFor="">Amount</label>
                 <input
                   type="number"
                   {...register("amount", { valueAsNumber: true })}
-                />
-                <label htmlFor="">Price</label>
+                /> */}
+                {/* <label htmlFor="">Price</label>
                 <input
                   type="number"
                   {...register("price", { valueAsNumber: true })}
-                />
+                /> */}
               </fieldset>
             )}
           </div>
 
           <footer className="justify-between w-full flex ">
             {step > 1 ? (
-              <button
+              <Button
                 type="button"
                 onClick={prevStep}
-                className="cursor-pointer"
+                variant={"secondary"}
+                className="w-fit"
               >
                 Back
-              </button>
+              </Button>
             ) : (
-              <button
+              <Button
                 type="button"
                 onClick={closeModal}
-                className="cursor-pointer"
+                variant={"secondary"}
+                className="w-fit"
               >
                 Close
-              </button>
+              </Button>
             )}
 
             {step < 3 ? (
-              <button
+              <Button
                 type="button"
                 onClick={nextStep}
-                className="cursor-pointer"
+                variant={"primary"}
+                className="w-fit"
               >
                 Next
-              </button>
+              </Button>
             ) : (
-              <button type="submit" className="cursor-pointer">
+              <Button type="submit" variant={"primary"} className="w-fit">
                 Submit
-              </button>
+              </Button>
             )}
           </footer>
         </form>

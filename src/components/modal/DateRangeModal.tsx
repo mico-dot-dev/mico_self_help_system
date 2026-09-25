@@ -52,8 +52,8 @@ function DateRangeModal({
   onClose,
   onApply,
 }: DateRangeModalProps) {
+  //Draft or temp value
   const [range, setRange] = useState<DateRange>(value);
-
   useEffect(() => {
     if (open) {
       setRange(value);
@@ -66,16 +66,15 @@ function DateRangeModal({
     setRange(getDateRangeFromPreset(preset));
   };
 
-  const handleStartDate = (value: string) => {
-    const from = parseInputDate(value);
+  const handleStartDate = (from: Date) => {
     setRange((current) => ({ ...current, from }));
   };
 
-  const handleEndDate = (value: string) => {
-    const to = parseInputDate(value);
+  const handleEndDate = (to: Date) => {
     setRange((current) => ({ ...current, to }));
   };
 
+  //restriction
   const canApply =
     range.from !== null && range.to !== null && range.from <= range.to;
 
@@ -127,19 +126,19 @@ function DateRangeModal({
             <div>
               <p>Start Date</p>
               <Calendar
-                month={new Date()}
+                month={range.from || new Date()}
                 range={range}
-                onDateSelect={() => handlePreset("this-year")}
-                onMonthChange={() => handlePreset("this-year")}
+                onDateSelect={(day) => handleStartDate(day)}
+                onMonthChange={(month) => handleStartDate(month)}
               />
             </div>
             <div>
               <p>End Date</p>
               <Calendar
-                month={new Date()}
+                month={range.to || new Date()}
                 range={range}
-                onDateSelect={() => handlePreset("this-year")}
-                onMonthChange={() => handlePreset("this-year")}
+                onDateSelect={(day) => handleEndDate(day)}
+                onMonthChange={(month) => handleEndDate(month)}
               />
             </div>
           </div>

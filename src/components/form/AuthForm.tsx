@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { FaFacebook, FaDiscord } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { twJoin } from "tailwind-merge";
+import { Button } from "../ui/Button";
 
 function AccountForm() {
   const router = useRouter();

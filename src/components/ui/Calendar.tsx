@@ -67,8 +67,8 @@ function CalendarDay({
 interface CalendarMonthProps {
   month: Date;
   range: DateRange;
-  onMonthChange: (month: Date) => void;
   onDateSelect: (date: Date) => void;
+  onMonthChange: (month: Date) => void;
 }
 
 const weekdays = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
@@ -80,11 +80,12 @@ function CalendarMonth({
   onDateSelect,
 }: CalendarMonthProps) {
   const days = getCalendarDays(month);
+  console.log(range);
 
   return (
     <div className="p-3">
       {/* Header */}
-      <div className="mb-4 flex items-center justify-between gap-15 ">
+      <div className="mb-4 flex items-center justify-between ">
         <button
           type="button"
           onClick={() => onMonthChange(subMonths(month, 1))}
@@ -107,7 +108,7 @@ function CalendarMonth({
       </div>
 
       {/* Weekdays */}
-      <div className="mb-2 grid grid-cols-7">
+      <div className="mb-2 grid grid-cols-7 gap-12">
         {weekdays.map((day) => (
           <div
             key={day}

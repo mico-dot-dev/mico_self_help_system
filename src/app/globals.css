@@ -218,7 +218,6 @@
   --color-red-icon: var(--red-icon);
 
   /* ---------- Pie Chart ---------- */
-
   --color-chart-bills: var(--chart-bills);
   --color-chart-food: var(--chart-food);
   --color-chart-transport: var(--chart-transport);
@@ -366,7 +365,7 @@
   disabled:cursor-not-allowed;
   }
 
-  /* .button-base {
+  .button-base {
     @apply cursor-pointer 
     bg-surface text-text-primary 
     border-2 border-border
@@ -378,7 +377,7 @@
       focus:outline-2 focus:outline-info focus:outline-offset-1 
       not-hover:outline-none
       active:scale-95;
-  } */
+  }
 
   /* ---------- Modal ---------- */
 

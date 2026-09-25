@@ -9,6 +9,8 @@ import { Button } from "./Button";
 
 function DateRangeButton() {
   const [isOpen, setIsOpen] = useState(false);
+
+  //Used for checking mouse events
   const containerRef = useRef<HTMLDivElement>(null);
 
   const [dateRange, setDateRange] = useState<DateRange>({
@@ -16,10 +18,10 @@ function DateRangeButton() {
     to: new Date(),
   });
 
-  // Close the dropdown when clicking outside of it
   useEffect(() => {
     if (!isOpen) return;
 
+    //Closes the modal if clicked outside the modal
     function handleClickOutside(event: MouseEvent) {
       if (
         containerRef.current &&
@@ -29,13 +31,12 @@ function DateRangeButton() {
       }
     }
 
+    //Removes listener when setIsOpen changes
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen]);
 
   return (
-    // `relative` here is what lets the dropdown position itself
-    // against this element instead of the page.
     <div className="relative w-full " ref={containerRef}>
       <Button
         type="button"
