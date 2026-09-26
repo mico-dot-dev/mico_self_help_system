@@ -43,15 +43,17 @@ function InfoCardHeader() {
     <>
       <div className="flex flex-row justify-between min-w-full mb-3">
         <div>
-          <p className="text-2xl font-bold">Good Eveneing, Aki!</p>
+          <p className="text-2xl font-bold">Good Evening, Aki!</p>
           <p className="text-text-secondary">
             Here's Your Finance Statistics Overview
           </p>
         </div>
+
         <div className="flex items-center mr-3 ">
           <DateRangeButton />
         </div>
       </div>
+
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {dashboardCardData.map((data, i) => {
           return <InfoCard key={i} {...data} />;

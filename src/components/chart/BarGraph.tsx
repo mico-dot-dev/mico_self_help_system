@@ -12,6 +12,7 @@ import {
 import { scaleBand, scaleLinear } from "d3-scale";
 import { CashFlowPointModel } from "@/src/schema/dashboard.schema";
 import { ChartGranularity } from "@/src/type/chart";
+import { Square } from "lucide-react";
 
 const financeColors = ["#22c55e", "#ef4444"];
 
@@ -93,11 +94,23 @@ interface CashFlowProps {
 export default function BarGraph({ data, granularity }: CashFlowProps) {
   const chart = createBarChart(data, granularity);
   return (
-    <Chart
-      ariaLabel={"Data Chart"}
-      definition={chart}
-      width={680}
-      height={240}
-    />
+    <>
+      <div className="flex flex-row gap-5 text-xs justify-self-end">
+        <div className="flex flex-row items-center gap-2">
+          <Square size={8} className="text-success" fill="#22c55e" />
+          <p>Money in</p>
+        </div>
+        <div className="flex flex-row items-center gap-2">
+          <Square size={8} className="text-error" fill="#ef4444" />
+          <p>Money Out</p>
+        </div>
+      </div>
+      <Chart
+        ariaLabel={"Data Chart"}
+        definition={chart}
+        width={680}
+        height={240}
+      />
+    </>
   );
 }

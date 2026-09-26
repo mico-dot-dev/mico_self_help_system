@@ -1,27 +1,25 @@
-import React from "react";
-import { Square } from "lucide-react";
-import BarGraph from "@/src/components/chart/BarGraph";
-import {
-  getUserBarStatistics,
-  getUserExpenseBreakdown,
-} from "@/src/actions/dashboard.action";
-import PieGraph from "@/src/components/chart/PieGraph";
-import { DateRangeModel } from "@/src/schema/dashboard.schema";
+"use client";
 
-interface DateRangeProps {
-  dateRange: DateRangeModel;
+import React, { useState } from "react";
+import BarGraph from "@/src/components/chart/BarGraph";
+import PieGraph from "@/src/components/chart/PieGraph";
+import { CashFlowPointModel } from "@/src/schema/dashboard.schema";
+import { ExpenseFrequency } from "@/src/type/chart";
+import { ChartGranularity, granularityMap } from "@/src/type/chart";
+import { twJoin } from "tailwind-merge";
+
+interface CashChartProps {
+  barData: CashFlowPointModel[];
+  pieData: ExpenseFrequency[];
+  g: ChartGranularity[];
 }
 
-async function CashFlowChart({ dateRange }: DateRangeProps) {
-  console.log(dateRange);
-  const [barData, pieData] = await Promise.all([
-    getUserBarStatistics(dateRange),
-    getUserExpenseBreakdown(),
-  ]);
-
-  if (!barData.success || !pieData.success) {
+function CashFlowChart({ barData, pieData, g }: CashChartProps) {
+  if (!barData || !pieData) {
     return <p>No data Found</p>;
   }
+
+  const [granularity, setGranularity] = useState<ChartGranularity>("day");
 
   return (
     <div className="grid lg:grid-cols-5 sm:grid-cols-2 w-full gap-4">
@@ -33,19 +31,27 @@ async function CashFlowChart({ dateRange }: DateRangeProps) {
               Comparison of income and expense spending
             </p>
           </div>
-          <div className="flex flex-col text-sm self-center gap-0.5">
-            <div className="flex flex-row items-center gap-2">
-              <Square size={12} className="text-success" fill="#22c55e" />
-              <p>Money in</p>
-            </div>
-            <div className="flex flex-row items-center gap-2">
-              <Square size={12} className="text-error" fill="#ef4444" />
-              <p>Money Out</p>
-            </div>
+          <div className="flex flex-row border border-border rounded-2xl">
+            {g.map((key, index) => {
+              return (
+                <button
+                  key={index}
+                  className={twJoin(
+                    "px-7 rounded-2xl transition-colors capitalize",
+                    granularity === key
+                      ? "bg-primary text-white font-medium"
+                      : "bg-transparent text-text-muted hover:bg-white/5",
+                  )}
+                  onClick={() => setGranularity(key)}
+                >
+                  {key}
+                </button>
+              );
+            })}
           </div>
         </div>
         <div>
-          <BarGraph data={barData.data} granularity={"day"} />
+          <BarGraph data={barData} granularity={granularity} />
         </div>
       </div>
       <div className="col-span-2 sm:grid:col-span-1 card-base ">
@@ -56,7 +62,7 @@ async function CashFlowChart({ dateRange }: DateRangeProps) {
           </p>
         </div>
         <div>
-          <PieGraph data={pieData.data} />
+          <PieGraph data={pieData} />
         </div>
       </div>
     </div>
