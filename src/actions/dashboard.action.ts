@@ -3,45 +3,39 @@
 import { ActionResponse } from "../schema/auth.schema";
 import { prisma } from "@/src/lib/prisma-client";
 import { authenticateUser } from "../lib/utils/validation-wrapper";
-import {
-  CashFlowPoint,
-  ChartGranularity,
-  granularityMap,
-  ExpenseFrequency,
-} from "@/src/type/chart";
-import { success } from "zod";
+import { ChartGranularity, ExpenseFrequency } from "@/src/type/chart";
+import { CashFlowPointModel, DateRangeModel } from "../schema/dashboard.schema";
+
+export async function getUserHeaderStatistics() {}
 
 export async function getUserBarStatistics(
-  dateGranuality: ChartGranularity,
-): Promise<ActionResponse<CashFlowPoint[]>> {
-  const dateGroup = granularityMap[dateGranuality];
-
+  daterange: DateRangeModel,
+): Promise<ActionResponse<CashFlowPointModel[]>> {
   return authenticateUser(async (userId) => {
     try {
-      const res = await prisma.$queryRaw<CashFlowPoint[]>`SELECT
-  date_trunc(${dateGroup}, stats_data.created_at) as "dateStart",
-  stats_data.transit,
-  SUM(stats_data.amount) as total
-FROM (
-  SELECT amount, created_at, 'in' as transit FROM income inc 
-  WHERE inc.user_id = ${userId}
+      const res = await prisma.$queryRaw<CashFlowPointModel[]>`SELECT
+      date_trunc('day', stats_data.created_at) as "date",
+      stats_data.transit,
+      SUM(stats_data.amount) as total
+      FROM (
+        SELECT amount, date_obtained as created_at, 'in' as transit FROM income i
+        WHERE i.user_id = ${userId}
 
-  UNION ALL
+        UNION ALL 
 
-  SELECT t.price as amount, t.created_at, 'out' as transit FROM expense e
-  JOIN public.transaction t ON t.expense_id = e.id
-   WHERE e.user_id = ${userId}
-) as stats_data
-GROUP BY "dateStart", transit
-ORDER BY "dateStart"`;
-
+        SELECT t.price as amount, t.created_at, 'out' as transit FROM expense e
+        JOIN public.transaction t ON t.expense_id = e.id
+        WHERE e.user_id = ${userId}
+      ) as stats_data
+      WHERE stats_data.created_at >= ${daterange.from} AND stats_data.created_at <= ${daterange.to}
+      GROUP BY "date", transit
+      ORDER BY "date"`;
       if (!res) {
         return {
           success: false,
           error: "",
         };
       }
-
       return {
         success: true,
         data: res,

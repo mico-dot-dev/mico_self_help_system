@@ -3,14 +3,9 @@ import { ExpenseType } from "../generated/prisma";
 export type ChartGranularity = "day" | "week" | "month";
 
 export interface CashFlowPoint {
-  dateStart: Date;
+  date: Date;
   transit: "in" | "out";
   total: number;
-}
-
-export interface ExpenseFrequency {
-  type: ExpenseType;
-  frequency: number;
 }
 
 export const granularityMap = {
@@ -18,3 +13,9 @@ export const granularityMap = {
   week: "week",
   day: "day",
 } as const;
+
+//Pie Chart
+export interface ExpenseFrequency {
+  type: ExpenseType;
+  frequency: number;
+}

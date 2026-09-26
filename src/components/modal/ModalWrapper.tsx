@@ -41,7 +41,7 @@ function AddFormModal({
             lg:h-[95%] max-h-screen
             flex flex-col p-5"
           >
-            <Dialog.Title className="flex flex-row relative text-xl font-bold text-primary-tex mb-3 py-5 border-b-2 border-b-border">
+            <Dialog.Title className="flex flex-row  justify-between relative text-xl font-bold text-primary-tex mb-3 py-5 border-b-2 border-b-border">
               <div className="flex flex-col ">
                 <p className="">{title}</p>
                 <p className="text-xs text-text-secondary">{description}</p>

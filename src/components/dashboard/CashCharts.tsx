@@ -6,13 +6,19 @@ import {
   getUserExpenseBreakdown,
 } from "@/src/actions/dashboard.action";
 import PieGraph from "@/src/components/chart/PieGraph";
+import { DateRangeModel } from "@/src/schema/dashboard.schema";
 
-async function CashFlowChart() {
-  const granularity = "day";
+interface DateRangeProps {
+  dateRange: DateRangeModel;
+}
+
+async function CashFlowChart({ dateRange }: DateRangeProps) {
+  console.log(dateRange);
   const [barData, pieData] = await Promise.all([
-    getUserBarStatistics(granularity),
+    getUserBarStatistics(dateRange),
     getUserExpenseBreakdown(),
   ]);
+
   if (!barData.success || !pieData.success) {
     return <p>No data Found</p>;
   }
@@ -39,7 +45,7 @@ async function CashFlowChart() {
           </div>
         </div>
         <div>
-          <BarGraph data={barData.data} granularity={granularity} />
+          <BarGraph data={barData.data} granularity={"day"} />
         </div>
       </div>
       <div className="col-span-2 sm:grid:col-span-1 card-base ">

@@ -2,12 +2,19 @@ import React, { Suspense } from "react";
 import AddButton from "@/src/components/ui/AddButton";
 import IncomeList from "@/src/components/income/IncomeList";
 import CashFlowChart from "@/src/components/dashboard/CashCharts";
-import Swal from "sweetalert2";
 import InfoCardHeader from "@/src/components/dashboard/InfoCardHeader";
+import { DateRangeModel } from "@/src/schema/dashboard.schema";
 
-async function page() {
-  await Swal.close();
+interface PageProps {
+  searchParams?: Promise<{ from?: string; to?: string }>;
+}
 
+async function page({ searchParams }: PageProps) {
+  const params = await searchParams;
+  const dateRange: DateRangeModel = {
+    from: params?.from ? new Date(params.from) : new Date(),
+    to: params?.to ? new Date(params.to) : new Date(),
+  };
   return (
     <div className="w-full pl-5 pt-5 border border-border overflow-hidden overflow-y-scroll h-full pb-15 scrollbar-styled">
       <header className=" w-full mb-5">
@@ -15,7 +22,7 @@ async function page() {
       </header>
       <section className=" ">
         <Suspense>
-          <CashFlowChart />
+          <CashFlowChart dateRange={dateRange} />
         </Suspense>
       </section>
       <footer className=" grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-2 w-full mt-4">

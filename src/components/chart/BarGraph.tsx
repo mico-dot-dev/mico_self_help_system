@@ -10,7 +10,7 @@ import {
   groupBy,
 } from "@tanstack/charts";
 import { scaleBand, scaleLinear } from "d3-scale";
-import { CashFlowPoint } from "@/src/type/chart";
+import { CashFlowPointModel } from "@/src/schema/dashboard.schema";
 import { ChartGranularity } from "@/src/type/chart";
 
 const financeColors = ["#22c55e", "#ef4444"];
@@ -38,7 +38,7 @@ const createDateRange = (date: Date, granularity: ChartGranularity): string => {
 };
 
 export const createBarChart = (
-  data: CashFlowPoint[],
+  data: CashFlowPointModel[],
   granularity: ChartGranularity,
 ) =>
   defineChart(
@@ -46,7 +46,7 @@ export const createBarChart = (
       const rows = data.map((item) => {
         return {
           ...item,
-          dateRange: createDateRange(item.dateStart, granularity),
+          dateRange: createDateRange(item.date, granularity),
         };
       });
       return {
@@ -86,7 +86,7 @@ export const createBarChart = (
   );
 
 interface CashFlowProps {
-  data: CashFlowPoint[];
+  data: CashFlowPointModel[];
   granularity: ChartGranularity;
 }
 
