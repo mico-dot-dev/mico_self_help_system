@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import BarGraph from "@/src/components/chart/BarGraph";
 import PieGraph from "@/src/components/chart/PieGraph";
 import { CashFlowPointModel } from "@/src/schema/dashboard.schema";
@@ -8,7 +8,8 @@ import { ExpenseFrequency } from "@/src/type/chart";
 import { ChartGranularity, granularityMap } from "@/src/type/chart";
 import { twJoin } from "tailwind-merge";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-// import { getDateBucket } from "@/src/lib/utils/chart-aggregation";
+import { groupIntoPages } from "@/src/lib/utils/chart-pagintation";
+import { formatPageRange } from "@/src/lib/utils/date-formatter";
 
 interface CashChartProps {
   barData: CashFlowPointModel[];
@@ -20,24 +21,24 @@ function CashFlowChart({ barData, pieData, g }: CashChartProps) {
   if (!barData || !pieData) {
     return <p>No data Found</p>;
   }
-
-  console.log(barData);
-
   const [granularity, setGranularity] = useState<ChartGranularity>("day");
-  // const [granulatedBarData, setGranulatedBarData] = useState<
-  //   CashFlowPointModel[][]
-  // >([]);
-  // const [displayData, setDisplayData] = useState<CashFlowPointModel[]>([]);
-  // const [currBucket, setCurrBucket] = useState<number>(0);
 
-  // useEffect(() => {
-  //   setGranulatedBarData(getDateBucket(barData, "day"));
-  //   setDisplayData(granulatedBarData[currBucket]);
-  // }, [granularity]);
+  const pages = useMemo(
+    () => groupIntoPages(barData, granularity),
+    [barData, granularity],
+  );
+  const [pageIndex, setPageIndex] = useState(0);
+  useEffect(() => setPageIndex(0), [granularity]);
 
-  // useEffect(() => {
-  //   setDisplayData(granulatedBarData[currBucket]);
-  // }, [currBucket]);
+  const currentPage = pages[pageIndex] ?? { label: "", points: [] };
+
+  if (!currentPage) {
+    return <p>No data</p>;
+  }
+
+  const firstPoint = currentPage.points[0].date;
+  const lastPoint = currentPage.points[currentPage.points.length - 1].date;
+  const rangeDisplay = formatPageRange(firstPoint, lastPoint);
 
   return (
     <div className="grid lg:grid-cols-5 sm:grid-cols-2 w-full gap-4 ">
@@ -70,18 +71,27 @@ function CashFlowChart({ barData, pieData, g }: CashChartProps) {
         </div>
         <div className="flex flex-col justify-between flex-1 min-h-0 ">
           <div className="flex-1 h-full min-h-0">
-            {barData && <BarGraph data={barData} granularity={granularity} />}
+            {barData && (
+              <BarGraph data={currentPage.points} granularity={granularity} />
+            )}
           </div>
 
           <div className="flex shrink-0 flex-row justify-between">
-            <ChevronLeft
+            <button
               className="cursor-pointer"
-              // onClick={() => setCurrBucket((prev) => prev - 1)}
-            />
-            <ChevronRight
+              disabled={pageIndex === 0}
+              onClick={() => setPageIndex((i) => i - 1)}
+            >
+              <ChevronLeft />
+            </button>
+            <span>{rangeDisplay}</span>
+            <button
               className="cursor-pointer"
-              // onClick={() => setCurrBucket((prev) => prev + 1)}
-            />
+              disabled={pageIndex === pages.length - 1}
+              onClick={() => setPageIndex((i) => i + 1)}
+            >
+              <ChevronRight />
+            </button>
           </div>
         </div>
       </div>

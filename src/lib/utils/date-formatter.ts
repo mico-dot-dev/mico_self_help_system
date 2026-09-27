@@ -1,6 +1,7 @@
 import { DateRepeatType } from "@/src/generated/prisma";
-import { format } from "date-fns";
 import { ChartGranularity } from "@/src/type/chart";
+import { getWeekOfMonth } from "date-fns";
+import { format, isSameMonth, isSameYear } from "date-fns";
 
 export function getNextDueDate(repeatType: DateRepeatType) {
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -46,18 +47,53 @@ export function formatDate(dateInput: Date): string {
   }).format(date);
 }
 
-export function formatAxisLabel(
+export const createDateRange = (
   date: Date,
   granularity: ChartGranularity,
-): string {
-  switch (granularity) {
-    case "day":
-      return `${format(date, "EEE")}\n${format(date, "MMM d")}`; // "Mon\nSep 16"
-    case "week":
-      return format(date, "MMM d"); // start-of-week date, single line
-    case "month":
-      return format(date, "MMM yyyy");
-    default:
-      return format(date, "MMM d");
+): string => {
+  //Format monthly periods, e.g. "Jan", "Feb", "Mar".
+  if (granularity === "month") {
+    return new Intl.DateTimeFormat("en-US", {
+      month: "short",
+    }).format(date);
   }
+
+  if (granularity === "week") {
+    return "Week " + getWeekOfMonth(date);
+  }
+
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    weekday: "short",
+  }).format(date);
+};
+
+export function formatPageRange(from: Date, to: Date): string {
+  if (from.getTime() === to.getTime()) {
+    return format(from, "MMM d, yyyy"); // single-point page, e.g. one month bucket
+  }
+  if (isSameMonth(from, to)) {
+    return `${format(from, "MMM d")} – ${format(to, "d, yyyy")}`; // "Sep 1 – 6, 2026"
+  }
+  if (isSameYear(from, to)) {
+    return `${format(from, "MMM d")} – ${format(to, "MMM d, yyyy")}`; // crosses months
+  }
+  return `${format(from, "MMM d, yyyy")} – ${format(to, "MMM d, yyyy")}`; // crosses years
 }
+
+// export function formatAxisLabel(
+//   date: Date,
+//   granularity: ChartGranularity,
+// ): string {
+//   switch (granularity) {
+//     case "day":
+//       return `${format(date, "EEE")}\n${format(date, "MMM d")}`; // "Mon\nSep 16"
+//     case "week":
+//       return format(date, "MMM d"); // start-of-week date, single line
+//     case "month":
+//       return format(date, "MMM yyyy");
+//     default:
+//       return format(date, "MMM d");
+//   }
+// }
