@@ -1,12 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BarGraph from "@/src/components/chart/BarGraph";
 import PieGraph from "@/src/components/chart/PieGraph";
 import { CashFlowPointModel } from "@/src/schema/dashboard.schema";
 import { ExpenseFrequency } from "@/src/type/chart";
 import { ChartGranularity, granularityMap } from "@/src/type/chart";
 import { twJoin } from "tailwind-merge";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { aggregateByGranularity } from "@/src/lib/utils/chart-aggregation";
 
 interface CashChartProps {
   barData: CashFlowPointModel[];
@@ -18,8 +20,13 @@ function CashFlowChart({ barData, pieData, g }: CashChartProps) {
   if (!barData || !pieData) {
     return <p>No data Found</p>;
   }
-
+  const [granulatedBarData, setGranulatedBarData] =
+    useState<CashFlowPointModel[]>(barData);
   const [granularity, setGranularity] = useState<ChartGranularity>("day");
+
+  useEffect(() => {
+    setGranulatedBarData(aggregateByGranularity(barData, granularity));
+  }, [granularity]);
 
   return (
     <div className="grid lg:grid-cols-5 sm:grid-cols-2 w-full gap-4">
@@ -51,7 +58,11 @@ function CashFlowChart({ barData, pieData, g }: CashChartProps) {
           </div>
         </div>
         <div>
-          <BarGraph data={barData} granularity={granularity} />
+          <BarGraph data={granulatedBarData} granularity={granularity} />
+          <span className="flex flex-row justify-between">
+            <ChevronLeft className="cursor-pointer" />
+            <ChevronRight className="cursor-pointer" />
+          </span>
         </div>
       </div>
       <div className="col-span-2 sm:grid:col-span-1 card-base ">

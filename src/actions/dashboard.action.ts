@@ -3,7 +3,7 @@
 import { ActionResponse } from "../schema/auth.schema";
 import { prisma } from "@/src/lib/prisma-client";
 import { authenticateUser } from "../lib/utils/validation-wrapper";
-import { ChartGranularity, ExpenseFrequency } from "@/src/type/chart";
+import { ExpenseFrequency } from "@/src/type/chart";
 import { CashFlowPointModel, DateRangeModel } from "../schema/dashboard.schema";
 
 export async function getUserHeaderStatistics() {}
@@ -30,6 +30,7 @@ export async function getUserBarStatistics(
       WHERE stats_data.created_at >= ${daterange.from} AND stats_data.created_at <= ${daterange.to}
       GROUP BY "date", transit
       ORDER BY "date"`;
+
       if (!res) {
         return {
           success: false,

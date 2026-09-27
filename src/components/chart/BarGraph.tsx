@@ -13,6 +13,8 @@ import { scaleBand, scaleLinear } from "d3-scale";
 import { CashFlowPointModel } from "@/src/schema/dashboard.schema";
 import { ChartGranularity } from "@/src/type/chart";
 import { Square } from "lucide-react";
+import { formatAxisLabel } from "@/src/lib/utils/date-formatter";
+import { format } from "date-fns";
 
 const financeColors = ["#22c55e", "#ef4444"];
 
@@ -34,6 +36,8 @@ const createDateRange = (date: Date, granularity: ChartGranularity): string => {
 
   // CHANGED: Format daily periods, e.g. "Mon", "Tue", "Wed".
   return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
     weekday: "short",
   }).format(date);
 };
@@ -50,6 +54,8 @@ export const createBarChart = (
           dateRange: createDateRange(item.date, granularity),
         };
       });
+
+      console.log(rows);
       return {
         marks: [
           barY(rows, {
@@ -69,7 +75,14 @@ export const createBarChart = (
           x: {
             scale: () =>
               scaleBand<string>().paddingInner(0.14).paddingOuter(0.06),
-            axis: { tickLabels: { rotate: width < 640 ? -32 : 0 } },
+            axis: {
+              tickLabels: { rotate: width < 640 ? -32 : 0 },
+              // ticks: {
+              //   format: (date: Date) =>
+
+              //     formatAxisLabel(date, granularity).replace("\n", " "),
+              // },
+            },
           },
           y: {
             scale: scaleLinear,

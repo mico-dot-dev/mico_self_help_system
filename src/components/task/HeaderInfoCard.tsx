@@ -42,7 +42,10 @@ function HeaderInfoCard({
         <p className="">{title}</p>
         <p className="text-2xl font-semibold">{amount}</p>
         <span
-          className={twJoin("flex flex-row items-center text-sm", trendColor)}
+          className={twJoin(
+            "flex flex-row items-center text-xs w-fit",
+            trendColor,
+          )}
         >
           <ArrowIcon size={15} />
           <p>{statsAmount}% from last week</p>

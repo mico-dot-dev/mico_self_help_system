@@ -1,4 +1,6 @@
 import { DateRepeatType } from "@/src/generated/prisma";
+import { format } from "date-fns";
+import { ChartGranularity } from "@/src/type/chart";
 
 export function getNextDueDate(repeatType: DateRepeatType) {
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -42,4 +44,20 @@ export function formatDate(dateInput: Date): string {
     day: "numeric",
     year: "numeric",
   }).format(date);
+}
+
+export function formatAxisLabel(
+  date: Date,
+  granularity: ChartGranularity,
+): string {
+  switch (granularity) {
+    case "day":
+      return `${format(date, "EEE")}\n${format(date, "MMM d")}`; // "Mon\nSep 16"
+    case "week":
+      return format(date, "MMM d"); // start-of-week date, single line
+    case "month":
+      return format(date, "MMM yyyy");
+    default:
+      return format(date, "MMM d");
+  }
 }
