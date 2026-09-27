@@ -8,7 +8,7 @@ import { ExpenseFrequency } from "@/src/type/chart";
 import { ChartGranularity, granularityMap } from "@/src/type/chart";
 import { twJoin } from "tailwind-merge";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { getDateBucket } from "@/src/lib/utils/chart-aggregation";
+// import { getDateBucket } from "@/src/lib/utils/chart-aggregation";
 
 interface CashChartProps {
   barData: CashFlowPointModel[];
@@ -21,25 +21,27 @@ function CashFlowChart({ barData, pieData, g }: CashChartProps) {
     return <p>No data Found</p>;
   }
 
-  const [granulatedBarData, setGranulatedBarData] = useState<
-    CashFlowPointModel[][]
-  >([]);
-  const [displayData, setDisplayData] = useState<CashFlowPointModel[]>([]);
+  console.log(barData);
+
   const [granularity, setGranularity] = useState<ChartGranularity>("day");
-  const [currBucket, setCurrBucket] = useState<number>(0);
+  // const [granulatedBarData, setGranulatedBarData] = useState<
+  //   CashFlowPointModel[][]
+  // >([]);
+  // const [displayData, setDisplayData] = useState<CashFlowPointModel[]>([]);
+  // const [currBucket, setCurrBucket] = useState<number>(0);
 
-  useEffect(() => {
-    setGranulatedBarData(getDateBucket(barData, "day"));
-    setDisplayData(granulatedBarData[currBucket]);
-  }, [granularity]);
+  // useEffect(() => {
+  //   setGranulatedBarData(getDateBucket(barData, "day"));
+  //   setDisplayData(granulatedBarData[currBucket]);
+  // }, [granularity]);
 
-  useEffect(() => {
-    setDisplayData(granulatedBarData[currBucket]);
-  }, [currBucket]);
+  // useEffect(() => {
+  //   setDisplayData(granulatedBarData[currBucket]);
+  // }, [currBucket]);
 
   return (
-    <div className="grid lg:grid-cols-5 sm:grid-cols-2 w-full gap-4">
-      <div className="p-5 lg:col-span-3 sm:grid:col-span-1 card-base ">
+    <div className="grid lg:grid-cols-5 sm:grid-cols-2 w-full gap-4 ">
+      <div className="flex flex-col p-5 lg:col-span-3 sm:grid:col-span-1 card-base">
         <div className="flex justify-between mb-4">
           <div>
             <p>Cash Flow Overview</p>
@@ -66,21 +68,21 @@ function CashFlowChart({ barData, pieData, g }: CashChartProps) {
             })}
           </div>
         </div>
-        <div>
-          {displayData && (
-            <BarGraph data={displayData} granularity={granularity} />
-          )}
+        <div className="flex flex-col justify-between flex-1 min-h-0 ">
+          <div className="flex-1 h-full min-h-0">
+            {barData && <BarGraph data={barData} granularity={granularity} />}
+          </div>
 
-          <span className="flex flex-row justify-between">
+          <div className="flex shrink-0 flex-row justify-between">
             <ChevronLeft
               className="cursor-pointer"
-              onClick={() => setCurrBucket((prev) => prev - 1)}
+              // onClick={() => setCurrBucket((prev) => prev - 1)}
             />
             <ChevronRight
               className="cursor-pointer"
-              onClick={() => setCurrBucket((prev) => prev + 1)}
+              // onClick={() => setCurrBucket((prev) => prev + 1)}
             />
-          </span>
+          </div>
         </div>
       </div>
       <div className="col-span-2 sm:grid:col-span-1 card-base ">

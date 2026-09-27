@@ -2,7 +2,7 @@
 import { ChartGranularity } from "@/src/type/chart";
 import { CashFlowPointModel } from "@/src/schema/dashboard.schema";
 
-function getWeekOfMonth(date: Date): number {
+export function getWeekOfMonth(date: Date): number {
   const year = date.getFullYear();
   const month = date.getMonth();
 
@@ -45,27 +45,9 @@ function getContinuousWeek(date: Date): number {
   return Math.floor((days - daysUntilMonday) / 7) + 2;
 }
 
-export function getDateBucket(
-  data: CashFlowPointModel[],
-  granularity: ChartGranularity,
-): CashFlowPointModel[][] {
-  const bucket: Array<Array<CashFlowPointModel>> = [];
-  let holder: Array<CashFlowPointModel> = [];
-  let curr: number = 1;
-  for (const entry of data) {
-    if (entry.date.getDate()) {
-      let week = getContinuousWeek(entry.date);
-      if (curr === week) {
-        holder.push(entry);
-      } else {
-        curr = week;
-        bucket.push(holder);
-        holder = [];
-        holder.push(entry);
-      }
-    }
-  }
+// export function getDateBucket(
+//   data: Date,
+// ):  {
 
-  console.log(bucket);
-  return bucket;
-}
+//   return data;
+// }
