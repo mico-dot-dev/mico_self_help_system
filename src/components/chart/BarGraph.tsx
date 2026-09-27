@@ -13,7 +13,7 @@ import { scaleBand, scaleLinear } from "d3-scale";
 import { CashFlowPointModel } from "@/src/schema/dashboard.schema";
 import { ChartGranularity } from "@/src/type/chart";
 import { Square } from "lucide-react";
-import { getWeekOfMonth } from "@/src/lib/utils/chart-aggregation";
+import { getWeekOfMonth } from "date-fns";
 
 const financeColors = ["#22c55e", "#ef4444"];
 
