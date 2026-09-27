@@ -8,7 +8,7 @@ import { ExpenseFrequency } from "@/src/type/chart";
 import { ChartGranularity, granularityMap } from "@/src/type/chart";
 import { twJoin } from "tailwind-merge";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { aggregateByGranularity } from "@/src/lib/utils/chart-aggregation";
+import { getDateBucket } from "@/src/lib/utils/chart-aggregation";
 
 interface CashChartProps {
   barData: CashFlowPointModel[];
@@ -20,13 +20,22 @@ function CashFlowChart({ barData, pieData, g }: CashChartProps) {
   if (!barData || !pieData) {
     return <p>No data Found</p>;
   }
-  const [granulatedBarData, setGranulatedBarData] =
-    useState<CashFlowPointModel[]>(barData);
+
+  const [granulatedBarData, setGranulatedBarData] = useState<
+    CashFlowPointModel[][]
+  >([]);
+  const [displayData, setDisplayData] = useState<CashFlowPointModel[]>([]);
   const [granularity, setGranularity] = useState<ChartGranularity>("day");
+  const [currBucket, setCurrBucket] = useState<number>(0);
 
   useEffect(() => {
-    setGranulatedBarData(aggregateByGranularity(barData, granularity));
+    setGranulatedBarData(getDateBucket(barData, "day"));
+    setDisplayData(granulatedBarData[currBucket]);
   }, [granularity]);
+
+  useEffect(() => {
+    setDisplayData(granulatedBarData[currBucket]);
+  }, [currBucket]);
 
   return (
     <div className="grid lg:grid-cols-5 sm:grid-cols-2 w-full gap-4">
@@ -58,10 +67,19 @@ function CashFlowChart({ barData, pieData, g }: CashChartProps) {
           </div>
         </div>
         <div>
-          <BarGraph data={granulatedBarData} granularity={granularity} />
+          {displayData && (
+            <BarGraph data={displayData} granularity={granularity} />
+          )}
+
           <span className="flex flex-row justify-between">
-            <ChevronLeft className="cursor-pointer" />
-            <ChevronRight className="cursor-pointer" />
+            <ChevronLeft
+              className="cursor-pointer"
+              onClick={() => setCurrBucket((prev) => prev - 1)}
+            />
+            <ChevronRight
+              className="cursor-pointer"
+              onClick={() => setCurrBucket((prev) => prev + 1)}
+            />
           </span>
         </div>
       </div>

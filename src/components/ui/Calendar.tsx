@@ -80,7 +80,6 @@ function CalendarMonth({
   onDateSelect,
 }: CalendarMonthProps) {
   const days = getCalendarDays(month);
-  console.log(range);
 
   return (
     <div className="p-3">

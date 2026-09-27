@@ -2,37 +2,70 @@
 import { ChartGranularity } from "@/src/type/chart";
 import { CashFlowPointModel } from "@/src/schema/dashboard.schema";
 
-function bucketKey(date: Date, granularity: ChartGranularity): string {
-  if (granularity === "day") return date.toISOString().slice(0, 10);
-  if (granularity === "week") {
-    const d = new Date(date);
-    const day = d.getDay() === 0 ? 6 : d.getDay() - 1; // Monday-start week
-    d.setDate(d.getDate() - day);
-    return d.toISOString().slice(0, 10);
+function getWeekOfMonth(date: Date): number {
+  const year = date.getFullYear();
+  const month = date.getMonth();
+
+  const firstDay = new Date(year, month, 1);
+
+  // Sunday = 0, Monday = 1, ..., Saturday = 6
+  const firstDayOfWeek = firstDay.getDay();
+
+  // Days until the first Monday
+  const daysUntilMonday = firstDayOfWeek === 0 ? 1 : 8 - firstDayOfWeek;
+
+  const firstMonday = new Date(year, month, 1 + daysUntilMonday);
+
+  // Before the first Monday = Week 1
+  if (date < firstMonday) {
+    return 1;
   }
-  return date.toISOString().slice(0, 7); // "month" → "YYYY-MM"
+
+  const diff = date.getDate() - firstMonday.getDate();
+
+  return Math.floor(diff / 7) + 2;
 }
 
-export function aggregateByGranularity(
-  points: CashFlowPointModel[],
-  granularity: ChartGranularity,
-): CashFlowPointModel[] {
-  const buckets = new Map<string, CashFlowPointModel>();
+function getContinuousWeek(date: Date): number {
+  const yearStart = new Date(date.getFullYear(), 0, 1);
 
-  for (const point of points) {
-    const key = `${bucketKey(point.date, granularity)}-${point.transit}`;
-    const existing = buckets.get(key);
-    if (existing) {
-      existing.total += point.total;
-    } else {
-      buckets.set(key, {
-        ...point,
-        date: new Date(bucketKey(point.date, granularity)),
-      });
+  const difference = date.getTime() - yearStart.getTime();
+
+  const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+
+  const firstDay = yearStart.getDay();
+
+  // Number of days until the first Monday
+  const daysUntilMonday = (8 - firstDay) % 7;
+
+  if (days < daysUntilMonday) {
+    return 1;
+  }
+
+  return Math.floor((days - daysUntilMonday) / 7) + 2;
+}
+
+export function getDateBucket(
+  data: CashFlowPointModel[],
+  granularity: ChartGranularity,
+): CashFlowPointModel[][] {
+  const bucket: Array<Array<CashFlowPointModel>> = [];
+  let holder: Array<CashFlowPointModel> = [];
+  let curr: number = 1;
+  for (const entry of data) {
+    if (entry.date.getDate()) {
+      let week = getContinuousWeek(entry.date);
+      if (curr === week) {
+        holder.push(entry);
+      } else {
+        curr = week;
+        bucket.push(holder);
+        holder = [];
+        holder.push(entry);
+      }
     }
   }
 
-  return [...buckets.values()].sort(
-    (a, b) => a.date.getTime() - b.date.getTime(),
-  );
+  console.log(bucket);
+  return bucket;
 }
