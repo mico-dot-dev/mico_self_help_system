@@ -6,8 +6,8 @@ import { twJoin } from "tailwind-merge";
 function IconContainer({ Icon, iconColorScheme, fill }: IconContainerModel) {
   const color = colorRegistry[iconColorScheme];
   return (
-    <div className={twJoin("p-3 rounded-xl", color.background)}>
-      <Icon className={color.color} />
+    <div className={twJoin("p-2 rounded-xl", color.background)}>
+      <Icon className={color.color} size={15} />
     </div>
   );
 }

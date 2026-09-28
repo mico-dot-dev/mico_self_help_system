@@ -35,8 +35,8 @@ async function page({ searchParams }: PageProps) {
   const granularityRange = getAvailableGranularities(dateRange);
 
   return (
-    <div className="w-full pl-5 pt-5 border border-border overflow-hidden overflow-y-scroll h-full pb-15 scrollbar-styled">
-      <header className=" w-full mb-5">
+    <div className="flex flex-col w-full pl-5 pt-5 h-full pb-15 gap-3">
+      <header className=" w-full">
         <InfoCardHeader
           data={headerData.success ? headerData.data : EMPTY_HEADER_STATS}
         />
@@ -52,7 +52,7 @@ async function page({ searchParams }: PageProps) {
         </Suspense>
       </section>
 
-      <footer className=" grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-2 w-full mt-4">
+      <footer className=" grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-2 w-full">
         <div className="flex flex-col p-5 card-base gap-2">
           <div className="flex flex-row justify-between">
             <p className="self-end">Income History</p>

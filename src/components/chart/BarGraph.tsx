@@ -56,7 +56,7 @@ export const createBarChart = (
           y: {
             scale: scaleLinear,
             grid: true,
-            axis: { ticks: { count: 5 }, label: "Total" },
+            axis: { ticks: { count: 3 } },
           },
         },
 

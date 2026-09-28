@@ -7,8 +7,10 @@ function layout({ children }: { children: React.ReactNode }) {
       <div className="">
         <Navbar />
       </div>
-      {children}
-      <div className="ml-5"></div>
+
+      <div className="overflow-y-scroll flex-1">
+        <div className="pr-2">{children}</div>
+      </div>
     </div>
   );
 }

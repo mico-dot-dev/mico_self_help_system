@@ -43,7 +43,7 @@ function CashFlowChart({ barData, pieData, g }: CashChartProps) {
 
   return (
     <div className="flex flex-col gap-3">
-      <div className="flex flex-row justify-between">
+      {/* <div className="flex flex-row justify-between">
         <div className="flex items-center mr-3 ">
           <DateRangeButton />
         </div>
@@ -82,7 +82,7 @@ function CashFlowChart({ barData, pieData, g }: CashChartProps) {
             );
           })}
         </div>
-      </div>
+      </div> */}
 
       <div className="grid lg:grid-cols-5 sm:grid-cols-2 w-full gap-4 ">
         <div className="flex flex-col p-5 lg:col-span-3 sm:grid:col-span-1 card-base">

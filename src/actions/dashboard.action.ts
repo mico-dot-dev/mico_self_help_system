@@ -13,15 +13,15 @@ import {
 import { ReturnErrorMessage } from "../hook/ReturnErrorMessage";
 import { tr } from "zod/v4/locales";
 import { DateRange } from "../type/date-range";
-import { startOfMonth, endOfMonth } from "date-fns";
+import { startOfMonth, endOfMonth, subMonths } from "date-fns";
 
 export async function getUserHeaderStatistics(
   daterange: DateRangeModel,
 ): Promise<ActionResponse<HeaderStatisticsModel>> {
   return authenticateUser(async (userId) => {
     const prevRange: DateRange = {
-      from: startOfMonth(daterange.from),
-      to: endOfMonth(daterange.to),
+      from: subMonths(daterange.from, 1),
+      to: subMonths(daterange.to, 1),
     };
     try {
       const res = await prisma.$queryRaw<

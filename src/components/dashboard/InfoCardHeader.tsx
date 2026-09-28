@@ -23,7 +23,7 @@ async function InfoCardHeader({ data }: HeaderStatisticsProps) {
       status: "up",
     },
     {
-      title: "Monthly Income",
+      title: "Period Income",
       CardIcon: {
         Icon: TrendingUp,
         iconColorScheme: "green",
@@ -34,7 +34,7 @@ async function InfoCardHeader({ data }: HeaderStatisticsProps) {
       status: data.period_income >= data.prev_income ? "up" : "down",
     },
     {
-      title: "Monthly Expenses",
+      title: "Period Expense",
       CardIcon: {
         Icon: TrendingDown,
         iconColorScheme: "violet",
