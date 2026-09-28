@@ -13,7 +13,7 @@ function TaskHeader() {
         iconColorScheme: "green",
       },
       amount: 8,
-      statsAmount: 12.5,
+      statsInfo: 12.5,
       status: "up",
     },
     {
@@ -23,7 +23,7 @@ function TaskHeader() {
         iconColorScheme: "violet",
       },
       amount: 5,
-      statsAmount: 17,
+      statsInfo: 17,
       status: "down",
     },
     {
@@ -33,7 +33,7 @@ function TaskHeader() {
         iconColorScheme: "red",
       },
       amount: 50,
-      statsAmount: 2,
+      statsInfo: 2,
       status: "down",
     },
     {
@@ -43,7 +43,7 @@ function TaskHeader() {
         iconColorScheme: "blue",
       },
       amount: 25,
-      statsAmount: 15,
+      statsInfo: 15,
       status: "up",
     },
   ];

@@ -11,6 +11,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { groupIntoPages } from "@/src/lib/utils/chart-pagintation";
 import { formatPageRange } from "@/src/lib/utils/date-formatter";
 import DateRangeButton from "../ui/DateRangeButton";
+import { Square } from "lucide-react";
 
 interface CashChartProps {
   barData: CashFlowPointModel[];
@@ -92,6 +93,16 @@ function CashFlowChart({ barData, pieData, g }: CashChartProps) {
               <p className="text-text-muted text-sm">
                 Comparison of income and expense spending
               </p>
+            </div>
+            <div className="flex flex-col  text-sm justify-self-end">
+              <div className="flex flex-row items-center gap-2">
+                <Square size={8} className="text-success " fill="#22c55e" />
+                <p>Money in</p>
+              </div>
+              <div className="flex flex-row items-center gap-2 ">
+                <Square size={8} className="text-error" fill="#ef4444" />
+                <p>Money Out</p>
+              </div>
             </div>
           </div>
           <div className="flex flex-col justify-between flex-1 min-h-0 ">

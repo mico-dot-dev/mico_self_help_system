@@ -1,8 +1,14 @@
 import React from "react";
 import InfoCard from "@/src/components/dashboard/InfoCard";
 import { HeaderCardProps } from "@/src/type/component";
-import { CreditCard, TrendingUp, TrendingDown } from "lucide-react";
+import {
+  CreditCard,
+  TrendingUp,
+  TrendingDown,
+  PhilippinePeso,
+} from "lucide-react";
 import { HeaderStatisticsModel } from "@/src/schema/dashboard.schema";
+import { formatFloat } from "@/src/lib/utils/formatter";
 
 interface HeaderStatisticsProps {
   data: HeaderStatisticsModel;
@@ -13,16 +19,19 @@ async function InfoCardHeader({ data }: HeaderStatisticsProps) {
     prev === 0 ? 0 : ((curr - prev) / prev) * 100;
   const dashboardCardData: HeaderCardProps[] = [
     {
+      kind: "base",
       title: "Total Balance",
       CardIcon: {
         Icon: CreditCard,
         iconColorScheme: "violet",
       },
       amount: data.total_income - data.total_expense,
-      statsAmount: 12.5,
       status: "up",
+      statsData: 12.5,
     },
     {
+      kind: "base",
+
       title: "Period Income",
       CardIcon: {
         Icon: TrendingUp,
@@ -30,34 +39,37 @@ async function InfoCardHeader({ data }: HeaderStatisticsProps) {
       },
 
       amount: data.period_income,
-      statsAmount: Math.abs(pct(data.period_income, data.prev_income)),
       status: data.period_income >= data.prev_income ? "up" : "down",
+      statsData: Math.abs(pct(data.period_income, data.prev_income)),
     },
     {
+      kind: "base",
+
       title: "Period Expense",
       CardIcon: {
         Icon: TrendingDown,
-        iconColorScheme: "violet",
+        iconColorScheme: "red",
       },
       amount: data.period_expense,
-      statsAmount: Math.abs(pct(data.period_expense, data.prev_expense)),
       status: data.period_expense >= data.prev_expense ? "up" : "down",
+      statsData: Math.abs(pct(data.period_expense, data.prev_expense)),
     },
 
     {
+      kind: "custom",
       title: "Budget Usage",
       CardIcon: {
-        Icon: TrendingDown,
-        iconColorScheme: "violet",
+        Icon: PhilippinePeso,
+        iconColorScheme: "amber",
       },
       amount: 5127.45,
-      statsAmount: 12.5,
       status: "down",
+      statsData: 12.5,
     },
   ];
 
   return (
-    <>
+    <header className=" w-full">
       <div className="flex flex-row justify-between min-w-full mb-3">
         <div>
           <p className="text-2xl font-bold">Good Evening, Aki!</p>
@@ -72,7 +84,7 @@ async function InfoCardHeader({ data }: HeaderStatisticsProps) {
           return <InfoCard key={i} {...data} />;
         })}
       </div>
-    </>
+    </header>
   );
 }
 

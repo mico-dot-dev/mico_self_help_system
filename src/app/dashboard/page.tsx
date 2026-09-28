@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import AddButton from "@/src/components/ui/AddButton";
 import IncomeList from "@/src/components/income/IncomeList";
 import CashFlowChart from "@/src/components/dashboard/CashCharts";
-import InfoCardHeader from "@/src/components/dashboard/InfoCardHeader";
+import InfoCardHeader from "@/src/components/dashboard/DashboardHeader";
 import {
   DateRangeModel,
   EMPTY_HEADER_STATS,
