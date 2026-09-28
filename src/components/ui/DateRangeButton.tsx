@@ -72,7 +72,7 @@ function DateRangeButton() {
       </Button>
 
       {isOpen && (
-        <div className="absolute right-0 top-full z-50 mt-2">
+        <div className="absolute left-0 top-full z-50 mt-2">
           <DateRangeModal
             open={isOpen}
             value={dateRange}

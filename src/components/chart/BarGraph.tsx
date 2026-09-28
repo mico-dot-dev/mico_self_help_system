@@ -13,29 +13,9 @@ import { scaleBand, scaleLinear } from "d3-scale";
 import { CashFlowPointModel } from "@/src/schema/dashboard.schema";
 import { ChartGranularity } from "@/src/type/chart";
 import { Square } from "lucide-react";
-import { getWeekOfMonth } from "date-fns";
+import { createDateRange } from "@/src/lib/utils/date-formatter";
 
 const financeColors = ["#22c55e", "#ef4444"];
-
-const createDateRange = (date: Date, granularity: ChartGranularity): string => {
-  // CHANGED: Format monthly periods, e.g. "Jan", "Feb", "Mar".
-  if (granularity === "month") {
-    return new Intl.DateTimeFormat("en-US", {
-      month: "short",
-    }).format(date);
-  }
-
-  // CHANGED: Format weekly periods, e.g. "Sep 7", "Sep 14".
-  if (granularity === "week") {
-    return "Week " + getWeekOfMonth(date);
-  }
-
-  return new Intl.DateTimeFormat("en-US", {
-    month: "short",
-    day: "numeric",
-    weekday: "short",
-  }).format(date);
-};
 
 export const createBarChart = (
   data: CashFlowPointModel[],
@@ -111,7 +91,7 @@ export default function BarGraph({ data, granularity }: CashFlowProps) {
         ariaLabel={"Data Chart"}
         definition={chart}
         width={680}
-        height={150}
+        height={220}
       />
     </>
   );

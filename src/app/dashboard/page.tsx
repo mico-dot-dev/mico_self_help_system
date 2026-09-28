@@ -3,10 +3,14 @@ import AddButton from "@/src/components/ui/AddButton";
 import IncomeList from "@/src/components/income/IncomeList";
 import CashFlowChart from "@/src/components/dashboard/CashCharts";
 import InfoCardHeader from "@/src/components/dashboard/InfoCardHeader";
-import { DateRangeModel } from "@/src/schema/dashboard.schema";
+import {
+  DateRangeModel,
+  EMPTY_HEADER_STATS,
+} from "@/src/schema/dashboard.schema";
 import {
   getUserBarStatistics,
   getUserExpenseBreakdown,
+  getUserHeaderStatistics,
 } from "@/src/actions/dashboard.action";
 import { getAvailableGranularities } from "@/src/lib/utils/granularity";
 
@@ -23,16 +27,19 @@ async function page({ searchParams }: PageProps) {
       : new Date(now.getFullYear(), now.getMonth(), 1),
     to: params?.to ? new Date(params.to) : now,
   };
-  const [barData, pieData] = await Promise.all([
+  const [barData, pieData, headerData] = await Promise.all([
     getUserBarStatistics(dateRange),
     getUserExpenseBreakdown(),
+    getUserHeaderStatistics(dateRange),
   ]);
   const granularityRange = getAvailableGranularities(dateRange);
 
   return (
     <div className="w-full pl-5 pt-5 border border-border overflow-hidden overflow-y-scroll h-full pb-15 scrollbar-styled">
       <header className=" w-full mb-5">
-        <InfoCardHeader />
+        <InfoCardHeader
+          data={headerData.success ? headerData.data : EMPTY_HEADER_STATS}
+        />
       </header>
 
       <section className="lg:block sm:hidden">

@@ -355,7 +355,7 @@
 
   .button-secondary {
     @apply inline-flex items-center justify-center
-  bg-transparent
+  bg-card
   border border-primary/30
   hover:bg-white/5
   text-text-body

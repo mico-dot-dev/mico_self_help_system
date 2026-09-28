@@ -4,9 +4,62 @@ import { ActionResponse } from "../schema/auth.schema";
 import { prisma } from "@/src/lib/prisma-client";
 import { authenticateUser } from "../lib/utils/validation-wrapper";
 import { ExpenseFrequency } from "@/src/type/chart";
-import { CashFlowPointModel, DateRangeModel } from "../schema/dashboard.schema";
+import {
+  CashFlowPointModel,
+  DateRangeModel,
+  HeaderStatisticsModel,
+  HeaderStatisticsSchema,
+} from "../schema/dashboard.schema";
+import { ReturnErrorMessage } from "../hook/ReturnErrorMessage";
+import { tr } from "zod/v4/locales";
+import { DateRange } from "../type/date-range";
+import { startOfMonth, endOfMonth } from "date-fns";
 
-export async function getUserHeaderStatistics() {}
+export async function getUserHeaderStatistics(
+  daterange: DateRangeModel,
+): Promise<ActionResponse<HeaderStatisticsModel>> {
+  return authenticateUser(async (userId) => {
+    const prevRange: DateRange = {
+      from: startOfMonth(daterange.from),
+      to: endOfMonth(daterange.to),
+    };
+    try {
+      const res = await prisma.$queryRaw<
+        HeaderStatisticsModel[]
+      >`WITH flows AS (
+          SELECT i.amount::float8 AS amount, i.date_obtained AS at, 'in' AS transit
+          FROM public.income i
+          WHERE i.user_id = ${userId}
+
+          UNION ALL
+
+          SELECT t.price::float8, t.created_at, 'out'
+          FROM public.expense e
+          JOIN public."transaction" t ON t.expense_id = e.id
+          WHERE e.user_id = ${userId}
+            AND t.status IS DISTINCT FROM 'CANCELLED'
+        )
+        SELECT
+          COALESCE(SUM(amount) FILTER (WHERE transit = 'in'), 0)  AS total_income,
+          COALESCE(SUM(amount) FILTER (WHERE transit = 'out'), 0) AS total_expense,
+          COALESCE(SUM(amount) FILTER (WHERE transit = 'in'  AND at >= ${daterange.from} AND at < ${daterange.to}), 0) AS period_income,
+          COALESCE(SUM(amount) FILTER (WHERE transit = 'out' AND at >= ${daterange.from} AND at < ${daterange.to}), 0) AS period_expense,
+          COALESCE(SUM(amount) FILTER (WHERE transit = 'in'  AND at >= ${prevRange.from} AND at < ${prevRange.to}), 0) AS prev_income,
+          COALESCE(SUM(amount) FILTER (WHERE transit = 'out' AND at >= ${prevRange.from} AND at < ${prevRange.to}), 0) AS prev_expense
+        FROM flows`;
+
+      const parsed = HeaderStatisticsSchema.safeParse(res[0]);
+      if (!parsed.success)
+        return { success: false, error: "Invalid stats shape" };
+      return { success: true, data: parsed.data };
+    } catch (e) {
+      return {
+        success: false,
+        error: ReturnErrorMessage(e),
+      };
+    }
+  });
+}
 
 export async function getUserBarStatistics(
   daterange: DateRangeModel,
@@ -44,7 +97,7 @@ export async function getUserBarStatistics(
     } catch (e) {
       return {
         success: false,
-        error: "",
+        error: ReturnErrorMessage(e),
       };
     }
   });
@@ -67,7 +120,7 @@ export async function getUserExpenseBreakdown(): Promise<
   ORDER BY frequency DESC;`;
 
       if (!res) {
-        return { success: false, error: "err" };
+        return { success: false, error: "Query Error" };
       }
 
       return {
@@ -75,7 +128,7 @@ export async function getUserExpenseBreakdown(): Promise<
         data: res,
       };
     } catch (e) {
-      return { success: false, error: "err" };
+      return { success: false, error: ReturnErrorMessage(e) };
     }
   });
 }

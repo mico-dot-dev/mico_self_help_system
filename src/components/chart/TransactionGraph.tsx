@@ -64,7 +64,7 @@ export default function CompletionAreaGraph({
       ariaLabel="Task completion rate"
       definition={createCompletionChart(data)}
       height={50}
-      width={150}
+      width={80}
     />
   );
 }
