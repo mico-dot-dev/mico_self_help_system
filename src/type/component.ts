@@ -1,10 +1,20 @@
 import { IconContainerModel } from "@/src/type/ui";
-
-export interface HeaderCardProps {
+type BaseHeaderCardModel = {
   title: string;
   CardIcon: IconContainerModel;
   amount: number;
+};
+
+interface TrendCard extends BaseHeaderCardModel {
+  kind: "trend";
   status: "up" | "down";
   statsData: number;
-  statsInfo?: React.ReactNode;
 }
+
+interface BudgetCard extends BaseHeaderCardModel {
+  kind: "budget";
+  percentage: number;
+  budgetInfo: React.ReactNode;
+}
+
+export type HeaderCardModel = TrendCard | BudgetCard;

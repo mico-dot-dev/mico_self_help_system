@@ -13,7 +13,7 @@ import {
 import { ReturnErrorMessage } from "../hook/ReturnErrorMessage";
 import { tr } from "zod/v4/locales";
 import { DateRange } from "../type/date-range";
-import { startOfMonth, endOfMonth, subMonths } from "date-fns";
+import { subMonths } from "date-fns";
 
 export async function getUserHeaderStatistics(
   daterange: DateRangeModel,
@@ -64,6 +64,7 @@ export async function getUserHeaderStatistics(
 export async function getUserBarStatistics(
   daterange: DateRangeModel,
 ): Promise<ActionResponse<CashFlowPointModel[]>> {
+  console.log("bar: " + daterange);
   return authenticateUser(async (userId) => {
     try {
       const res = await prisma.$queryRaw<CashFlowPointModel[]>`SELECT
@@ -90,6 +91,7 @@ export async function getUserBarStatistics(
           error: "",
         };
       }
+
       return {
         success: true,
         data: res,
@@ -103,21 +105,24 @@ export async function getUserBarStatistics(
   });
 }
 
-export async function getUserExpenseBreakdown(): Promise<
-  ActionResponse<ExpenseFrequency[]>
-> {
+export async function getUserExpenseBreakdown(
+  daterange: DateRangeModel,
+): Promise<ActionResponse<ExpenseFrequency[]>> {
+  console.log(daterange);
   return authenticateUser(async (userID) => {
     try {
       const res = await prisma.$queryRaw<ExpenseFrequency[]>`SELECT
     e.expense_type AS "type",
-    COUNT(t.id)::int AS frequency
+    SUM(t.price) AS amount
   FROM public.expense e
   JOIN public.transaction t
     ON t.expense_id = e.id
   WHERE e.user_id = ${userID}
     AND e.is_archived = false
+    AND t.created_at >= ${daterange.from} 
+    AND t.created_at <= ${daterange.to}
   GROUP BY e.expense_type
-  ORDER BY frequency DESC;`;
+  ORDER BY amount DESC`;
 
       if (!res) {
         return { success: false, error: "Query Error" };
@@ -132,7 +137,3 @@ export async function getUserExpenseBreakdown(): Promise<
     }
   });
 }
-
-// export async function getUserDashboardHeader():Promise<ActionResponse<{balance:number, income: number, expense:number}>>{
-
-// }

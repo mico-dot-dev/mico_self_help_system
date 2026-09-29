@@ -10,7 +10,6 @@ import { twJoin } from "tailwind-merge";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { groupIntoPages } from "@/src/lib/utils/chart-pagintation";
 import { formatPageRange } from "@/src/lib/utils/date-formatter";
-import DateRangeButton from "../ui/DateRangeButton";
 import { Square } from "lucide-react";
 
 interface CashChartProps {
@@ -43,18 +42,19 @@ function CashFlowChart({ barData, pieData, g }: CashChartProps) {
   const rangeDisplay = formatPageRange(firstPoint, lastPoint);
 
   return (
-    <div className="flex flex-col gap-3">
-      {/* <div className="flex flex-row justify-between">
-        <div className="flex items-center mr-3 ">
-          <DateRangeButton />
-        </div>
-        <div className="flex flex-row justify-between w-1/3">
+    <div className="flex flex-col gap-3 ">
+      <div className="flex flex-row justify-between card-base p-0 px-5">
+        <div className="flex flex-row justify-between w-1/4">
           <button
             className="cursor-pointer"
             disabled={pageIndex === 0}
             onClick={() => setPageIndex((i) => i - 1)}
           >
-            <ChevronLeft />
+            <ChevronLeft
+              size={15}
+              className="text-text-secondary hover:text-text-primary"
+              strokeWidth={3}
+            />
           </button>
           <span className="content-center">{rangeDisplay}</span>
           <button
@@ -62,7 +62,11 @@ function CashFlowChart({ barData, pieData, g }: CashChartProps) {
             disabled={pageIndex === pages.length - 1}
             onClick={() => setPageIndex((i) => i + 1)}
           >
-            <ChevronRight />
+            <ChevronRight
+              size={15}
+              className="text-text-secondary hover:text-text-primary"
+              strokeWidth={3}
+            />
           </button>
         </div>
         <div className="flex flex-row border border-border rounded-2xl">
@@ -71,28 +75,26 @@ function CashFlowChart({ barData, pieData, g }: CashChartProps) {
               <button
                 key={index}
                 className={twJoin(
-                  "px-7 rounded-2xl transition-colors capitalize",
+                  "px-7 rounded-2xl transition-colors capitalize h-12 cursor-pointer",
                   granularity === key
                     ? "bg-primary text-white font-medium"
                     : "bg-transparent text-text-muted hover:bg-white/5",
                 )}
-                onClick={() => setGranularity(key)}
+                onClick={async () => await setGranularity(key)}
               >
                 {key}
               </button>
             );
           })}
         </div>
-      </div> */}
+      </div>
 
       <div className="grid lg:grid-cols-5 sm:grid-cols-2 w-full gap-4 ">
         <div className="flex flex-col p-5 lg:col-span-3 sm:grid:col-span-1 card-base">
           <div className="flex justify-between mb-4">
             <div>
               <p>Cash Flow Overview</p>
-              <p className="text-text-muted text-sm">
-                Comparison of income and expense spending
-              </p>
+              <p className="text-text-muted text-sm">Income vs Expense</p>
             </div>
             <div className="flex flex-col  text-sm justify-self-end">
               <div className="flex flex-row items-center gap-2">
@@ -117,7 +119,7 @@ function CashFlowChart({ barData, pieData, g }: CashChartProps) {
           <div className="flex flex-col mb-5">
             <p>Expense Breakdown</p>
             <p className="text-text-muted text-sm">
-              Distribution across key categories
+              See where your expenses go
             </p>
           </div>
           <div>

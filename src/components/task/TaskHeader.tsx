@@ -1,52 +1,52 @@
 import React from "react";
 import AddButton from "@/src/components/ui/AddButton";
 import TaskInfoCard from "@/src/components/task/HeaderInfoCard";
-import { HeaderCardProps } from "@/src/type/component";
+import { HeaderCardModel } from "@/src/type/component";
 import { Check, Clock, CircleAlert, CalendarRange } from "lucide-react";
 
 function TaskHeader() {
-  const cardInfo: HeaderCardProps[] = [
-    {
-      title: "Completed",
-      CardIcon: {
-        Icon: Check,
-        iconColorScheme: "green",
-      },
-      amount: 8,
-      statsInfo: 12.5,
-      status: "up",
-    },
-    {
-      title: "Pending",
-      CardIcon: {
-        Icon: Clock,
-        iconColorScheme: "violet",
-      },
-      amount: 5,
-      statsInfo: 17,
-      status: "down",
-    },
-    {
-      title: "Overdue",
-      CardIcon: {
-        Icon: CircleAlert,
-        iconColorScheme: "red",
-      },
-      amount: 50,
-      statsInfo: 2,
-      status: "down",
-    },
-    {
-      title: "Total Task",
-      CardIcon: {
-        Icon: CalendarRange,
-        iconColorScheme: "blue",
-      },
-      amount: 25,
-      statsInfo: 15,
-      status: "up",
-    },
-  ];
+  // const cardInfo: HeaderCardModel[] = [
+  //   {
+  //     title: "Completed",
+  //     CardIcon: {
+  //       Icon: Check,
+  //       iconColorScheme: "green",
+  //     },
+  //     amount: 8,
+  //     statsInfo: 12.5,
+  //     status: "up",
+  //   },
+  //   {
+  //     title: "Pending",
+  //     CardIcon: {
+  //       Icon: Clock,
+  //       iconColorScheme: "violet",
+  //     },
+  //     amount: 5,
+  //     statsInfo: 17,
+  //     status: "down",
+  //   },
+  //   {
+  //     title: "Overdue",
+  //     CardIcon: {
+  //       Icon: CircleAlert,
+  //       iconColorScheme: "red",
+  //     },
+  //     amount: 50,
+  //     statsInfo: 2,
+  //     status: "down",
+  //   },
+  //   {
+  //     title: "Total Task",
+  //     CardIcon: {
+  //       Icon: CalendarRange,
+  //       iconColorScheme: "blue",
+  //     },
+  //     amount: 25,
+  //     statsInfo: 15,
+  //     status: "up",
+  //   },
+  // ];
 
   return (
     <div>
@@ -63,9 +63,9 @@ function TaskHeader() {
         </div>
       </div>
       <div className="grid grid-cols-6 gap-5 ">
-        {cardInfo.map((info, i) => {
+        {/* {cardInfo.map((info, i) => {
           return <TaskInfoCard key={i} {...info} />;
-        })}
+        })} */}
         <div className="card-base col-span-2 p-3">
           <p>Focus Mode</p>
         </div>

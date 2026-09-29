@@ -1,42 +1,31 @@
 "use client";
-
+import { useMemo } from "react";
 import { Chart } from "@tanstack/charts/react/tooltip";
 import { tooltip as exampleTooltip } from "@tanstack/charts/tooltip";
 import { defineChart } from "@tanstack/charts";
-import { pie, polar, radialArc } from "@tanstack/charts/polar";
+import { pie, polar, radialArc, radialText } from "@tanstack/charts/polar";
 import { scaleOrdinal } from "@tanstack/charts/scales/ordinal";
 import { Circle, PhilippinePeso } from "lucide-react";
 import { ExpenseFrequency } from "@/src/type/chart";
 import { ExpenseType } from "@/src/generated/prisma";
 import { upperCaseFormat } from "@/src/lib/utils/formatter";
+import {
+  formatToPercentage,
+  formatToPesoCompact,
+  formatToDecimal,
+} from "@/src/lib/utils/formatter";
 
-const sliceSize = 5;
+const expenseColorScale = scaleOrdinal(Object.values(ExpenseType), [
+  "var(--chart-bills)",
+  "var(--chart-food)",
+  "var(--chart-transport)",
+  "var(--chart-shopping)",
+  "var(--chart-other)",
+]);
 
-export function selectDonutData(rows: ExpenseFrequency[], revision = 0) {
-  const start = Math.abs(revision % 2) * sliceSize;
-  return rows.slice(start, start + sliceSize);
-}
-const expenseColorScale = scaleOrdinal(
-  [...ExpenseType.toString()],
-  [
-    "var(--chart-bills)",
-    "var(--chart-food)",
-    "var(--chart-transport)",
-    "var(--chart-shopping)",
-    "var(--chart-other)",
-  ],
-);
-
-const c = expenseColorScale;
-
-const percentage = new Intl.NumberFormat("en-US", {
-  style: "percent",
-  maximumFractionDigits: 2,
-});
-
-export const createPieChart = (data: ExpenseFrequency[]) => {
-  const arcs = pie(selectDonutData(data), {
-    value: "frequency",
+export const createPieChart = (data: ExpenseFrequency[], total: number) => {
+  const arcs = pie(data, {
+    value: "amount",
   });
 
   return defineChart(
@@ -72,7 +61,7 @@ export const createPieChart = (data: ExpenseFrequency[]) => {
         use: exampleTooltip,
         ...{
           format: ({ datum }) =>
-            `${datum.type} · ${percentage.format(datum.frequency)}`,
+            `${upperCaseFormat(datum.type)} · ${formatToPercentage.format(datum.amount / total)}`,
         },
       },
     },
@@ -87,33 +76,59 @@ interface PieGraphProps {
 }
 
 export default function PieGraph({ data }: PieGraphProps) {
-  const chart = createPieChart(data);
+  const total = useMemo(
+    () => data.reduce((sum, d) => sum + d.amount, 0),
+    [data],
+  );
+  const chart = useMemo(() => createPieChart(data, total), [data, total]);
+  if (data.length === 0 || total === 0) {
+    return <p className="text-sm text-text-muted">No expense data yet</p>;
+  }
+
   return (
     <div className="flex flex-row">
-      <Chart
-        ariaLabel={"exampleAriaLabel"}
-        definition={chart}
-        height={200}
-        width={200}
-        className=""
-      />
+      <div className="relative shrink-0">
+        <Chart
+          ariaLabel={"exampleAriaLabel"}
+          definition={chart}
+          height={200}
+          width={200}
+          className=""
+        />
+
+        <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
+          <span className="text-xs text-text-muted">Total</span>
+          <span className="text-xl font-bold text-text-primary">
+            {formatToPesoCompact.format(total)}
+          </span>
+        </div>
+      </div>
+
+      {/* Legend */}
       <div className=" flex-1">
         <ul className=" flex flex-col w-full">
           {data.map((d, i) => {
             return (
-              <li className="flex flex-row justify-between" key={i}>
-                <div className="flex flex-row gap-1">
+              <li
+                className="flex flex-row justify-between not-last:border-b border-border py-2 text-sm"
+                key={i}
+              >
+                <div className="flex flex-row gap-1.5">
                   <Circle
-                    size={12}
+                    size={10}
                     className="self-center"
                     fill={expenseColorScale(d.type)}
                     color={expenseColorScale(d.type)}
                   />
                   <p className="">{upperCaseFormat(d.type)}</p>
                 </div>
-                <div className="flex flex-row">
-                  <PhilippinePeso size={12} className="self-center" />
-                  <span>{d.frequency}</span>
+                <div className="flex flex-row font-semibold gap-1">
+                  <PhilippinePeso
+                    size={12}
+                    className="self-center"
+                    strokeWidth={3}
+                  />
+                  <span>{formatToDecimal.format(d.amount)}</span>
                 </div>
               </li>
             );

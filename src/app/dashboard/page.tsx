@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import AddButton from "@/src/components/ui/AddButton";
 import IncomeList from "@/src/components/income/IncomeList";
 import CashFlowChart from "@/src/components/dashboard/CashCharts";
-import InfoCardHeader from "@/src/components/dashboard/DashboardHeader";
+import DashboardHeader from "@/src/components/dashboard/DashboardHeader";
 import {
   DateRangeModel,
   EMPTY_HEADER_STATS,
@@ -13,6 +13,7 @@ import {
   getUserHeaderStatistics,
 } from "@/src/actions/dashboard.action";
 import { getAvailableGranularities } from "@/src/lib/utils/granularity";
+import { endOfMonth, startOfMonth } from "date-fns";
 
 interface PageProps {
   searchParams?: Promise<{ from?: string; to?: string }>;
@@ -29,18 +30,19 @@ async function page({ searchParams }: PageProps) {
   };
   const [barData, pieData, headerData] = await Promise.all([
     getUserBarStatistics(dateRange),
-    getUserExpenseBreakdown(),
-    getUserHeaderStatistics(dateRange),
+    getUserExpenseBreakdown(dateRange),
+    getUserHeaderStatistics({
+      from: startOfMonth(new Date()),
+      to: endOfMonth(new Date()),
+    }),
   ]);
   const granularityRange = getAvailableGranularities(dateRange);
 
   return (
     <div className="flex flex-col w-full pl-5 pt-5 h-full pb-15 gap-3">
-      <header className=" w-full">
-        <InfoCardHeader
-          data={headerData.success ? headerData.data : EMPTY_HEADER_STATS}
-        />
-      </header>
+      <DashboardHeader
+        data={headerData.success ? headerData.data : EMPTY_HEADER_STATS}
+      />
 
       <section className="lg:block sm:hidden">
         <Suspense>

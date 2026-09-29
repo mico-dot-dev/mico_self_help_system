@@ -11,5 +11,5 @@ export const granularityMap = {
 //Pie Chart
 export interface ExpenseFrequency {
   type: ExpenseType;
-  frequency: number;
+  amount: number;
 }

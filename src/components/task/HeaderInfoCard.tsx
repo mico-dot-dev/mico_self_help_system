@@ -1,5 +1,5 @@
 import React from "react";
-import { HeaderCardProps } from "@/src/type/component";
+import { HeaderCardModel } from "@/src/type/component";
 import {
   TrendingUp,
   TrendingDown,
@@ -10,13 +10,7 @@ import {
 import IconContainer from "../ui/IconContainer";
 import { twJoin } from "tailwind-merge";
 
-function HeaderInfoCard({
-  title,
-  CardIcon,
-  amount,
-  statsAmount,
-  status,
-}: HeaderCardProps) {
+function HeaderInfoCard({ title, CardIcon, amount, kind }: HeaderCardModel) {
   const ArrowIcon: LucideIcon = status === "up" ? ArrowUp : ArrowDown;
   let TrendingIcon: LucideIcon = TrendingDown;
   let trendColor = "text-[#ef4444]";
@@ -48,7 +42,7 @@ function HeaderInfoCard({
           )}
         >
           <ArrowIcon size={15} />
-          <p>{statsAmount}% from last week</p>
+          {/* <p>{statsAmount}% from last week</p> */}
         </span>
       </div>
       <div></div>
