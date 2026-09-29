@@ -64,7 +64,6 @@ export async function getUserHeaderStatistics(
 export async function getUserBarStatistics(
   daterange: DateRangeModel,
 ): Promise<ActionResponse<CashFlowPointModel[]>> {
-  console.log("bar: " + daterange);
   return authenticateUser(async (userId) => {
     try {
       const res = await prisma.$queryRaw<CashFlowPointModel[]>`SELECT
@@ -108,7 +107,6 @@ export async function getUserBarStatistics(
 export async function getUserExpenseBreakdown(
   daterange: DateRangeModel,
 ): Promise<ActionResponse<ExpenseFrequency[]>> {
-  console.log(daterange);
   return authenticateUser(async (userID) => {
     try {
       const res = await prisma.$queryRaw<ExpenseFrequency[]>`SELECT

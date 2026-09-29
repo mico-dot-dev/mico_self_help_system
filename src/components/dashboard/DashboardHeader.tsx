@@ -63,7 +63,8 @@ async function InfoCardHeader({ data }: HeaderStatisticsProps) {
       },
       amount: 5127.45,
       percentage: 0,
-      budgetInfo: <></>,
+      budget: 300,
+      budgetRemaining: 200,
     },
   ];
 

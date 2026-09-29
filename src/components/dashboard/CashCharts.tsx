@@ -37,8 +37,9 @@ function CashFlowChart({ barData, pieData, g }: CashChartProps) {
     return <p>No data</p>;
   }
 
-  const firstPoint = currentPage.points[0].date;
-  const lastPoint = currentPage.points[currentPage.points.length - 1].date;
+  const firstPoint = currentPage.points[0]?.date || new Date();
+  const lastPoint =
+    currentPage.points[currentPage.points.length - 1]?.date || new Date();
   const rangeDisplay = formatPageRange(firstPoint, lastPoint);
 
   return (

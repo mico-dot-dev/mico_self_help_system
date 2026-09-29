@@ -2,13 +2,25 @@ import React, { ReactNode } from "react";
 import { HeaderCardModel } from "@/src/type/component";
 import { Minus, PhilippinePeso, Plus, TrendingUp } from "lucide-react";
 import IconContainer from "../ui/IconContainer";
-import CompletionAreaGraph from "../chart/TransactionGraph";
 import { twJoin } from "tailwind-merge";
-import { formatFloat } from "@/src/lib/utils/formatter";
+import { formatFloat, formatToPercentage } from "@/src/lib/utils/formatter";
+
+import CompletionAreaGraph from "../chart/TransactionGraph";
+import { CompletionPoint } from "../chart/TransactionGraph";
 
 type HeaderProps = {
   data: HeaderCardModel;
 };
+
+const dummyData: CompletionPoint[] = [
+  { day: "mon", value: 3 },
+  { day: "tue", value: 5 },
+  { day: "wed", value: 7 },
+  { day: "thur", value: 8 },
+  { day: "fri", value: 9 },
+  { day: "sat", value: 10 },
+  { day: "sun", value: 2 },
+];
 
 function InfoCard({ data }: HeaderProps) {
   return (
@@ -24,16 +36,23 @@ function InfoCard({ data }: HeaderProps) {
           <p className="text-text-secondary font-semibold">{data.title}</p>
         </div>
         <div>
-          {data.kind === "budget" && <>{data.percentage}</>}
           <div className="flex flex-col">
-            <div className="flex flex-row text-xl font-bold items-center gap-1">
-              <PhilippinePeso size={22} className="" />
+            <div
+              className={twJoin(
+                "flex flex-row items-center gap-0.5 font-semibold",
+                data.kind === "budget" ? "text-xl " : "text-xl ",
+              )}
+            >
+              <PhilippinePeso
+                size={data.kind === "budget" ? 12 : 22}
+                className="self-center"
+              />
               <p> {formatFloat(data.amount)}</p>
             </div>
           </div>
         </div>
         <div>
-          {data.kind == "trend" && (
+          {data.kind == "trend" ? (
             <div
               className={twJoin(
                 "text-xs flex flex-row",
@@ -45,8 +64,32 @@ function InfoCard({ data }: HeaderProps) {
                 {formatFloat(data.statsData)} % from last month
               </span>
             </div>
+          ) : (
+            <div className="text-xs text-text-muted flex flex-row gap-1 font-semibold">
+              <span className="flex flex-row">
+                <PhilippinePeso
+                  size={9}
+                  className="self-center"
+                  strokeWidth={3}
+                />
+                <span>{data.budgetRemaining}</span>
+              </span>
+              <span>of</span>
+              <span className="flex flex-row">
+                <PhilippinePeso
+                  size={9}
+                  className="self-center"
+                  strokeWidth={3}
+                />
+                <span>{data.budgetRemaining}</span>
+              </span>
+              <span> budget</span>
+            </div>
           )}
         </div>
+      </div>
+      <div className=" content-center">
+        <CompletionAreaGraph data={dummyData} />
       </div>
     </div>
   );

@@ -14,7 +14,8 @@ interface TrendCard extends BaseHeaderCardModel {
 interface BudgetCard extends BaseHeaderCardModel {
   kind: "budget";
   percentage: number;
-  budgetInfo: React.ReactNode;
+  budget: number;
+  budgetRemaining: number;
 }
 
 export type HeaderCardModel = TrendCard | BudgetCard;
