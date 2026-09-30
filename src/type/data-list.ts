@@ -21,6 +21,6 @@ export interface ToolBarProps {
 export interface DataListProps {
   module: AppModule;
   buttonModule?: ModuleWithModals;
-  toolBarProps: ToolBarProps;
+  toolBarProps?: ToolBarProps;
   searchParams?: ListParams;
 }

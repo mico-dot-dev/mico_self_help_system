@@ -7,8 +7,8 @@ import AddButton from "@/src/components/ui/AddButton";
 
 function Toolbar({ module, buttonModule, toolBarProps }: DataListProps) {
   return (
-    <div className="flex flex-col">
-      <div className="flex flex-row mb-3 items-stretch h-12">
+    <div className="flex flex-col gap-3">
+      <div className="flex flex-row  items-stretch h-12">
         {/* Search Bar */}
         <div className="flex-1 min-h-full ">
           <SearchBar />
@@ -22,14 +22,16 @@ function Toolbar({ module, buttonModule, toolBarProps }: DataListProps) {
           {buttonModule && <AddButton content={buttonModule} size="md" />}
         </div>
       </div>
-      <div className="w-full overflow-x-auto scrollbar-styled pb-3">
-        <Suspense>
-          <CategoryList
-            module={module}
-            content={toolBarProps.categoryContent}
-          />
-        </Suspense>
-      </div>
+      {toolBarProps && (
+        <div className="w-full overflow-x-auto scrollbar-styled pb-3">
+          <Suspense>
+            <CategoryList
+              module={module}
+              content={toolBarProps.categoryContent}
+            />
+          </Suspense>
+        </div>
+      )}
     </div>
   );
 }

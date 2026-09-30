@@ -10,7 +10,8 @@ export type IconTypes =
   | "amber"
   | "red"
   | "blue"
-  | "violetA";
+  | "violetA"
+  | "violetB";
 
 export interface IconContents {
   color: string;
