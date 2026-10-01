@@ -23,4 +23,5 @@ export interface DataListProps {
   buttonModule?: ModuleWithModals;
   toolBarProps?: ToolBarProps;
   searchParams?: ListParams;
+  groupBy?: boolean;
 }

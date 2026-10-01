@@ -131,20 +131,15 @@ function AccountForm() {
               </fieldset>
             </div>
 
-            <div className="aura text-text-info duration-3000 rounded-4xl">
-              <div
-                className={twJoin(
-                  "cursor-pointer button-base rounded-4xl h-12 text-lg flex items-center justify-center",
-                  isSubmitting && "opacity-70 cursor-not-allowed",
-                )}
-              >
-                <button
-                  className="cursor-pointer"
+            <div className="aura text-text-info duration-3000 rounded-4xl ">
+              <div className="button-aura rounded-4xl">
+                <Button
                   type="submit"
+                  variant={"action"}
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? "Loading" : content.mode}
-                </button>
+                </Button>
               </div>
             </div>
           </form>

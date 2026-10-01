@@ -101,7 +101,7 @@ async function page({ searchParams }: PageProps) {
                 return (
                   <Button
                     variant={"secondary"}
-                    className="h-fit p-1 gap-1"
+                    className="h-fit p-1 gap-1 text-sm"
                     key={i}
                   >
                     <IconContainer

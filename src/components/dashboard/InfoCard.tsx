@@ -61,7 +61,7 @@ function InfoCard({ data }: HeaderProps) {
             >
               <span>
                 {data.status === "up" ? " +" : "-"}
-                {formatFloat(data.statsData)} % from last month
+                {data.statsData} % from last month
               </span>
             </div>
           ) : (

@@ -340,43 +340,54 @@
   }
 
   /* ---------- Button ---------- */
+
+  .button-base {
+    @apply inline-flex items-center justify-center 
+    cursor-pointer 
+    transition-all duration-200 
+    active:scale-95 
+
+    focus-visible:outline-2 
+    focus-visible:outline-offset-2 
+    focus-visible:outline-primary 
+
+    disabled:bg-border-subtle
+    disabled:text-text-disabled
+    disabled:cursor-not-allowed
+    disabled:opacity-70 
+
+    w-full;
+  }
+
   .button-primary {
-    @apply inline-flex items-center justify-center
-  bg-primary
-  hover:bg-primary-hover
-  active:bg-primary-pressed
-  text-white
-  transition-colors
-  cursor-pointer
-  disabled:bg-border-subtle
-  disabled:text-text-disabled
-  disabled:cursor-not-allowed;
+    @apply bg-primary
+    hover:bg-primary-hover
+    active:bg-primary-pressed
+    text-white;
   }
 
   .button-secondary {
-    @apply inline-flex items-center justify-center
-  bg-card
-  border border-primary/30
-  hover:bg-white/5
-  text-text-body
-  transition-colors
-  disabled:bg-border-subtle
-  disabled:text-text-disabled
-  disabled:cursor-not-allowed;
+    @apply bg-card
+    border border-primary/30
+    hover:bg-white/5
+    text-text-body;
   }
 
-  .button-base {
-    @apply cursor-pointer 
-    bg-surface text-text-primary 
-    border-2 border-border
-    items-center
-    transition-all duration-200 ease-in-out 
-    hover:bg-primary hover:shadow-[0_0_15px_rgba(168,85,247,0.5)]
-      hover:text-background
+  .button-aura {
+    @apply bg-surface 
+    text-text-primary 
+    border-2 
+    border-border
 
-      focus:outline-2 focus:outline-info focus:outline-offset-1 
-      not-hover:outline-none
-      active:scale-95;
+    duration-200 ease-in-out 
+
+    hover:bg-primary 
+    hover:shadow-[0_0_15px_rgba(168,85,247,0.5)]
+    hover:text-background
+
+    focus:outline-info 
+    not-hover:outline-none
+    active:scale-95;
   }
 
   /* ---------- Modal ---------- */

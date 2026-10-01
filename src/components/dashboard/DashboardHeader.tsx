@@ -17,6 +17,7 @@ interface HeaderStatisticsProps {
 async function InfoCardHeader({ data }: HeaderStatisticsProps) {
   const pct = (curr: number, prev: number) =>
     prev === 0 ? 0 : ((curr - prev) / prev) * 100;
+
   const cardData: HeaderCardModel[] = [
     {
       kind: "trend",
@@ -50,7 +51,7 @@ async function InfoCardHeader({ data }: HeaderStatisticsProps) {
         iconColorScheme: "red",
       },
       amount: data.period_expense,
-      status: data.period_expense >= data.prev_expense ? "up" : "down",
+      status: data.prev_expense >= data.period_expense ? "up" : "down",
       statsData: Math.abs(pct(data.period_expense, data.prev_expense)),
     },
 

@@ -5,7 +5,12 @@ import Filter from "@/src/components/ui/Filter";
 import { DataListProps } from "@/src/type/data-list";
 import AddButton from "@/src/components/ui/AddButton";
 
-function Toolbar({ module, buttonModule, toolBarProps }: DataListProps) {
+function Toolbar({
+  module,
+  buttonModule,
+  toolBarProps,
+  groupBy,
+}: DataListProps) {
   return (
     <div className="flex flex-col gap-3">
       <div className="flex flex-row  items-stretch h-12">
@@ -14,9 +19,11 @@ function Toolbar({ module, buttonModule, toolBarProps }: DataListProps) {
           <SearchBar />
         </div>
         {/* Filter Buttons */}
-        <div className="flex pl-15 min-h-full">
-          <Filter />
-        </div>
+        {groupBy && (
+          <div className="flex pl-15 min-h-full">
+            <Filter />
+          </div>
+        )}
         {/* Add Button */}
         <div className="flex min-h-full pl-3">
           {buttonModule && <AddButton content={buttonModule} size="md" />}
