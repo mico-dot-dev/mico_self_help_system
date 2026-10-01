@@ -116,8 +116,7 @@ export async function getUserExpenseBreakdown(
   JOIN public.transaction t
     ON t.expense_id = e.id
   WHERE e.user_id = ${userID}
-    AND e.is_archived = false
-    AND t.created_at >= ${daterange.from} 
+    AND t.created_at >= ${daterange.from}
     AND t.created_at <= ${daterange.to}
   GROUP BY e.expense_type
   ORDER BY amount DESC`;

@@ -21,19 +21,18 @@ import DataListContainer from "@/src/components/ui/DataListContainer";
 import { ListParams } from "@/src/type/data-list";
 
 interface PageProps {
-  dateSearchParams?: Promise<{ from?: string; to?: string }>;
-  searchParams?: Promise<ListParams>;
+  searchParams?: Promise<DateRangeModel & ListParams>;
 }
 
-async function page({ dateSearchParams, searchParams }: PageProps) {
-  const dateParams = await dateSearchParams;
+async function page({ searchParams }: PageProps) {
   const params = await searchParams;
+
   const now = new Date();
   const dateRange: DateRangeModel = {
-    from: dateParams?.from
-      ? new Date(dateParams.from)
-      : new Date(now.getFullYear(), now.getMonth(), 1),
-    to: dateParams?.to ? new Date(dateParams.to) : now,
+    from: params?.from
+      ? new Date(params.from)
+      : new Date(Date.UTC(now.getFullYear(), now.getMonth(), 1)),
+    to: params?.to ? new Date(params.to) : now,
   };
   const [barData, pieData, headerData] = await Promise.all([
     getUserBarStatistics(dateRange),
