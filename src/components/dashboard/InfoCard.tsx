@@ -1,26 +1,13 @@
 import React, { ReactNode } from "react";
 import { HeaderCardModel } from "@/src/type/component";
-import { Minus, PhilippinePeso, Plus, TrendingUp } from "lucide-react";
+import { PhilippinePeso } from "lucide-react";
 import IconContainer from "../ui/IconContainer";
 import { twJoin } from "tailwind-merge";
-import { formatFloat, formatToPercentage } from "@/src/lib/utils/formatter";
-
-import CompletionAreaGraph from "../chart/TransactionGraph";
-import { CompletionPoint } from "../chart/TransactionGraph";
+import { formatFloat } from "@/src/lib/utils/formatter";
 
 type HeaderProps = {
   data: HeaderCardModel;
 };
-
-const dummyData: CompletionPoint[] = [
-  { day: "mon", value: 3 },
-  { day: "tue", value: 5 },
-  { day: "wed", value: 7 },
-  { day: "thur", value: 8 },
-  { day: "fri", value: 9 },
-  { day: "sat", value: 10 },
-  { day: "sun", value: 2 },
-];
 
 function InfoCard({ data }: HeaderProps) {
   return (
@@ -88,9 +75,7 @@ function InfoCard({ data }: HeaderProps) {
           )}
         </div>
       </div>
-      <div className=" content-center">
-        <CompletionAreaGraph data={dummyData} />
-      </div>
+      <div className=" content-center">{data.chart && <>{data.chart}</>}</div>
     </div>
   );
 }

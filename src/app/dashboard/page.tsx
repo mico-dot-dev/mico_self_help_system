@@ -38,8 +38,8 @@ async function page({ searchParams }: PageProps) {
     getUserBarStatistics(dateRange),
     getUserExpenseBreakdown(dateRange),
     getUserHeaderStatistics({
-      from: startOfMonth(new Date()),
-      to: endOfMonth(new Date()),
+      from: startOfMonth(now),
+      to: endOfMonth(now),
     }),
   ]);
   const granularityRange = getAvailableGranularities(dateRange);

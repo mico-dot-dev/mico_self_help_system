@@ -1,18 +1,30 @@
 import React from "react";
-import InfoCard from "@/src/components/dashboard/InfoCard";
-import { HeaderCardModel } from "@/src/type/component";
+import InfoCard from "@/components/dashboard/InfoCard";
+import { HeaderCardModel } from "@/type/component";
 import {
   CreditCard,
   TrendingUp,
   TrendingDown,
   PhilippinePeso,
 } from "lucide-react";
-import { HeaderStatisticsModel } from "@/src/schema/dashboard.schema";
+import { HeaderStatisticsModel } from "@/schema/dashboard.schema";
 import DateRangeButton from "../ui/DateRangeButton";
+import CompletionAreaGraph from "../chart/TransactionGraph";
+import { LineChartModel } from "@/type/chart";
 
 interface HeaderStatisticsProps {
   data: HeaderStatisticsModel;
 }
+
+const dummyData: LineChartModel[] = [
+  { day: "mon", value: 3 },
+  { day: "tue", value: 5 },
+  { day: "wed", value: 7 },
+  { day: "thur", value: 8 },
+  { day: "fri", value: 9 },
+  { day: "sat", value: 10 },
+  { day: "sun", value: 2 },
+];
 
 async function InfoCardHeader({ data }: HeaderStatisticsProps) {
   const pct = (curr: number, prev: number) =>
@@ -29,6 +41,7 @@ async function InfoCardHeader({ data }: HeaderStatisticsProps) {
       amount: data.total_income - data.total_expense,
       status: "up",
       statsData: 12.5,
+      chart: <CompletionAreaGraph data={dummyData} />,
     },
     {
       kind: "trend",

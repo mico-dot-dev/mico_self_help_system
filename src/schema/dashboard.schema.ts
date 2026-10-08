@@ -1,4 +1,5 @@
 import z from "zod";
+import { LineChartModel } from "@/srctype/chart";
 
 export const CashFlowPointSchema = z.object({
   date: z.coerce.date(),

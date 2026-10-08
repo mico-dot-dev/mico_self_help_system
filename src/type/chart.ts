@@ -13,3 +13,9 @@ export interface ExpenseFrequency {
   type: ExpenseType;
   amount: number;
 }
+
+// Line Chart
+export interface LineChartModel {
+  day: string;
+  value: number;
+}

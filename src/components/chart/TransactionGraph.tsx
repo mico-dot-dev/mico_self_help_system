@@ -5,16 +5,12 @@ import { Chart } from "@tanstack/charts/react/tooltip";
 import { tooltip } from "@tanstack/charts/tooltip";
 import { scaleLinear, scalePoint } from "d3-scale";
 import { curveMonotoneX } from "d3-shape";
+import { LineChartModel } from "@/src/type/chart";
 
-export interface CompletionPoint {
-  day: string; // "Mon" ... "Sun"
-  value: number; // 0-100
-}
-
-const BRAND = "#a855f7"; // ideally read from your --color-primary token
+const BRAND = "#a855f7";
 const curve = d3Curve(curveMonotoneX);
 
-const createCompletionChart = (data: CompletionPoint[]) =>
+const createCompletionChart = (data: LineChartModel[]) =>
   defineChart(
     {
       marks: [
@@ -57,7 +53,7 @@ const createCompletionChart = (data: CompletionPoint[]) =>
 export default function CompletionAreaGraph({
   data,
 }: {
-  data: CompletionPoint[];
+  data: LineChartModel[];
 }) {
   return (
     <Chart
