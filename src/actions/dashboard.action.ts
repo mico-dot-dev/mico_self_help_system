@@ -11,9 +11,9 @@ import {
   HeaderStatisticsSchema,
 } from "../schema/dashboard.schema";
 import { ReturnErrorMessage } from "../hook/ReturnErrorMessage";
-import { tr } from "zod/v4/locales";
 import { DateRange } from "../type/date-range";
 import { subMonths } from "date-fns";
+import { createDateRange } from "@/srclib/utils/date-formatter";
 
 export async function getUserHeaderStatistics(
   daterange: DateRangeModel,
@@ -48,9 +48,25 @@ export async function getUserHeaderStatistics(
           COALESCE(SUM(amount) FILTER (WHERE transit = 'out' AND at >= ${prevRange.from} AND at < ${prevRange.to}), 0) AS prev_expense
         FROM flows`;
 
+      console.log("test");
+      const test: DateRangeModel = {
+        from: new Date("2026-01-01"),
+        to: new Date("2026-10-01"),
+      };
+      const r = await getUserBarStatistics(test);
+      console.log(r);
+      if (r.success) {
+        r.data.map((d) => {
+          console.log(createDateRange(d.date, "week"));
+        });
+      } else {
+        console.log("r error");
+      }
+
       const parsed = HeaderStatisticsSchema.safeParse(res[0]);
       if (!parsed.success)
         return { success: false, error: "Invalid stats shape" };
+
       return { success: true, data: parsed.data };
     } catch (e) {
       return {
