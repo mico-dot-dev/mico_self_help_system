@@ -13,7 +13,8 @@ import {
 import { ReturnErrorMessage } from "../hook/ReturnErrorMessage";
 import { DateRange } from "../type/date-range";
 import { subMonths } from "date-fns";
-import { createDateRange } from "@/srclib/utils/date-formatter";
+import { format } from "date-fns";
+import { WeeklyStatisticsModel } from "../schema/dashboard.schema";
 
 export async function getUserHeaderStatistics(
   daterange: DateRangeModel,
@@ -24,46 +25,57 @@ export async function getUserHeaderStatistics(
       to: subMonths(daterange.to, 1),
     };
     try {
-      const res = await prisma.$queryRaw<
-        HeaderStatisticsModel[]
-      >`WITH flows AS (
-          SELECT i.amount::float8 AS amount, i.date_obtained AS at, 'in' AS transit
+      const from = format(daterange.from, "yyyy-MM-dd");
+      const to = format(daterange.to, "yyyy-MM-dd");
+
+      const res = await prisma.$queryRaw<HeaderStatisticsModel[]>`
+        WITH weeks AS (
+          SELECT
+          n AS week_index
+          FROM generate_series(0, (((${to}::date - ${from}::date)) / 7)::int) AS n
+        ),
+        flows AS (
+          SELECT (i.date_obtained AT TIME ZONE 'Asia/Manila')::date AS day,
+                 i.amount::float8 AS amount, 'in' AS transit
           FROM public.income i
-          WHERE i.user_id = ${userId}
+          WHERE i.user_id = ${userId}::uuid
 
           UNION ALL
 
-          SELECT t.price::float8, t.created_at, 'out'
+          SELECT (t.created_at AT TIME ZONE 'Asia/Manila')::date,
+                 t.price::float8, 'out'
           FROM public.expense e
           JOIN public."transaction" t ON t.expense_id = e.id
-          WHERE e.user_id = ${userId}
+          WHERE e.user_id = ${userId}::uuid
             AND t.status IS DISTINCT FROM 'CANCELLED'
-        )
-        SELECT
-          COALESCE(SUM(amount) FILTER (WHERE transit = 'in'), 0)  AS total_income,
-          COALESCE(SUM(amount) FILTER (WHERE transit = 'out'), 0) AS total_expense,
-          COALESCE(SUM(amount) FILTER (WHERE transit = 'in'  AND at >= ${daterange.from} AND at < ${daterange.to}), 0) AS period_income,
-          COALESCE(SUM(amount) FILTER (WHERE transit = 'out' AND at >= ${daterange.from} AND at < ${daterange.to}), 0) AS period_expense,
-          COALESCE(SUM(amount) FILTER (WHERE transit = 'in'  AND at >= ${prevRange.from} AND at < ${prevRange.to}), 0) AS prev_income,
-          COALESCE(SUM(amount) FILTER (WHERE transit = 'out' AND at >= ${prevRange.from} AND at < ${prevRange.to}), 0) AS prev_expense
-        FROM flows`;
+        ),
 
-      console.log("test");
-      const test: DateRangeModel = {
-        from: new Date("2026-01-01"),
-        to: new Date("2026-10-01"),
-      };
-      const r = await getUserBarStatistics(test);
-      console.log(r);
-      if (r.success) {
-        r.data.map((d) => {
-          console.log(createDateRange(d.date, "week"));
-        });
-      } else {
-        console.log("r error");
-      }
+        weekly_statistics AS(
+        SELECT w.week_index,
+          COALESCE(SUM(f.amount) FILTER (WHERE f.transit = 'in'),  0) AS income,
+          COALESCE(SUM(f.amount) FILTER (WHERE f.transit = 'out'), 0) AS expense
+        FROM weeks w
+        LEFT JOIN flows f ON f.day BETWEEN ${from} AND ${to}
+        GROUP BY w.week_index
+        ORDER BY w.week_index),
+
+        totals AS (
+          SELECT
+          COALESCE(SUM(amount) FILTER (WHERE transit = 'in'),  0) AS total_income,
+          COALESCE(SUM(amount) FILTER (WHERE transit = 'out'), 0) AS total_expense,
+          COALESCE(SUM(amount) FILTER (WHERE transit = 'in'  AND day BETWEEN ${from}::date AND ${to}::date), 0) AS period_income,
+          COALESCE(SUM(amount) FILTER (WHERE transit = 'out' AND day BETWEEN ${from}::date AND ${to}::date), 0) AS period_expense,
+          COALESCE(SUM(amount) FILTER (WHERE transit = 'in'  AND day BETWEEN ${prevRange.from}::date AND ${prevRange.to}::date), 0) AS prev_income,
+          COALESCE(SUM(amount) FILTER (WHERE transit = 'out' AND day BETWEEN ${prevRange.from}::date AND ${prevRange.to}::date), 0) AS prev_expense
+          FROM flows
+        )
+        SELECT t.*,
+              (SELECT COALESCE(json_agg(w ORDER BY w.week_index), '[]'::json) FROM weekly_statistics w) AS weekly_statistics
+        FROM totals t
+        `;
 
       const parsed = HeaderStatisticsSchema.safeParse(res[0]);
+
       if (!parsed.success)
         return { success: false, error: "Invalid stats shape" };
 

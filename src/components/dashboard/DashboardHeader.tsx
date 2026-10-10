@@ -9,28 +9,27 @@ import {
 } from "lucide-react";
 import { HeaderStatisticsModel } from "@/schema/dashboard.schema";
 import DateRangeButton from "../ui/DateRangeButton";
-import CompletionAreaGraph from "../chart/TransactionGraph";
 import { LineChartModel } from "@/type/chart";
 
 interface HeaderStatisticsProps {
   data: HeaderStatisticsModel;
 }
 
-const dummyData: LineChartModel[] = [
-  { day: "mon", value: 3 },
-  { day: "tue", value: 5 },
-  { day: "wed", value: 7 },
-  { day: "thur", value: 8 },
-  { day: "fri", value: 9 },
-  { day: "sat", value: 10 },
-  { day: "sun", value: 2 },
-];
-
 async function InfoCardHeader({ data }: HeaderStatisticsProps) {
   const pct = (curr: number, prev: number) =>
     prev === 0 ? 0 : ((curr - prev) / prev) * 100;
 
+  const incomeSeries: LineChartModel[] = data.weekly_statistics.map((w) => ({
+    day: `W${w.week_index + 1}`,
+    value: w.income,
+  }));
+  const expenseSeries: LineChartModel[] = data.weekly_statistics.map((w) => ({
+    day: `W${w.week_index + 1}`,
+    value: w.expense,
+  }));
+
   const cardData: HeaderCardModel[] = [
+    //Total Income
     {
       kind: "trend",
       title: "Total Balance",
@@ -41,21 +40,23 @@ async function InfoCardHeader({ data }: HeaderStatisticsProps) {
       amount: data.total_income - data.total_expense,
       status: "up",
       statsData: 12.5,
-      chart: <CompletionAreaGraph data={dummyData} />,
     },
+
+    //Monthly Income
     {
       kind: "trend",
-
       title: "Monthly Income",
       CardIcon: {
         Icon: TrendingUp,
         iconColorScheme: "green",
       },
-
       amount: data.period_income,
       status: data.period_income >= data.prev_income ? "up" : "down",
       statsData: Math.abs(pct(data.period_income, data.prev_income)),
+      chartData: incomeSeries,
     },
+
+    //Monthly Expenses
     {
       kind: "trend",
       title: "Monthly Expense",
@@ -66,8 +67,10 @@ async function InfoCardHeader({ data }: HeaderStatisticsProps) {
       amount: data.period_expense,
       status: data.prev_expense >= data.period_expense ? "up" : "down",
       statsData: Math.abs(pct(data.period_expense, data.prev_expense)),
+      chartData: expenseSeries,
     },
 
+    //Monthly Budget
     {
       kind: "budget",
       title: "Budget Usage",

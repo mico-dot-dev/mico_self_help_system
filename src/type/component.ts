@@ -1,11 +1,12 @@
 import { IconContainerModel } from "@/src/type/ui";
 import { LucideIcon } from "lucide-react";
-import { ReactNode } from "react";
+import { LineChartModel } from "@/src/type/chart";
+
 type BaseHeaderCardModel = {
   title: string;
   CardIcon: IconContainerModel;
   amount: number;
-  chart?: ReactNode;
+  chartData?: LineChartModel[];
 };
 
 interface TrendCard extends BaseHeaderCardModel {
