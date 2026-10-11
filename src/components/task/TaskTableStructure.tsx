@@ -16,8 +16,8 @@ export const taskColumns: Array<ColumnDef<{}, TaskListModel>> = [
     ),
   },
   {
-    accessorKey: "title",
-    header: "Title",
+    accessorKey: "task",
+    header: "Task",
     cell: ({ row }) => (
       <div>
         <p>{row.original.title}</p>

@@ -53,22 +53,22 @@ function TaskHeader() {
       {" "}
       <div className="flex flex-row justify-between">
         <div>
-          <p className="text-2xl font-bold text-text-primary">Hi Aki</p>
+          <p className="text-2xl font-semibold text-text-primary">Tasks</p>
           <p className="p-0 m-0">
             Here's what's happening with your task today
           </p>
         </div>
-        <div className="w-50 content-center">
+        {/* <div className="w-50 content-center">
           <AddButton content="task" size="sm" />
-        </div>
+        </div> */}
       </div>
       <div className="grid grid-cols-6 gap-5 ">
         {/* {cardInfo.map((info, i) => {
           return <TaskInfoCard key={i} {...info} />;
         })} */}
-        <div className="card-base col-span-2 p-3">
+        {/* <div className="card-base col-span-2 p-3">
           <p>Focus Mode</p>
-        </div>
+        </div> */}
       </div>
     </div>
   );

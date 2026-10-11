@@ -50,7 +50,7 @@ function TableData<T extends RowData>({ columns, data }: TableDataProps<T>) {
   return (
     <>
       <table className="table table-auto border border-border ">
-        <thead className="bg-table-header">
+        <thead className="">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
@@ -77,17 +77,28 @@ function TableData<T extends RowData>({ columns, data }: TableDataProps<T>) {
           ))}
         </thead>
         <tbody>
-          {table.getRowModel().rows.map((row) => {
-            return (
-              <tr key={row.id}>
-                {row.getAllCells().map((cell) => (
-                  <td key={cell.id}>
-                    <table.FlexRender cell={cell} />
-                  </td>
-                ))}
-              </tr>
-            );
-          })}
+          {table.getRowModel().rows.length === 0 ? (
+            <tr>
+              <td
+                colSpan={columns.length}
+                className="py-16 text-center text-text-muted"
+              >
+                No recorded yet.
+              </td>
+            </tr>
+          ) : (
+            table.getRowModel().rows.map((row) => {
+              return (
+                <tr key={row.id}>
+                  {row.getAllCells().map((cell) => (
+                    <td key={cell.id} className="text-left tabular-nums">
+                      <table.FlexRender cell={cell} />
+                    </td>
+                  ))}
+                </tr>
+              );
+            })
+          )}
         </tbody>
       </table>
 

@@ -2,6 +2,7 @@ import { ComponentType } from "react";
 import TaskList from "@/src/components/task/TaskList";
 import ExpenseList from "@/src/components/expense/ExpenseList";
 import StockList from "@/src/components/stock/StockList";
+import IncomeList from "@/srccomponents/income/IncomeList";
 import TransactionList from "@/src/components/transaction/TransactionList";
 import { AppModule } from "@/src/type/module";
 import { ListParams } from "@/src/type/data-list";
@@ -16,7 +17,7 @@ export const dataListRegistry: Record<
 > = {
   task: TaskList,
   expense: ExpenseList,
-  income: ExpenseList,
+  income: IncomeList,
   stock: StockList,
   transaction: TransactionList,
 };

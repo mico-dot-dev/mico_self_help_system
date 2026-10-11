@@ -21,7 +21,7 @@ async function page({ searchParams }: PageProps) {
     <div className="content-container-base h-full overflow-y-scroll">
       <header className="flex flex-col mb-5 gap-3">
         <TaskHeader />
-        <TaskStatisticsWrapper />
+        {/* <TaskStatisticsWrapper /> */}
       </header>
       <div className="flex flex-col flex-1 h-full">
         <DataListContainer
