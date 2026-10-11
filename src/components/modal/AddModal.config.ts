@@ -49,7 +49,13 @@ export const FORM_REGISTRY: Record<ModuleWithModals, AddContents> = {
 
   income: {
     label: "Income",
-    description: "",
+    description: "Add a new income source and track your earnings.",
+    AddFormComponent: IncomeForm,
+  },
+
+  budget: {
+    label: "Budget",
+    description: "Set spending limits and keep your finances organized.",
     AddFormComponent: IncomeForm,
   },
 };
