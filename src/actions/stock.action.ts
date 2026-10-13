@@ -5,11 +5,11 @@ import { ActionResponse } from "@/src/schema/auth.schema";
 import { StockModel } from "../schema/stock.schema";
 import { TaskFormModelOutput } from "@/src/schema/task.schema";
 import { revalidatePath } from "next/cache";
-import { authenticateUser } from "@/src/lib/utils/validation-wrapper";
+import { withAuth } from "@/src/lib/utils/validation-wrapper";
 import { StockListSchema } from "../schema/expense.schema";
 
 export async function GetUserStock(): Promise<ActionResponse<StockModel[]>> {
-  return authenticateUser(async (userId) => {
+  return withAuth(async (userId) => {
     try {
       const userStock = await prisma.expense.findMany({
         where: {
@@ -67,7 +67,7 @@ export async function ManageStockAmount(
     };
   }
 
-  const insertRes = await authenticateUser(async (userId) => {
+  const insertRes = await withAuth(async (userId) => {
     try {
       const res = await prisma.$transaction(async (tsc) => {
         //Updates the stock table

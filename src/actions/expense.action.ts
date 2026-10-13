@@ -9,7 +9,7 @@ import {
 } from "@/src/schema/expense.schema";
 import { ActionResponse } from "../schema/auth.schema";
 import { DateRepeatType, ExpenseType, Prisma } from "../generated/prisma";
-import { authenticateUser } from "../lib/utils/validation-wrapper";
+import { withAuth } from "../lib/utils/validation-wrapper";
 import { ListParams } from "@/src/type/data-list";
 import { getNextDueDate } from "../lib/utils/date-formatter";
 import { success } from "zod";
@@ -81,7 +81,7 @@ export async function CreateExpense(
     };
   }
 
-  return authenticateUser(async (userId) => {
+  return withAuth(async (userId) => {
     try {
       //creates an instance of transaction for simultaneous successful db functions or none at all
       const res = await prisma.$transaction(async (tsc) => {
@@ -215,7 +215,7 @@ export async function GetUserExpenses({
   groupBy,
   searchText,
 }: ListParams): Promise<ActionResponse<DynamicListModel[]>> {
-  return authenticateUser(async (userId) => {
+  return withAuth(async (userId) => {
     const validType =
       category && Object.values(ExpenseType).includes(category as ExpenseType)
         ? (category as ExpenseType)
@@ -250,7 +250,7 @@ export async function GetUserExpenses({
 export async function GetUserExpenseByType(
   type: ExpenseType,
 ): Promise<ActionResponse<DynamicListModel[]>> {
-  const userExpense = await authenticateUser(async (userId) => {
+  const userExpense = await withAuth(async (userId) => {
     return {
       success: true,
       data: await prisma.expense.findMany({

@@ -9,7 +9,7 @@ export const TransactionSchema = z.object({
   price: z.float32(),
   date_added: z.date(),
   due_date: z.date().optional(),
-  expense_id: z.string(), //Turn to numberdata type
+  expense_id: z.coerce.number().int().positive(),
 });
 
 export type TransactionFormModel = z.input<typeof TransactionSchema>;

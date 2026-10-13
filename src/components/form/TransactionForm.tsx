@@ -17,7 +17,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { GetUserExpenseByType } from "@/src/actions/expense.action";
 import ExpenseTypeCard from "@/src/components/transaction/TransactionFormCard";
 import { twJoin } from "tailwind-merge";
-import { CreateUserTransaction } from "@/src/actions/transaction.action";
+import { createTransaction } from "@/src/actions/transaction.action";
 import Swal from "sweetalert2";
 import TransactionExpenseCard from "@/src/components/transaction/TransactionExpenseCard";
 import { Stepper } from "@/src/components/ui/Steps";
@@ -38,8 +38,9 @@ function TransactionForm({ closeModal }: AddFormProps) {
       amount: 1,
       price: 0,
       due_date: undefined,
-      expense_id: "0",
+      expense_id: 0,
       status: TransactionStatus.PENDING,
+      date_added: new Date(),
     },
   });
 
@@ -70,8 +71,8 @@ function TransactionForm({ closeModal }: AddFormProps) {
     }
   }, [step]);
 
-  const formSubmit = async (data: TransactionListModel) => {
-    const res = await CreateUserTransaction(data);
+  const formSubmit = async (data: TransactionFormModel) => {
+    const res = await createTransaction(data);
     if (!res.success) alert(res.error);
 
     await Swal.fire({
@@ -129,7 +130,7 @@ function TransactionForm({ closeModal }: AddFormProps) {
                           data={data}
                           isSelected={isSelected}
                           onSelectType={(id) =>
-                            setValue("expense_id", id.toString())
+                            setValue("expense_id", Number(id))
                           }
                         />
                       );

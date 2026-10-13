@@ -2,7 +2,7 @@
 
 import { parse } from "path";
 import { ActionResponse } from "../schema/auth.schema";
-import { authenticateUser } from "../lib/utils/validation-wrapper";
+import { withAuth } from "../lib/utils/validation-wrapper";
 import {
   incomeSchema,
   incomeListModel,
@@ -22,7 +22,7 @@ export async function createIncome(
     };
   }
 
-  return authenticateUser(async (userId) => {
+  return withAuth(async (userId) => {
     try {
       const newUserIncome = await prisma.income.create({
         data: {
@@ -56,7 +56,7 @@ export async function createIncome(
 export async function getUserIncome(): Promise<
   ActionResponse<incomeListModel[]>
 > {
-  return authenticateUser(async (userId) => {
+  return withAuth(async (userId) => {
     try {
       const userIncome = await prisma.income.findMany({
         where: {

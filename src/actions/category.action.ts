@@ -7,13 +7,13 @@ import {
   CategoryListSchema,
 } from "@/src/schema/category.schema";
 import { prisma } from "@/src/lib/prisma-client";
-import { authenticateUser } from "@/src/lib/utils/validation-wrapper";
+import { withAuth } from "@/src/lib/utils/validation-wrapper";
 
 export async function GetUserCategory(): Promise<
   ActionResponse<CategoryListModel[]>
 > {
   try {
-    const res = await authenticateUser(async (userId) => {
+    const res = await withAuth(async (userId) => {
       return {
         success: true,
         data: await prisma.task_category.findMany({
@@ -74,7 +74,7 @@ export async function CreateCategory(
       error: "Failed to parsed category data",
     };
   }
-  return authenticateUser(async (userId) => {
+  return withAuth(async (userId) => {
     try {
       const newCategory = await prisma.task_category.create({
         data: {

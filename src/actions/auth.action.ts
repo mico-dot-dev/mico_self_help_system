@@ -6,7 +6,9 @@ import {
   AuthSchema,
 } from "@/src/schema/auth.schema";
 
-export async function GetAuthUser(): Promise<ActionResponse<{ user: string }>> {
+export async function GetAuthUser(): Promise<
+  ActionResponse<{ userId: string }>
+> {
   try {
     const supabase = await supabaseServer();
     const {
@@ -20,7 +22,7 @@ export async function GetAuthUser(): Promise<ActionResponse<{ user: string }>> {
 
     return {
       success: true,
-      data: { user: user.id },
+      data: { userId: user.id },
     };
   } catch (error) {
     return {

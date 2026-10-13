@@ -9,7 +9,7 @@ import {
   TaskFormModelBase,
 } from "@/src/schema/task.schema";
 import { ActionResponse } from "@/src/schema/auth.schema";
-import { authenticateUser } from "@/src/lib/utils/validation-wrapper";
+import { withAuth } from "@/src/lib/utils/validation-wrapper";
 import { revalidatePath } from "next/cache";
 import { DateRepeatType, Prisma } from "@/src/generated/prisma";
 import { ReturnErrorMessage } from "@/src/hook/ReturnErrorMessage";
@@ -23,7 +23,7 @@ export async function GetUserTasks({
   groupBy,
 }: ListParams): Promise<ActionResponse<TaskListModel[]>> {
   try {
-    const rawTaskData = await authenticateUser(async (userId) => {
+    const rawTaskData = await withAuth(async (userId) => {
       const data = await prisma.task_category.findMany({
         where: {
           user_id: userId,
@@ -115,7 +115,7 @@ export async function CreateTask(
     return { success: false, error: "Invalid task data" };
   }
   try {
-    const authResult = await authenticateUser(async (user_id) => {
+    const authResult = await withAuth(async (user_id) => {
       const category = await prisma.task_category.findFirst({
         where: {
           user_id: user_id,
@@ -183,7 +183,7 @@ export async function UpdateTaskCompletion(taskID: string) {
       error: `Invalid task ID: ${taskID}`,
     };
   }
-  const res = await authenticateUser(async (userId) => {
+  const res = await withAuth(async (userId) => {
     try {
       const existingTask = await prisma.task.findUnique({
         where: {
@@ -232,7 +232,7 @@ export async function UpdateTaskCompletion(taskID: string) {
 }
 
 export async function DeleteTask(taskID: string) {
-  return authenticateUser(async (userId) => {
+  return withAuth(async (userId) => {
     const tasknum = parseInt(taskID, 10);
     if (isNaN(tasknum)) {
       return {
@@ -332,7 +332,7 @@ export async function UpdateTask(
     return { success: false, error: "" };
   }
 
-  return authenticateUser(async (userId) => {
+  return withAuth(async (userId) => {
     try {
       const res = await prisma.task.update({
         where: {

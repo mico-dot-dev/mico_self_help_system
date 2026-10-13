@@ -1,5 +1,3 @@
-"use server";
-
 import React from "react";
 import DataShowcase from "@/src/components/ui/DataShowcase";
 import IncomeItemCard from "@/src/components/income/IncomeItemCard";

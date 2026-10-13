@@ -2,7 +2,7 @@
 
 import { ActionResponse } from "../schema/auth.schema";
 import { prisma } from "@/src/lib/prisma-client";
-import { authenticateUser } from "../lib/utils/validation-wrapper";
+import { withAuth } from "../lib/utils/validation-wrapper";
 import { ExpenseFrequency } from "@/src/type/chart";
 import {
   CashFlowPointModel,
@@ -19,7 +19,7 @@ import { WeeklyStatisticsModel } from "../schema/dashboard.schema";
 export async function getUserHeaderStatistics(
   daterange: DateRangeModel,
 ): Promise<ActionResponse<HeaderStatisticsModel>> {
-  return authenticateUser(async (userId) => {
+  return withAuth(async (userId) => {
     const prevRange: DateRange = {
       from: subMonths(daterange.from, 1),
       to: subMonths(daterange.to, 1),
@@ -92,7 +92,7 @@ export async function getUserHeaderStatistics(
 export async function getUserBarStatistics(
   daterange: DateRangeModel,
 ): Promise<ActionResponse<CashFlowPointModel[]>> {
-  return authenticateUser(async (userId) => {
+  return withAuth(async (userId) => {
     try {
       const res = await prisma.$queryRaw<CashFlowPointModel[]>`SELECT
       date_trunc('day', stats_data.created_at) as "date",
@@ -135,7 +135,7 @@ export async function getUserBarStatistics(
 export async function getUserExpenseBreakdown(
   daterange: DateRangeModel,
 ): Promise<ActionResponse<ExpenseFrequency[]>> {
-  return authenticateUser(async (userID) => {
+  return withAuth(async (userID) => {
     try {
       const res = await prisma.$queryRaw<ExpenseFrequency[]>`SELECT
     e.expense_type AS "type",
