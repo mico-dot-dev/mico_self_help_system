@@ -38,7 +38,7 @@ export async function getTransactions(): Promise<
               price: transaction.price ?? 0,
               date_added: transaction.created_at!,
               due_date: transaction.repeat_at!,
-              expense_id: Number(transaction.expense_id),
+              expense_id: transaction.expense_id,
             };
           }),
       );

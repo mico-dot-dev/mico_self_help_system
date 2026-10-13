@@ -26,7 +26,7 @@ export async function GetUserTasks({
       const data = await prisma.task_category.findMany({
         where: {
           user_id: userId,
-          ...(category ? { id: Number(category) } : {}),
+          ...(category ? { id: category } : {}),
         },
         select: {
           title: true,
@@ -124,6 +124,7 @@ export async function CreateTask(
           priority_level: parsedTask.priority_level,
           repeating_type: parsedTask.repeating_type!,
           due_date: parsedTask.due_date,
+          expense_id: parsedTask.expense_id ?? "",
         },
       });
       return {
@@ -161,19 +162,12 @@ export async function CreateTask(
   }
 }
 
-export async function UpdateTaskCompletion(taskID: string) {
-  const tasknum = parseInt(taskID);
-  if (isNaN(tasknum)) {
-    return {
-      success: false,
-      error: `Invalid task ID: ${taskID}`,
-    };
-  }
+export async function UpdateTaskCompletion(taskId: string) {
   const res = await withAuth(async (userId) => {
     try {
       const existingTask = await prisma.task.findUnique({
         where: {
-          id: tasknum,
+          id: taskId,
           task_category: {
             user_id: userId,
           },
@@ -186,13 +180,13 @@ export async function UpdateTaskCompletion(taskID: string) {
       if (!existingTask) {
         return {
           success: false,
-          error: `Task not found: ${taskID}`,
+          error: `Task not found: ${taskId}`,
         };
       }
 
       const res = await prisma.task.update({
         where: {
-          id: tasknum,
+          id: taskId,
           task_category: {
             user_id: userId,
           },
@@ -217,15 +211,8 @@ export async function UpdateTaskCompletion(taskID: string) {
   // }
 }
 
-export async function DeleteTask(taskID: string) {
+export async function DeleteTask(taskId: string) {
   return withAuth(async (userId) => {
-    const tasknum = parseInt(taskID, 10);
-    if (isNaN(tasknum)) {
-      return {
-        success: false,
-        error: `Invalid task ID: ${taskID}`,
-      };
-    }
     try {
       // const task = await prisma.task.findUnique({
       //   select: { id: true },
@@ -236,7 +223,7 @@ export async function DeleteTask(taskID: string) {
 
       const res = await prisma.task.update({
         where: {
-          id: tasknum,
+          id: taskId,
           task_category: {
             user_id: userId,
           },
@@ -267,25 +254,17 @@ export async function DeleteTask(taskID: string) {
 }
 
 export async function GetTaskByID(
-  taskID: string,
+  taskId: string,
 ): Promise<ActionResponse<TaskListModel>> {
   try {
-    const tasknum = parseInt(taskID, 10);
-    if (isNaN(tasknum)) {
-      return {
-        success: false,
-        error: "`Invalid task ID: ${taskID}`",
-      };
-    }
-
     const task = await prisma.task.findUnique({
-      where: { id: tasknum },
+      where: { id: taskId },
     });
 
     if (!task) {
       return {
         success: false,
-        error: `Task not found: ${taskID}`,
+        error: `Task not found: ${taskId}`,
       };
     }
     return {
@@ -312,9 +291,8 @@ export async function GetTaskByID(
 export async function UpdateTask(
   data: TaskFormModelUpdate,
 ): Promise<ActionResponse<{ message: string }>> {
-  const tasknum = parseInt(data.id, 10);
   const parsedTask = await TaskFormSchema.safeParseAsync(data);
-  if (!parsedTask.success || !tasknum) {
+  if (!parsedTask.success || !data.id) {
     return { success: false, error: "" };
   }
 
@@ -322,7 +300,7 @@ export async function UpdateTask(
     try {
       const res = await prisma.task.update({
         where: {
-          id: tasknum,
+          id: data.id,
           task_category: {
             user_id: userId,
           },

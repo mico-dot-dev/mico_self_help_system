@@ -39,7 +39,7 @@ function TaskForm({ closeModal }: AddFormProps) {
         priority_level: 0,
         due_date: undefined,
         repeating_type: DateRepeatType.MANUAL,
-        category_id: 0,
+        category_id: "",
       },
     });
 
@@ -54,12 +54,11 @@ function TaskForm({ closeModal }: AddFormProps) {
     async function initializeData() {
       setLoading(true);
       try {
-        const categoryPromise = GetUserCategory();
         const taskPromise = taskId
           ? GetTaskByID(taskId)
           : Promise.resolve(null);
         const [categories, taskData] = await Promise.all([
-          categoryPromise,
+          GetUserCategory(),
           taskPromise,
         ]);
 
@@ -76,7 +75,7 @@ function TaskForm({ closeModal }: AddFormProps) {
               due_date: undefined,
               repeating_type: DateRepeatType.MANUAL,
               category_id:
-                categories.data.length > 0 ? categories.data[0].id : 0,
+                categories.data.length > 0 ? categories.data[0].id : "",
             });
           }
         }

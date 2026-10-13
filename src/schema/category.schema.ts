@@ -8,7 +8,7 @@ export const CategorySchema = z.object({
 });
 
 export const CategoryListSchema = CategorySchema.extend({
-  id: z.number().int(),
+  id: z.string().uuid(),
 });
 
 export type CategoryFormModel = z.input<typeof CategorySchema>;

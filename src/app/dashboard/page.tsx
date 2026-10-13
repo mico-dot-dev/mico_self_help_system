@@ -14,7 +14,7 @@ import { getAvailableGranularities } from "@/src/lib/utils/granularity";
 import { endOfMonth, startOfMonth } from "date-fns";
 import DataListContainer from "@/src/components/ui/DataListContainer";
 import { ListParams } from "@/src/type/data-list";
-import QuickStartButtons from "@/srccomponents/dashboard/QuickStartButtons";
+import QuickStartButtons from "@/src/components/dashboard/QuickStartButtons";
 
 interface PageProps {
   searchParams?: Promise<DateRangeModel & ListParams>;

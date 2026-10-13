@@ -38,7 +38,7 @@ function TransactionForm({ closeModal }: AddFormProps) {
       amount: 1,
       price: 0,
       due_date: undefined,
-      expense_id: 0,
+      expense_id: "",
       status: TransactionStatus.PENDING,
       date_added: new Date(),
     },
@@ -129,9 +129,7 @@ function TransactionForm({ closeModal }: AddFormProps) {
                           key={data.id}
                           data={data}
                           isSelected={isSelected}
-                          onSelectType={(id) =>
-                            setValue("expense_id", Number(id))
-                          }
+                          onSelectType={(id) => setValue("expense_id", id)}
                         />
                       );
                     })}

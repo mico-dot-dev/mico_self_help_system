@@ -42,6 +42,6 @@ next-env.d.ts
 
 .vercel
 
-/app/generated/prisma
+/src/generated/prisma
 
 Checklist.md

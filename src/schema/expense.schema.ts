@@ -61,24 +61,25 @@ export type DynamicFormInputModel = z.input<typeof DynamicFormSchema>;
 //For List or Fetch
 
 export const PersonalListSchema = PersonalFormSchema.extend({
-  id: z.string(),
+  id: z.string().uuid(),
 });
 
 export const HouseListSchema = HouseFormSchema.extend({
-  id: z.string(),
+  id: z.string().uuid(),
 });
 
 export const TranspoListSchema = TranspoFormSchema.extend({
-  id: z.string(),
+  id: z.string().uuid(),
 });
 
 export const StockListSchema = StockFormSchema.extend({
-  id: z.string(),
+  id: z.string().uuid(),
+
   curr_amount: z.number(),
 });
 
 export const ManualListSchema = ManualFormSchema.extend({
-  id: z.string(),
+  id: z.string().uuid(),
 });
 
 export const DynamicListSchema = z.discriminatedUnion("expense_type", [

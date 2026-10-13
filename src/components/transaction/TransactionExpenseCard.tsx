@@ -6,7 +6,7 @@ import { Button } from "../ui/Button";
 interface TransactionExpenseCardProps {
   data: DynamicListModel;
   isSelected: boolean;
-  onSelectType: (type: number) => void;
+  onSelectType: (type: string) => void;
 }
 
 function TransactionExpenseCard({
@@ -20,7 +20,7 @@ function TransactionExpenseCard({
       type="button"
       variant={isSelected ? "primary" : "secondary"}
       onClick={() => {
-        onSelectType(Number(data.id));
+        onSelectType(data.id);
       }}
     >
       {data.title}

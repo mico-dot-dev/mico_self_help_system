@@ -46,7 +46,7 @@ export async function GetUserCategory(): Promise<
 
     const parsedCategories: CategoryListModel[] = categories.map(
       (category) => ({
-        id: Number(category.id),
+        id: category.id,
         title: category.title || "",
       }),
     );

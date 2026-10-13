@@ -74,7 +74,7 @@ export async function ManageStockAmount(
         //Updates the stock table
         const updatedStock = await tsc.stock.update({
           where: {
-            id: parseInt(stock.id),
+            id: stock.id,
             expense: {
               user_id: userId,
             },
@@ -122,16 +122,16 @@ export async function ManageStockAmount(
         const updateTask: TaskFormModelOutput = {
           title: "Buy " + updatedStock.expense.name,
           description: "",
-          category_id: Number(stockTaskCategory.id),
+          category_id: stockTaskCategory.id,
           completed: false,
           priority_level: 0,
           repeating_type: "MANUAL",
-          expense_id: Number(updatedStock.expense.id),
+          expense_id: updatedStock.expense.id,
         };
 
         const existingTask = await tsc.task.findFirst({
           where: {
-            expense_id: Number(updatedStock.expense.id),
+            expense_id: updatedStock.expense.id,
             completed: false,
             task_category: {
               user_id: userId,
@@ -167,7 +167,7 @@ export async function ManageStockAmount(
             completed: updateTask.completed,
             priority_level: updateTask.priority_level,
             repeating_type: updateTask.repeating_type,
-            expense_id: updateTask.expense_id,
+            expense_id: updateTask.expense_id ?? "",
           },
         });
         //  if (
