@@ -5,6 +5,7 @@ import {
   ActionResponse,
   AuthSchema,
 } from "@/src/schema/auth.schema";
+import { getErrorMessage } from "@/lib/errors";
 
 export async function GetAuthUser(): Promise<
   ActionResponse<{ userId: string }>
@@ -25,9 +26,10 @@ export async function GetAuthUser(): Promise<
       data: { userId: user.id },
     };
   } catch (error) {
+    console.error("Error getting authenticated user:", error);
     return {
       success: false,
-      error: "Failed to authenticate user",
+      error: getErrorMessage(error),
     };
   }
 }
@@ -36,7 +38,7 @@ export async function LoginUser(
   data: AuthModel,
 ): Promise<ActionResponse<{ message: string }>> {
   const parsedUser = AuthSchema.safeParse(data);
-  if (!parsedUser) {
+  if (!parsedUser.success) {
     return { success: false, error: "Invalid form payload" };
   }
 
@@ -61,7 +63,7 @@ export async function LoginUser(
     console.error("Login failed:", error);
     return {
       success: false,
-      error: "Internal Server Error",
+      error: getErrorMessage(error),
     };
   }
 }
@@ -92,10 +94,11 @@ export async function SignUpUser(
       success: true,
       data: { message: "Signup Success" },
     };
-  } catch (e) {
+  } catch (error) {
+    console.log("Sign Up error: ", error);
     return {
       success: false,
-      error: "Sign Up fail",
+      error: getErrorMessage(error),
     };
   }
 }

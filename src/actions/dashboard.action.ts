@@ -10,7 +10,7 @@ import {
   HeaderStatisticsModel,
   HeaderStatisticsSchema,
 } from "../schema/dashboard.schema";
-import { ReturnErrorMessage } from "../hook/ReturnErrorMessage";
+import { getErrorMessage } from "../lib/errors";
 import { DateRange } from "../type/date-range";
 import { subMonths } from "date-fns";
 import { format } from "date-fns";
@@ -80,10 +80,11 @@ export async function getUserHeaderStatistics(
         return { success: false, error: "Invalid stats shape" };
 
       return { success: true, data: parsed.data };
-    } catch (e) {
+    } catch (error) {
+      console.log("Error occured in getting user header statistics ", error);
       return {
         success: false,
-        error: ReturnErrorMessage(e),
+        error: getErrorMessage(error),
       };
     }
   });
@@ -112,21 +113,15 @@ export async function getUserBarStatistics(
       GROUP BY "date", transit
       ORDER BY "date"`;
 
-      if (!res) {
-        return {
-          success: false,
-          error: "",
-        };
-      }
-
       return {
         success: true,
         data: res,
       };
-    } catch (e) {
+    } catch (error) {
+      console.log("Error getting user bar statistics ", error);
       return {
         success: false,
-        error: ReturnErrorMessage(e),
+        error: getErrorMessage(error),
       };
     }
   });
@@ -149,16 +144,13 @@ export async function getUserExpenseBreakdown(
   GROUP BY e.expense_type
   ORDER BY amount DESC`;
 
-      if (!res) {
-        return { success: false, error: "Query Error" };
-      }
-
       return {
         success: true,
         data: res,
       };
-    } catch (e) {
-      return { success: false, error: ReturnErrorMessage(e) };
+    } catch (error) {
+      console.log("Error getting user expense breakdown", error);
+      return { success: false, error: getErrorMessage(error) };
     }
   });
 }

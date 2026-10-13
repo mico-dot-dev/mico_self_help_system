@@ -7,6 +7,7 @@ import { TaskFormModelOutput } from "@/src/schema/task.schema";
 import { revalidatePath } from "next/cache";
 import { withAuth } from "@/src/lib/utils/validation-wrapper";
 import { StockListSchema } from "../schema/expense.schema";
+import { getErrorMessage } from "../lib/errors";
 
 export async function GetUserStock(): Promise<ActionResponse<StockModel[]>> {
   return withAuth(async (userId) => {
@@ -38,10 +39,10 @@ export async function GetUserStock(): Promise<ActionResponse<StockModel[]>> {
         data: parsedStock,
       };
     } catch (err) {
-      console.error(err);
+      console.error("Error fetching user stock:", err);
       return {
         success: false,
-        error: "Get Stock Error",
+        error: getErrorMessage(err),
       };
     }
   });
@@ -53,7 +54,7 @@ export async function ManageStockAmount(
 ) {
   const parsedStock = StockListSchema.safeParse(stock);
 
-  if (!parsedStock) {
+  if (!parsedStock.success) {
     return {
       success: false,
       error: "Stock Parsed Failed",
@@ -202,7 +203,7 @@ export async function ManageStockAmount(
         // }
       });
 
-      if (!res) {
+      if (!res?.success) {
         return {
           success: false,
           error: "Update Failed",
@@ -213,11 +214,11 @@ export async function ManageStockAmount(
         data: { message: "Success" },
       };
     } catch (err) {
+      console.error("Error managing stock amount:", err);
       return {
         success: false,
-        error: "ManageStockAmount Failure",
+        error: getErrorMessage(err),
       };
     }
   });
-  revalidatePath("/(dashboard)/stock");
 }

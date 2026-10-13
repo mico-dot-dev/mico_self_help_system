@@ -8,6 +8,7 @@ import {
 } from "@/src/schema/category.schema";
 import { prisma } from "@/src/lib/prisma-client";
 import { withAuth } from "@/src/lib/utils/validation-wrapper";
+import { getErrorMessage } from "../lib/errors";
 
 export async function GetUserCategory(): Promise<
   ActionResponse<CategoryListModel[]>
@@ -56,10 +57,9 @@ export async function GetUserCategory(): Promise<
     };
   } catch (error) {
     console.error("Error fetching user categories:", error);
-
     return {
       success: false,
-      error: "Error fetching user categories",
+      error: getErrorMessage(error),
     };
   }
 }
@@ -91,7 +91,7 @@ export async function CreateCategory(
       console.error("Error creating category:", error);
       return {
         success: false,
-        error: "Error occured in category creation",
+        error: getErrorMessage(error),
       };
     }
   });

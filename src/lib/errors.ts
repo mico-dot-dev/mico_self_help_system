@@ -1,4 +1,4 @@
-export function ReturnErrorMessage(error: any): string {
+export function getErrorMessage(error: any): string {
   return error instanceof Error
     ? error.message
     : typeof error === "string"

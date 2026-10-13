@@ -12,6 +12,7 @@ import { DateRepeatType, ExpenseType, Prisma } from "../generated/prisma";
 import { withAuth } from "../lib/utils/validation-wrapper";
 import { ListParams } from "@/src/type/data-list";
 import { getNextDueDate } from "../lib/utils/date-formatter";
+import { getErrorMessage } from "../lib/errors";
 import { success } from "zod";
 import { da } from "zod/v4/locales";
 
@@ -186,24 +187,15 @@ export async function CreateExpense(
         // }
       });
 
-      if (!res) {
-        return {
-          success: false,
-          error: "Error creating new expense",
-        };
-      }
-
       return {
         success: true,
         data: { message: "Success" },
       };
-    } catch (e) {
-      const message =
-        e instanceof Error ? e.message : "An unknown error occurred";
-
+    } catch (error) {
+      console.error("Error creating expense:", error);
       return {
         success: false,
-        error: message,
+        error: getErrorMessage(error),
       };
     }
   });
@@ -237,11 +229,11 @@ export async function GetUserExpenses({
         success: true,
         data: parsedExpense,
       };
-    } catch (e) {
-      console.log("Error fetching user expense:", e);
+    } catch (error) {
+      console.error("Error fetching user expense:", error);
       return {
         success: false,
-        error: "e",
+        error: getErrorMessage(error),
       };
     }
   });

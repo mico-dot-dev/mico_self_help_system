@@ -9,6 +9,7 @@ import {
 } from "@/src/schema/transaction.schema";
 import { withAuth } from "@/src/lib/utils/validation-wrapper";
 import { TransactionStatus } from "@/src/generated/prisma";
+import { getErrorMessage } from "../lib/errors";
 
 export async function getTransactions(): Promise<
   ActionResponse<TransactionListModel[]>
@@ -46,8 +47,9 @@ export async function getTransactions(): Promise<
         success: true,
         data: parsedData,
       };
-    } catch (e) {
-      return { success: false, error: "" };
+    } catch (error) {
+      console.error("Error fetching transactions:", error);
+      return { success: false, error: getErrorMessage(error) };
     }
   });
 }
@@ -84,10 +86,11 @@ export async function createTransaction(
         success: true,
         data: { message: true },
       };
-    } catch (e) {
+    } catch (error) {
+      console.error("Error creating transaction:", error);
       return {
         success: false,
-        error: "e",
+        error: getErrorMessage(error),
       };
     }
   });

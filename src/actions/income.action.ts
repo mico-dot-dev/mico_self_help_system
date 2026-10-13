@@ -10,6 +10,7 @@ import {
 } from "../schema/income.schema";
 import { prisma } from "@/src/lib/prisma-client";
 import { error } from "console";
+import { getErrorMessage } from "../lib/errors";
 
 export async function createIncome(
   data: incomeInputModel,
@@ -33,21 +34,15 @@ export async function createIncome(
         },
       });
 
-      if (!newUserIncome) {
-        return {
-          success: false,
-          error: "error insertin data",
-        };
-      }
-
       return {
         success: true,
         data: { message: "success" },
       };
-    } catch (e) {
+    } catch (error) {
+      console.error("Error creating income:", error);
       return {
         success: false,
-        error: "income insert backend error",
+        error: getErrorMessage(error),
       };
     }
   });
@@ -64,13 +59,6 @@ export async function getUserIncome(): Promise<
         },
       });
 
-      if (!userIncome) {
-        return {
-          success: false,
-          error: "",
-        };
-      }
-
       const parsedIncome: incomeListModel[] = userIncome.map((income) => {
         return {
           amount: income.amount ?? 0,
@@ -83,10 +71,11 @@ export async function getUserIncome(): Promise<
         success: true,
         data: parsedIncome,
       };
-    } catch (e) {
+    } catch (error) {
+      console.error("Error fetching user income:", error);
       return {
         success: false,
-        error: "",
+        error: getErrorMessage(error),
       };
     }
   });

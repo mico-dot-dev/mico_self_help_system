@@ -1,5 +1,6 @@
 import { ActionResponse } from "../../schema/auth.schema";
 import { GetAuthUser } from "../../actions/auth.action";
+import { getErrorMessage } from "../errors";
 
 export async function withAuth<T>(
   actionFn: (userId: string) => Promise<ActionResponse<T>>,
@@ -14,7 +15,8 @@ export async function withAuth<T>(
   }
   try {
     return await actionFn(auth.data.userId);
-  } catch (e) {
-    return { success: false, error: "Something went wrong" };
+  } catch (error) {
+    console.error("Error executing authenticated action:", error);
+    return { success: false, error: getErrorMessage(error) };
   }
 }

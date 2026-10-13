@@ -12,9 +12,8 @@ import { ActionResponse } from "@/src/schema/auth.schema";
 import { withAuth } from "@/src/lib/utils/validation-wrapper";
 import { revalidatePath } from "next/cache";
 import { DateRepeatType, Prisma } from "@/src/generated/prisma";
-import { ReturnErrorMessage } from "@/src/hook/ReturnErrorMessage";
+import { getErrorMessage } from "@/lib/errors";
 import { ListParams } from "../type/data-list";
-import { success } from "zod";
 
 export async function GetUserTasks({
   category,
@@ -67,11 +66,11 @@ export async function GetUserTasks({
             task.repeating_type as DateRepeatType,
           );
           return {
-            id: task.id!.toString()!,
-            title: task.title!,
-            description: task.description!,
-            completed: task.completed!,
-            category: TaskListModel.title!,
+            id: String(task.id ?? ""),
+            title: task.title ?? "",
+            description: task.description ?? "",
+            completed: task.completed,
+            category: TaskListModel.title,
             priority_level: 0,
             repeating_type: isValidEnum
               ? (task.repeating_type as DateRepeatType)
@@ -80,28 +79,15 @@ export async function GetUserTasks({
         }),
     );
 
-    const parsedTasks: TaskListModel[] = flattenedTasks.map(
-      (task: TaskListModel) => ({
-        id: task.id!.toString(),
-        title: task.title!,
-        description: task.description!,
-        completed: task.completed!,
-        category: task.category!,
-        priority_level: task.priority_level!,
-        repeating_type: task.repeating_type,
-      }),
-    );
-
     return {
       success: true,
-      data: parsedTasks,
+      data: flattenedTasks,
     };
   } catch (error) {
-    const e = ReturnErrorMessage(error);
-
+    console.error("Error fetching user tasks:", error);
     return {
       success: false,
-      error: e,
+      error: getErrorMessage(error),
     };
   }
 }
@@ -153,7 +139,7 @@ export async function CreateTask(
       };
     }
 
-    revalidatePath("/(dashboard)/tasks");
+    // revalidatePath("/(dashboard)/tasks");
 
     return {
       success: true,
@@ -167,10 +153,10 @@ export async function CreateTask(
       },
     };
   } catch (error) {
-    const e = ReturnErrorMessage(error);
+    console.error("Error creating task:", error);
     return {
       success: false,
-      error: e,
+      error: getErrorMessage(error),
     };
   }
 }
@@ -222,13 +208,13 @@ export async function UpdateTaskCompletion(taskID: string) {
       console.error("Error occurred while updating task completion:", error);
       return {
         success: false,
-        error: "Error occurred while updating task completion",
+        error: getErrorMessage(error),
       };
     }
   });
-  if (res) {
-    revalidatePath("/(dashboard)/tasks");
-  }
+  // if (res) {
+  //   revalidatePath("/(dashboard)/tasks");
+  // }
 }
 
 export async function DeleteTask(taskID: string) {
@@ -265,7 +251,7 @@ export async function DeleteTask(taskID: string) {
         };
       }
 
-      revalidatePath("/(dashboard)/tasks");
+      // revalidatePath("/(dashboard)/tasks");
       return {
         success: true,
         data: res,
@@ -274,7 +260,7 @@ export async function DeleteTask(taskID: string) {
       console.error("Error occurred while deleting task:", error);
       return {
         success: false,
-        error: "e",
+        error: getErrorMessage(error),
       };
     }
   });
@@ -318,7 +304,7 @@ export async function GetTaskByID(
     console.error("Error occurred while fetching task by ID:", error);
     return {
       success: false,
-      error: "Failed to fetch task by ID",
+      error: getErrorMessage(error),
     };
   }
 }
@@ -352,7 +338,7 @@ export async function UpdateTask(
         return { success: false, error: "" };
       }
 
-      revalidatePath("/(dashboard)/tasks");
+      // revalidatePath("/(dashboard)/tasks");
       return {
         success: true,
         data: {
@@ -360,8 +346,8 @@ export async function UpdateTask(
         },
       };
     } catch (error) {
-      ("Failed to update task");
-      return { success: false, error: "" };
+      console.error("Error updating task:", error);
+      return { success: false, error: getErrorMessage(error) };
     }
   });
 }
