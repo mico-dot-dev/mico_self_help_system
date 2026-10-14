@@ -26,8 +26,13 @@ export const TaskFormSchema = TaskSchema.extend({
   expense_id: z.string().uuid().optional(),
 });
 
+export const TaskUpdateSchema = TaskSchema.extend({
+  id: z.string().uuid(),
+  category_id: z.string().uuid(),
+});
+
 export type TaskListModel = z.infer<typeof TaskListSchema>;
 export type TaskFormModelBase = z.input<typeof TaskSchema>;
 export type TaskFormModelInput = z.input<typeof TaskFormSchema>;
 export type TaskFormModelOutput = z.output<typeof TaskFormSchema>;
-export type TaskFormModelUpdate = z.input<typeof TaskListSchema>;
+export type TaskFormModelUpdate = z.input<typeof TaskUpdateSchema>;

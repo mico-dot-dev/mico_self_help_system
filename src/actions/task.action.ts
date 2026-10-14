@@ -6,7 +6,7 @@ import {
   TaskFormSchema,
   TaskFormModelInput,
   TaskFormModelUpdate,
-  TaskFormModelBase,
+  TaskUpdateSchema,
 } from "@/src/schema/task.schema";
 import { ActionResponse } from "@/src/schema/auth.schema";
 import { withAuth } from "@/src/lib/utils/validation-wrapper";
@@ -232,45 +232,51 @@ export async function DeleteTask(taskId: string) {
   });
 }
 
-export async function GetTaskByID(
+export async function getTaskByID(
   taskId: string,
 ): Promise<ActionResponse<TaskListModel>> {
-  try {
-    const task = await prisma.task.findUnique({
-      where: { id: taskId },
-    });
+  return withAuth(async (userId) => {
+    try {
+      const task = await prisma.task.findUnique({
+        where: { id: taskId, task_category: { user_id: userId } },
+        include: {
+          task_category: true,
+        },
+      });
 
-    if (!task) {
+      if (!task) {
+        console.error(`Task not found: ${taskId}`);
+        return {
+          success: false,
+          error: `Task not found: ${taskId}`,
+        };
+      }
+      return {
+        success: true,
+        data: {
+          id: task.id!.toString(),
+          title: task.title!,
+          description: task.description!,
+          completed: task.completed!,
+          category: task.task_category.title,
+          priority_level: 0,
+          repeating_type: DateRepeatType.MANUAL, // Default to Manual if not provided
+        },
+      };
+    } catch (error) {
+      console.error("Error occurred while fetching task by ID:", error);
       return {
         success: false,
-        error: `Task not found: ${taskId}`,
+        error: getErrorMessage(error),
       };
     }
-    return {
-      success: true,
-      data: {
-        id: task.id!.toString(),
-        title: task.title!,
-        description: task.description!,
-        completed: task.completed!,
-        category: "",
-        priority_level: 0,
-        repeating_type: DateRepeatType.MANUAL, // Default to Manual if not provided
-      },
-    };
-  } catch (error) {
-    console.error("Error occurred while fetching task by ID:", error);
-    return {
-      success: false,
-      error: getErrorMessage(error),
-    };
-  }
+  });
 }
 
-export async function UpdateTask(
+export async function updateTask(
   data: TaskFormModelUpdate,
 ): Promise<ActionResponse<{ message: string }>> {
-  const parsedTask = await TaskFormSchema.safeParseAsync(data);
+  const parsedTask = await TaskUpdateSchema.safeParseAsync(data);
   if (!parsedTask.success || !data.id) {
     return { success: false, error: "" };
   }
@@ -288,6 +294,10 @@ export async function UpdateTask(
           title: data.title,
           description: data.description,
           completed: data.completed,
+          priority_level: data.priority_level,
+          repeating_type: data.repeating_type,
+          due_date: data.due_date ? new Date(data.due_date) : null,
+          task_category_id: data.category_id,
         },
       });
 

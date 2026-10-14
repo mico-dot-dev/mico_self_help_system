@@ -9,7 +9,7 @@ import {
 } from "@/src/schema/task.schema";
 import { ActionResponse } from "@/src/schema/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CreateTask, GetTaskByID } from "@/src/actions/task.action";
+import { CreateTask, getTaskByID, updateTask } from "@/src/actions/task.action";
 import Swal from "sweetalert2";
 import { GetUserCategory } from "@/src/actions/category.action";
 import { CategoryListModel } from "@/src/schema/category.schema";
@@ -24,7 +24,6 @@ interface AddFormProps {
 }
 
 function TaskForm({ closeModal, id }: AddFormProps) {
-  const taskId = id;
   const [userCategories, setUserCategories] = useState<CategoryListModel[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -42,6 +41,7 @@ function TaskForm({ closeModal, id }: AddFormProps) {
       },
     });
 
+  // Sets the value of due_date to undefined if the repeating_type is not MANUAL
   const repeatType = watch("repeating_type");
   useEffect(() => {
     if (repeatType !== DateRepeatType.MANUAL) {
@@ -49,22 +49,21 @@ function TaskForm({ closeModal, id }: AddFormProps) {
     }
   }, [repeatType, setValue]);
 
+  // Fetches user categories and task data (if id is provided) on component mount
   useEffect(() => {
     async function initializeData() {
       setLoading(true);
       try {
-        const taskPromise = taskId
-          ? GetTaskByID(taskId)
-          : Promise.resolve(null);
-        const [categories, taskData] = await Promise.all([
+        const taskExists = id ? getTaskByID(id) : Promise.resolve(null);
+        const [categories, existingTask] = await Promise.all([
           GetUserCategory(),
-          taskPromise,
+          taskExists,
         ]);
 
         if (categories.success && categories.data) {
           setUserCategories(categories.data || []);
-          if (taskData && taskData.success && taskData.data) {
-            reset(taskData.data);
+          if (existingTask && existingTask.success && existingTask.data) {
+            reset(existingTask.data);
           } else {
             reset({
               title: "",
@@ -109,10 +108,18 @@ function TaskForm({ closeModal, id }: AddFormProps) {
     try {
       let res: ActionResponse<{ message: string }>;
 
-      const createData: TaskFormModelInput = {
-        ...data,
-      };
-      res = await CreateTask(createData);
+      if (id) {
+        const updateData: TaskFormModelUpdate = {
+          id: id,
+          ...data,
+        };
+        res = await updateTask(updateData);
+      } else {
+        const createData: TaskFormModelInput = {
+          ...data,
+        };
+        res = await CreateTask(createData);
+      }
 
       if (!res.success) {
         return {
@@ -248,7 +255,7 @@ function TaskForm({ closeModal, id }: AddFormProps) {
       </div>
 
       <div className="flex flex-1 items-end">
-        <Button type="submit">{taskId ? "Update Task" : "Add Task"}</Button>
+        <Button type="submit">{id ? "Update Task" : "Add Task"}</Button>
       </div>
     </form>
   );
