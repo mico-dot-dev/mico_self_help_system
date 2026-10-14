@@ -13,9 +13,10 @@ import { Button } from "../ui/Button";
 
 interface AddFormProps {
   closeModal: () => void;
+  id: string | null;
 }
 
-function IncomeForm({ closeModal }: AddFormProps) {
+function IncomeForm({ closeModal, id }: AddFormProps) {
   const methods = useForm<incomeInputModel>({
     resolver: zodResolver(incomeSchema),
     defaultValues: {

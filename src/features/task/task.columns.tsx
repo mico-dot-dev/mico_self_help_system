@@ -1,8 +1,9 @@
 "use client";
-import { TaskListModel } from "@/src/schema/task.schema";
+import { TaskListModel } from "@/schema/task.schema";
 import { ColumnDef, tableFeatures } from "@tanstack/react-table";
-import { UpdateTaskCompletion } from "@/src/actions/task.action";
+import { UpdateTaskCompletion } from "@/actions/task.action";
 import { Ellipsis } from "lucide-react";
+import Link from "next/link";
 
 export const taskColumns: Array<ColumnDef<{}, TaskListModel>> = [
   {
@@ -51,8 +52,18 @@ export const taskColumns: Array<ColumnDef<{}, TaskListModel>> = [
               <Ellipsis size={20} />
             </summary>
             <ul className="menu dropdown-content ml-1 bg-white text-background w-24 p-0 px-3 py-1 flex flex-col">
-              <li className="hover:bg-gray-200 w-full items-start">Delete</li>
-              <li className="hover:bg-gray-200 w-full items-start">Edit</li>
+              <Link
+                className="hover:bg-gray-200 w-full items-start"
+                href={`/tasks?delete=${row.original.id}`}
+              >
+                Delete
+              </Link>
+              <Link
+                className="hover:bg-gray-200 w-full items-start"
+                href={`/dashboard/task?edit=${row.original.id}`}
+              >
+                Edit
+              </Link>
             </ul>
           </details>
         </button>

@@ -32,7 +32,7 @@ function AddFormModal({ isOpen, setIsOpen, content }: ModalProps) {
       description={description}
     >
       <div>
-        <AddFormComponent closeModal={closeModal} />
+        <AddFormComponent closeModal={closeModal} id={null} />
       </div>
     </ModalWrapper>
   );

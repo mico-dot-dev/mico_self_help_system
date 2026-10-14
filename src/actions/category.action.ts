@@ -5,6 +5,7 @@ import {
   CategoryFormModel,
   CategoryListModel,
   CategoryListSchema,
+  CategorySchema,
 } from "@/src/schema/category.schema";
 import { prisma } from "@/src/lib/prisma-client";
 import { withAuth } from "@/src/lib/utils/validation-wrapper";
@@ -67,7 +68,7 @@ export async function GetUserCategory(): Promise<
 export async function CreateCategory(
   data: CategoryFormModel,
 ): Promise<ActionResponse<{ message: string }>> {
-  const parsedData = CategoryListSchema.safeParse(data);
+  const parsedData = CategorySchema.safeParse(data);
   if (!parsedData.success) {
     return {
       success: false,

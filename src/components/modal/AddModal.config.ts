@@ -5,7 +5,10 @@ import { ModuleWithModals } from "@/src/type/module";
 interface AddContents {
   label: string;
   description: string;
-  AddFormComponent: React.ComponentType<{ closeModal: () => void }>;
+  AddFormComponent: React.ComponentType<{
+    closeModal: () => void;
+    id: string | null;
+  }>;
 }
 
 const TaskForm = dynamic(() => import("@/src/components/form/TaskForm"));

@@ -2,8 +2,8 @@ import React, { Suspense, use } from "react";
 import { ListParams } from "@/src/type/data-list";
 import { GetUserCategory } from "@/src/actions/category.action";
 import DataListContainer from "@/src/components/ui/DataListContainer";
-import TaskStatisticsWrapper from "@/src/components/task/TaskStatisticsWrapper";
-import TaskHeader from "@/src/components/task/TaskHeader";
+import TaskStatisticsWrapper from "@/features/task/components/TaskStatisticsWrapper";
+import TaskHeader from "@/features/task/components/TaskHeader";
 
 //Extract the search from REST
 interface PageProps {

@@ -9,12 +9,15 @@ import {
   CategoryFormModel,
 } from "@/src/schema/category.schema";
 import Swal from "sweetalert2";
+import { Button } from "../ui/Button";
+import { FormField } from "../ui/FormField";
 
 interface AddFormProps {
   closeModal: () => void;
+  id: string | null;
 }
 
-function TaskCatForm({ closeModal }: AddFormProps) {
+function TaskCatForm({ closeModal, id }: AddFormProps) {
   const { register, handleSubmit, reset } = useForm({
     resolver: zodResolver(CategorySchema),
     defaultValues: {
@@ -33,6 +36,13 @@ function TaskCatForm({ closeModal }: AddFormProps) {
         title: "Category Created",
         text: "Your category has been created successfully.",
       });
+    } else {
+      console.log("❌ Failed to create category:", res.error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Failed to create category.",
+      });
     }
   }
 
@@ -41,7 +51,9 @@ function TaskCatForm({ closeModal }: AddFormProps) {
       className="flex flex-col gap-5"
       onSubmit={handleSubmit(CategorySubmit)}
     >
-      <div className="flex flex-col  gap-2">
+      <FormField label="Category Name" {...register("title")} />
+
+      {/* <div className="flex flex-col  gap-2">
         <label htmlFor="category-name">Category Name</label>
         <input
           id="category-name"
@@ -50,10 +62,10 @@ function TaskCatForm({ closeModal }: AddFormProps) {
           className="input-base p-2"
           {...register("title")}
         />
-      </div>
-      <button type="submit" className="button-base py-2 rounded-2xl">
+      </div> */}
+      <Button type="submit" variant={"primary"}>
         Add Category
-      </button>
+      </Button>
     </form>
   );
 }

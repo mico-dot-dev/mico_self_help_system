@@ -22,10 +22,10 @@ model task {
   due_date         DateTime?       @db.Timestamptz(6)
   task_category_id String          @db.Uuid
   repeating_type   DateRepeatType?
-  expense_id       String          @db.Uuid
+  expense_id       String?         @db.Uuid
   is_archived      Boolean         @default(false)
   expense          expense?        @relation(fields: [expense_id], references: [id], onDelete: Cascade)
-  task_category    task_category?  @relation(fields: [task_category_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  task_category    task_category   @relation(fields: [task_category_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@schema("public")
 }

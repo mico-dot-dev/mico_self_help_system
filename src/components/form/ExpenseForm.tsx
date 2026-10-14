@@ -18,9 +18,10 @@ import { Button } from "../ui/Button";
 
 interface AddFormProps {
   closeModal: () => void;
+  id: string | null;
 }
 
-function ExpenseForm({ closeModal }: AddFormProps) {
+function ExpenseForm({ closeModal, id }: AddFormProps) {
   const methods = useForm<DynamicFormInputModel>({
     resolver: zodResolver(DynamicFormSchema),
     defaultValues: {

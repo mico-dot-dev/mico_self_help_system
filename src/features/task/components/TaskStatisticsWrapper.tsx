@@ -1,6 +1,6 @@
 import React from "react";
 import { Check, Calendar, Plus } from "lucide-react";
-import TaskCompletionRate from "../chart/TaskCompletionRate";
+import TaskCompletionRate from "@/components/chart/TaskCompletionRate";
 
 function TaskStatisticsWrapper() {
   const data = [

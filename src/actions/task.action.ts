@@ -94,72 +94,51 @@ export async function GetUserTasks({
 
 export async function CreateTask(
   data: TaskFormModelInput,
-): Promise<ActionResponse<TaskFormModelBase>> {
+): Promise<ActionResponse<{ message: string }>> {
   const { data: parsedTask, error } = TaskFormSchema.safeParse(data);
-
   if (error) {
     return { success: false, error: "Invalid task data" };
   }
-  try {
-    const authResult = await withAuth(async (user_id) => {
-      const category = await prisma.task_category.findFirst({
+
+  return await withAuth(async (user_id) => {
+    try {
+      await prisma.task_category.update({
         where: {
           user_id: user_id,
+          id: parsedTask.category_id,
         },
-        select: {
-          id: true,
-        },
-      });
-
-      if (!category) {
-        return { success: false, error: "Unauthorized or invalid category." };
-      }
-
-      const newTask = await prisma.task.create({
         data: {
-          title: parsedTask.title ?? "",
-          description: parsedTask.description ?? "",
-          completed: parsedTask.completed!,
-          task_category_id: parsedTask.category_id,
-          priority_level: parsedTask.priority_level,
-          repeating_type: parsedTask.repeating_type!,
-          due_date: parsedTask.due_date,
-          expense_id: parsedTask.expense_id ?? "",
+          task: {
+            create: {
+              title: parsedTask.title ?? "",
+              description: parsedTask.description ?? "",
+              completed: parsedTask.completed!,
+              priority_level: parsedTask.priority_level,
+              repeating_type:
+                parsedTask.repeating_type ?? DateRepeatType.MANUAL,
+              due_date: parsedTask.due_date
+                ? new Date(parsedTask.due_date)
+                : null,
+              expense_id: parsedTask.expense_id ?? null,
+            },
+          },
         },
       });
+
+      revalidatePath("/tasks");
+
       return {
         success: true,
-        data: newTask,
+        data: { message: "Task created successfully" },
       };
-    });
-
-    if (!authResult.success) {
+    } catch (error) {
+      console.error("Error creating task:", error);
       return {
         success: false,
-        error: authResult.error || "Authentication failed",
+        error: getErrorMessage(error),
       };
     }
-
-    // revalidatePath("/(dashboard)/tasks");
-
-    return {
-      success: true,
-      data: {
-        title: authResult.data.title ?? "",
-        description: authResult.data.description ?? "",
-        completed: authResult.data.completed!,
-        priority_level: parsedTask.priority_level,
-        repeating_type: parsedTask.repeating_type!,
-        due_date: parsedTask.due_date,
-      },
-    };
-  } catch (error) {
-    console.error("Error creating task:", error);
-    return {
-      success: false,
-      error: getErrorMessage(error),
-    };
-  }
+  });
 }
 
 export async function UpdateTaskCompletion(taskId: string) {

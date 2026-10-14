@@ -11,7 +11,6 @@ import { ActionResponse } from "@/src/schema/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CreateTask, GetTaskByID } from "@/src/actions/task.action";
 import Swal from "sweetalert2";
-import { useSearchParams } from "next/navigation";
 import { GetUserCategory } from "@/src/actions/category.action";
 import { CategoryListModel } from "@/src/schema/category.schema";
 import { DateRepeatType } from "@/src/generated/prisma";
@@ -21,11 +20,11 @@ import { Button } from "../ui/Button";
 
 interface AddFormProps {
   closeModal: () => void;
+  id: string | null;
 }
 
-function TaskForm({ closeModal }: AddFormProps) {
-  const searchParams = useSearchParams();
-  const taskId = searchParams.get("id");
+function TaskForm({ closeModal, id }: AddFormProps) {
+  const taskId = id;
   const [userCategories, setUserCategories] = useState<CategoryListModel[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -108,7 +107,7 @@ function TaskForm({ closeModal }: AddFormProps) {
 
   async function TaskSubmit(data: TaskFormModelInput) {
     try {
-      let res: ActionResponse<TaskFormModelBase>;
+      let res: ActionResponse<{ message: string }>;
 
       const createData: TaskFormModelInput = {
         ...data,
@@ -139,7 +138,12 @@ function TaskForm({ closeModal }: AddFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit(TaskSubmit)} className="modal-form-base">
+    <form
+      onSubmit={handleSubmit(TaskSubmit, (invalidErrors) => {
+        console.log("❌ Form Validation Failed:", invalidErrors);
+      })}
+      className="modal-form-base"
+    >
       <div className="flex flex-col gap-5">
         <FormField
           label=" Task Title"
@@ -197,7 +201,7 @@ function TaskForm({ closeModal }: AddFormProps) {
             Category
           </label>
           <select
-            {...register("category_id", { valueAsNumber: true })}
+            {...register("category_id")}
             id="task-category"
             className="input-select p-2"
             required
@@ -230,11 +234,7 @@ function TaskForm({ closeModal }: AddFormProps) {
           </select>
         </div>
         {repeatType === DateRepeatType.MANUAL && (
-          <FormField
-            label=" Due Date"
-            {...register("due_date", { valueAsDate: true })}
-            type="date"
-          />
+          <FormField label=" Due Date" {...register("due_date")} type="date" />
           // <div className="flex flex-col">
 
           //   <label htmlFor="">Due Date</label>

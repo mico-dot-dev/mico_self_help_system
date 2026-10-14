@@ -26,10 +26,11 @@ import { Button } from "../ui/Button";
 
 interface AddFormProps {
   closeModal: () => void;
+  id: string | null;
 }
 const STEPS = ["Expense Type", "Select Item", "Amount"];
 
-function TransactionForm({ closeModal }: AddFormProps) {
+function TransactionForm({ closeModal, id }: AddFormProps) {
   const methods = useForm<TransactionFormModel>({
     resolver: zodResolver(TransactionSchema),
     defaultValues: {

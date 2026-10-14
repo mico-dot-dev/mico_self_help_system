@@ -4,7 +4,6 @@ import { prisma } from "@/src/lib/prisma-client";
 import { ActionResponse } from "@/src/schema/auth.schema";
 import { StockModel } from "../schema/stock.schema";
 import { TaskFormModelOutput } from "@/src/schema/task.schema";
-import { revalidatePath } from "next/cache";
 import { withAuth } from "@/src/lib/utils/validation-wrapper";
 import { StockListSchema } from "../schema/expense.schema";
 import { getErrorMessage } from "../lib/errors";

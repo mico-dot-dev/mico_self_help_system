@@ -1,5 +1,5 @@
 import React from "react";
-import { HeaderCardModel } from "@/src/type/component";
+import { HeaderCardModel } from "@/type/component";
 import {
   TrendingUp,
   TrendingDown,
@@ -7,7 +7,7 @@ import {
   LucideIcon,
   ArrowDown,
 } from "lucide-react";
-import IconContainer from "../ui/IconContainer";
+import IconContainer from "@/components/ui/IconContainer";
 import { twJoin } from "tailwind-merge";
 
 function HeaderInfoCard({ title, CardIcon, amount, kind }: HeaderCardModel) {

@@ -3,6 +3,7 @@ import AddButton from "@/src/components/ui/AddButton";
 import ToolBar from "@/src/components/ui/Toolbar";
 import { DataListProps } from "@/src/type/data-list";
 import { dataListRegistry } from "@/src/lib/utils/data-list-registry";
+import EditModal from "../modal/EditModal";
 
 function DataListContainer({
   module,
@@ -34,6 +35,11 @@ function DataListContainer({
           <Suspense>
             <ListComponent searchParams={searchParams} />
           </Suspense>
+          {buttonModule && (
+            <Suspense>
+              <EditModal module={buttonModule} />
+            </Suspense>
+          )}
         </div>
       </div>
     </>

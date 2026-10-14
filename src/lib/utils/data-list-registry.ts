@@ -1,5 +1,5 @@
 import { ComponentType } from "react";
-import TaskList from "@/src/components/task/TaskList";
+import TaskList from "@/features/task/components/TaskList";
 import ExpenseList from "@/src/components/expense/ExpenseList";
 import StockList from "@/src/components/stock/StockList";
 import IncomeList from "@/src/components/income/IncomeList";
