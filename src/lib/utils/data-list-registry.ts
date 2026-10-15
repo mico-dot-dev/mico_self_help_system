@@ -1,9 +1,9 @@
 import { ComponentType } from "react";
 import TaskList from "@/features/task/components/TaskList";
-import ExpenseList from "@/src/components/expense/ExpenseList";
-import StockList from "@/src/components/stock/StockList";
-import IncomeList from "@/src/components/income/IncomeList";
-import TransactionList from "@/src/components/transaction/TransactionList";
+import ExpenseList from "@/features/expense/components/ExpenseList";
+import StockList from "@/features/stock/components/StockList";
+import IncomeList from "@/features/income/components/IncomeList";
+import TransactionList from "@/features/transaction/components/TransactionList";
 import { AppModule } from "@/src/type/module";
 import { ListParams } from "@/src/type/data-list";
 

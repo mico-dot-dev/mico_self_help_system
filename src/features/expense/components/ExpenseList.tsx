@@ -1,8 +1,8 @@
 import React from "react";
 import { GetUserExpenses } from "@/src/actions/expense.action";
 import { ListParams } from "@/src/type/data-list";
-import { expenseColumns } from "./ExpenseTableStructure";
-import DataShowcase from "../ui/DataShowcase";
+import { expenseColumns } from "../expense.column";
+import DataShowcase from "../../../components/ui/DataShowcase";
 import ExpenseItemCard from "./ExpenseItemCard";
 
 interface TaskListProps {

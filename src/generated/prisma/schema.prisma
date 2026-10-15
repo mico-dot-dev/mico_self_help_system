@@ -34,7 +34,7 @@ model task {
 model task_category {
   id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   created_at DateTime @default(now()) @db.Timestamptz(6)
-  title      String   @unique @default("")
+  title      String   @default("")
   user_id    String   @db.Uuid
   task       task[]
 

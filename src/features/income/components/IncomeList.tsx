@@ -1,7 +1,7 @@
 import React from "react";
 import DataShowcase from "@/src/components/ui/DataShowcase";
-import IncomeItemCard from "@/src/components/income/IncomeItemCard";
-import { incomeColumns } from "@/src/components/income/IncomeTableStructure";
+import IncomeItemCard from "@/features/income/components/IncomeItemCard";
+import { incomeColumns } from "@/features/income/income.columns";
 import { getUserIncome } from "@/src/actions/income.action";
 
 async function IncomeList() {

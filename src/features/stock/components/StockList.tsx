@@ -1,8 +1,8 @@
 import React from "react";
 import { GetUserStock } from "@/src/actions/stock.action";
-import { stockColumns } from "./StockTableStructure";
+import { stockColumns } from "../stock.columns";
 import StockItemCard from "./StockItemCard";
-import DataShowcase from "../ui/DataShowcase";
+import DataShowcase from "@/components/ui/DataShowcase";
 
 async function StockList() {
   const userStock = await GetUserStock();

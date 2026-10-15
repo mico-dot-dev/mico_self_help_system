@@ -4,8 +4,8 @@ import { twJoin } from "tailwind-merge";
 import { expenseIconProps } from "@/src/lib/utils/expense-mapper";
 import { ExpenseType } from "@/src/generated/prisma";
 import { Circle } from "lucide-react";
-import { Button } from "../ui/Button";
-import IconContainer from "../ui/IconContainer";
+import { Button } from "@/components/ui/Button";
+import IconContainer from "@/components/ui/IconContainer";
 
 type expenseButtonProps = {
   isSelected: boolean;

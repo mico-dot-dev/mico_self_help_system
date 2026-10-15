@@ -107,6 +107,7 @@ function TaskForm({ closeModal, id }: AddFormProps) {
   async function TaskSubmit(data: TaskFormModelInput) {
     try {
       let res: ActionResponse<{ message: string }>;
+      let message = "Task created successfully";
 
       if (id) {
         const updateData: TaskFormModelUpdate = {
@@ -114,6 +115,7 @@ function TaskForm({ closeModal, id }: AddFormProps) {
           ...data,
         };
         res = await updateTask(updateData);
+        message = "Task updated successfully";
       } else {
         const createData: TaskFormModelInput = {
           ...data,
@@ -130,7 +132,7 @@ function TaskForm({ closeModal, id }: AddFormProps) {
       closeModal();
       Swal.fire({
         icon: "success",
-        title: "Task Added Successfully",
+        title: message,
       });
     } catch (error) {
       console.error("Error submitting task:", error);
@@ -139,7 +141,7 @@ function TaskForm({ closeModal, id }: AddFormProps) {
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: "An error occurred while saving the task.",
+        text: "An error occurred.",
       });
     }
   }
@@ -160,7 +162,7 @@ function TaskForm({ closeModal, id }: AddFormProps) {
         <FormField
           label=" Priority Level"
           placeholder="1 = Highest Priority"
-          {...register("priority_level")}
+          {...register("priority_level", { valueAsNumber: true })}
         />
 
         {/* <div className="flex flex-col"> */}

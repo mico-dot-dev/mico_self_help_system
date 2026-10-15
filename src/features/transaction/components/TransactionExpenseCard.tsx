@@ -1,7 +1,7 @@
 import React from "react";
 import { twJoin } from "tailwind-merge";
 import { DynamicListModel } from "@/src/schema/expense.schema";
-import { Button } from "../ui/Button";
+import { Button } from "@/components/ui/Button";
 
 interface TransactionExpenseCardProps {
   data: DynamicListModel;

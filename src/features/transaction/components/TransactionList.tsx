@@ -1,10 +1,10 @@
 import React from "react";
-import { transactionColumn } from "@/src/components/transaction/TransactionTableStructure";
+import { transactionColumn } from "@/features/transaction/transaction.columns";
 import { getTransactions } from "@/src/actions/transaction.action";
 import TransactionCard from "./TransactionCard";
-import DataShowcase from "../ui/DataShowcase";
+import DataShowcase from "@/components/ui/DataShowcase";
 
-async function TaskList() {
+async function TransactionList() {
   const userTransactions = await getTransactions();
 
   if (!userTransactions.success) {
@@ -21,4 +21,4 @@ async function TaskList() {
   );
 }
 
-export default TaskList;
+export default TransactionList;
