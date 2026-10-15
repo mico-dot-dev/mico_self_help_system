@@ -89,7 +89,7 @@ async function InfoCardHeader({ data }: HeaderStatisticsProps) {
     <header className=" w-full">
       <div className="flex flex-row justify-between min-w-full mb-3">
         <div>
-          <p className="text-2xl font-bold">Good Evening, Aki!</p>
+          <p className="text-2xl font-bold">Good Evening</p>
           <p className="text-text-secondary text-sm">
             Here's Your Finance Statistics Overview
           </p>

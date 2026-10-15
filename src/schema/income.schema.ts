@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const incomeSchema = z.object({
-  amount: z.float32(),
+  amount: z.number().positive(),
   fromJob: z.boolean().default(false),
   dateObtained: z.date(),
 });

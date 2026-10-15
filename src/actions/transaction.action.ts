@@ -31,13 +31,13 @@ export async function getTransactions(): Promise<
         (transactionArray) =>
           transactionArray.transaction.map((transaction) => {
             return {
-              name: transactionArray.name!,
-              expense_type: transactionArray.expense_type!,
-              status: transaction.status!,
+              name: transactionArray.name,
+              expense_type: transactionArray.expense_type,
+              status: transaction.status,
               amount: transaction.amount,
-              price: transaction.price ?? 0,
-              date_added: transaction.created_at!,
-              due_date: transaction.repeat_at!,
+              price: transaction.price.toNumber(),
+              date_added: transaction.created_at,
+              due_date: transaction.repeat_at ?? undefined,
               expense_id: transaction.expense_id,
             };
           }),

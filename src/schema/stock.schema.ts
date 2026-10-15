@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 const StockSchema = z.object({
-  id: z.string(),
+  id: z.string().uuid(),
   name: z.string().min(1, "Name is required"),
   description: z.string().optional(),
   curr_amount: z

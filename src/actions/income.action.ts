@@ -25,7 +25,7 @@ export async function createIncome(
 
   return withAuth(async (userId) => {
     try {
-      const newUserIncome = await prisma.income.create({
+      await prisma.income.create({
         data: {
           user_id: userId,
           amount: data.amount,
@@ -61,7 +61,7 @@ export async function getUserIncome(): Promise<
 
       const parsedIncome: incomeListModel[] = userIncome.map((income) => {
         return {
-          amount: income.amount ?? 0,
+          amount: income.amount.toNumber(),
           dateObtained: income.date_obtained ?? new Date(),
           fromJob: income.from_job,
         };

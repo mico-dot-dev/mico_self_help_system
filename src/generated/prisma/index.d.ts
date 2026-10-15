@@ -1927,7 +1927,7 @@ export namespace Prisma {
     description: string | null
     completed: boolean
     completed_at: Date | null
-    title: string | null
+    title: string
     priority_level: number
     due_date: Date | null
     task_category_id: string
@@ -2047,7 +2047,7 @@ export namespace Prisma {
       description: string | null
       completed: boolean
       completed_at: Date | null
-      title: string | null
+      title: string
       priority_level: number
       due_date: Date | null
       task_category_id: string
@@ -4668,7 +4668,7 @@ export namespace Prisma {
     readonly created_at: FieldRef<"bill_expense", 'DateTime'>
     readonly expense_id: FieldRef<"bill_expense", 'String'>
     readonly repeating_type: FieldRef<"bill_expense", 'DateRepeatType'>
-    readonly running_bill: FieldRef<"bill_expense", 'Int'>
+    readonly running_bill: FieldRef<"bill_expense", 'Float'>
   }
     
 
@@ -5236,10 +5236,10 @@ export namespace Prisma {
   export type ExpenseGroupByOutputType = {
     id: string
     created_at: Date
-    name: string | null
+    name: string
     description: string | null
-    expense_type: $Enums.ExpenseType | null
-    user_id: string | null
+    expense_type: $Enums.ExpenseType
+    user_id: string
     is_archived: boolean
     _count: ExpenseCountAggregateOutputType | null
     _min: ExpenseMinAggregateOutputType | null
@@ -5330,10 +5330,10 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       created_at: Date
-      name: string | null
+      name: string
       description: string | null
-      expense_type: $Enums.ExpenseType | null
-      user_id: string | null
+      expense_type: $Enums.ExpenseType
+      user_id: string
       is_archived: boolean
     }, ExtArgs["result"]["expense"]>
     composites: {}
@@ -5993,7 +5993,7 @@ export namespace Prisma {
     /**
      * The data needed to create a expense.
      */
-    data?: XOR<expenseCreateInput, expenseUncheckedCreateInput>
+    data: XOR<expenseCreateInput, expenseUncheckedCreateInput>
   }
 
   /**
@@ -6458,7 +6458,7 @@ export namespace Prisma {
   export type StockGroupByOutputType = {
     id: string
     created_at: Date
-    curr_amount: number | null
+    curr_amount: number
     min_amount: number
     expense_id: string
     _count: StockCountAggregateOutputType | null
@@ -6536,7 +6536,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       created_at: Date
-      curr_amount: number | null
+      curr_amount: number
       min_amount: number
       expense_id: string
     }, ExtArgs["result"]["stock"]>
@@ -7401,12 +7401,12 @@ export namespace Prisma {
 
   export type TransactionAvgAggregateOutputType = {
     amount: number | null
-    price: number | null
+    price: Decimal | null
   }
 
   export type TransactionSumAggregateOutputType = {
     amount: number | null
-    price: number | null
+    price: Decimal | null
   }
 
   export type TransactionMinAggregateOutputType = {
@@ -7414,7 +7414,7 @@ export namespace Prisma {
     created_at: Date | null
     expense_id: string | null
     amount: number | null
-    price: number | null
+    price: Decimal | null
     status: $Enums.TransactionStatus | null
     repeat_at: Date | null
     date_transact: Date | null
@@ -7425,7 +7425,7 @@ export namespace Prisma {
     created_at: Date | null
     expense_id: string | null
     amount: number | null
-    price: number | null
+    price: Decimal | null
     status: $Enums.TransactionStatus | null
     repeat_at: Date | null
     date_transact: Date | null
@@ -7579,7 +7579,7 @@ export namespace Prisma {
     created_at: Date
     expense_id: string
     amount: number
-    price: number
+    price: Decimal
     status: $Enums.TransactionStatus
     repeat_at: Date | null
     date_transact: Date
@@ -7672,7 +7672,7 @@ export namespace Prisma {
       created_at: Date
       expense_id: string
       amount: number
-      price: number
+      price: Prisma.Decimal
       status: $Enums.TransactionStatus
       repeat_at: Date | null
       date_transact: Date
@@ -8104,7 +8104,7 @@ export namespace Prisma {
     readonly created_at: FieldRef<"transaction", 'DateTime'>
     readonly expense_id: FieldRef<"transaction", 'String'>
     readonly amount: FieldRef<"transaction", 'Int'>
-    readonly price: FieldRef<"transaction", 'Float'>
+    readonly price: FieldRef<"transaction", 'Decimal'>
     readonly status: FieldRef<"transaction", 'TransactionStatus'>
     readonly repeat_at: FieldRef<"transaction", 'DateTime'>
     readonly date_transact: FieldRef<"transaction", 'DateTime'>
@@ -9620,17 +9620,17 @@ export namespace Prisma {
   }
 
   export type IncomeAvgAggregateOutputType = {
-    amount: number | null
+    amount: Decimal | null
   }
 
   export type IncomeSumAggregateOutputType = {
-    amount: number | null
+    amount: Decimal | null
   }
 
   export type IncomeMinAggregateOutputType = {
     id: string | null
     created_at: Date | null
-    amount: number | null
+    amount: Decimal | null
     user_id: string | null
     from_job: boolean | null
     date_obtained: Date | null
@@ -9639,7 +9639,7 @@ export namespace Prisma {
   export type IncomeMaxAggregateOutputType = {
     id: string | null
     created_at: Date | null
-    amount: number | null
+    amount: Decimal | null
     user_id: string | null
     from_job: boolean | null
     date_obtained: Date | null
@@ -9781,10 +9781,10 @@ export namespace Prisma {
   export type IncomeGroupByOutputType = {
     id: string
     created_at: Date
-    amount: number | null
-    user_id: string | null
+    amount: Decimal
+    user_id: string
     from_job: boolean
-    date_obtained: Date | null
+    date_obtained: Date
     _count: IncomeCountAggregateOutputType | null
     _avg: IncomeAvgAggregateOutputType | null
     _sum: IncomeSumAggregateOutputType | null
@@ -9850,10 +9850,10 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       created_at: Date
-      amount: number | null
-      user_id: string | null
+      amount: Prisma.Decimal
+      user_id: string
       from_job: boolean
-      date_obtained: Date | null
+      date_obtained: Date
     }, ExtArgs["result"]["income"]>
     composites: {}
   }
@@ -10279,7 +10279,7 @@ export namespace Prisma {
   interface incomeFieldRefs {
     readonly id: FieldRef<"income", 'String'>
     readonly created_at: FieldRef<"income", 'DateTime'>
-    readonly amount: FieldRef<"income", 'Float'>
+    readonly amount: FieldRef<"income", 'Decimal'>
     readonly user_id: FieldRef<"income", 'String'>
     readonly from_job: FieldRef<"income", 'Boolean'>
     readonly date_obtained: FieldRef<"income", 'DateTime'>
@@ -10482,7 +10482,7 @@ export namespace Prisma {
     /**
      * The data needed to create a income.
      */
-    data?: XOR<incomeCreateInput, incomeUncheckedCreateInput>
+    data: XOR<incomeCreateInput, incomeUncheckedCreateInput>
   }
 
   /**
@@ -11843,6 +11843,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+  /**
    * Reference to a field of type 'ExpenseType'
    */
   export type EnumExpenseTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ExpenseType'>
@@ -11857,16 +11871,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Float'
+   * Reference to a field of type 'Decimal'
    */
-  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+  export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
     
 
 
   /**
-   * Reference to a field of type 'Float[]'
+   * Reference to a field of type 'Decimal[]'
    */
-  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+  export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
     
 
 
@@ -11896,7 +11910,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"task"> | string | null
     completed?: BoolFilter<"task"> | boolean
     completed_at?: DateTimeNullableFilter<"task"> | Date | string | null
-    title?: StringNullableFilter<"task"> | string | null
+    title?: StringFilter<"task"> | string
     priority_level?: IntFilter<"task"> | number
     due_date?: DateTimeNullableFilter<"task"> | Date | string | null
     task_category_id?: UuidFilter<"task"> | string
@@ -11913,7 +11927,7 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     completed?: SortOrder
     completed_at?: SortOrderInput | SortOrder
-    title?: SortOrderInput | SortOrder
+    title?: SortOrder
     priority_level?: SortOrder
     due_date?: SortOrderInput | SortOrder
     task_category_id?: SortOrder
@@ -11933,7 +11947,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"task"> | string | null
     completed?: BoolFilter<"task"> | boolean
     completed_at?: DateTimeNullableFilter<"task"> | Date | string | null
-    title?: StringNullableFilter<"task"> | string | null
+    title?: StringFilter<"task"> | string
     priority_level?: IntFilter<"task"> | number
     due_date?: DateTimeNullableFilter<"task"> | Date | string | null
     task_category_id?: UuidFilter<"task"> | string
@@ -11950,7 +11964,7 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     completed?: SortOrder
     completed_at?: SortOrderInput | SortOrder
-    title?: SortOrderInput | SortOrder
+    title?: SortOrder
     priority_level?: SortOrder
     due_date?: SortOrderInput | SortOrder
     task_category_id?: SortOrder
@@ -11973,7 +11987,7 @@ export namespace Prisma {
     description?: StringNullableWithAggregatesFilter<"task"> | string | null
     completed?: BoolWithAggregatesFilter<"task"> | boolean
     completed_at?: DateTimeNullableWithAggregatesFilter<"task"> | Date | string | null
-    title?: StringNullableWithAggregatesFilter<"task"> | string | null
+    title?: StringWithAggregatesFilter<"task"> | string
     priority_level?: IntWithAggregatesFilter<"task"> | number
     due_date?: DateTimeNullableWithAggregatesFilter<"task"> | Date | string | null
     task_category_id?: UuidWithAggregatesFilter<"task"> | string
@@ -12040,7 +12054,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"bill_expense"> | Date | string
     expense_id?: UuidFilter<"bill_expense"> | string
     repeating_type?: EnumDateRepeatTypeNullableFilter<"bill_expense"> | $Enums.DateRepeatType | null
-    running_bill?: IntNullableFilter<"bill_expense"> | number | null
+    running_bill?: FloatNullableFilter<"bill_expense"> | number | null
     expense?: XOR<ExpenseScalarRelationFilter, expenseWhereInput>
   }
 
@@ -12061,7 +12075,7 @@ export namespace Prisma {
     NOT?: bill_expenseWhereInput | bill_expenseWhereInput[]
     created_at?: DateTimeFilter<"bill_expense"> | Date | string
     repeating_type?: EnumDateRepeatTypeNullableFilter<"bill_expense"> | $Enums.DateRepeatType | null
-    running_bill?: IntNullableFilter<"bill_expense"> | number | null
+    running_bill?: FloatNullableFilter<"bill_expense"> | number | null
     expense?: XOR<ExpenseScalarRelationFilter, expenseWhereInput>
   }, "id" | "expense_id">
 
@@ -12086,7 +12100,7 @@ export namespace Prisma {
     created_at?: DateTimeWithAggregatesFilter<"bill_expense"> | Date | string
     expense_id?: UuidWithAggregatesFilter<"bill_expense"> | string
     repeating_type?: EnumDateRepeatTypeNullableWithAggregatesFilter<"bill_expense"> | $Enums.DateRepeatType | null
-    running_bill?: IntNullableWithAggregatesFilter<"bill_expense"> | number | null
+    running_bill?: FloatNullableWithAggregatesFilter<"bill_expense"> | number | null
   }
 
   export type expenseWhereInput = {
@@ -12095,10 +12109,10 @@ export namespace Prisma {
     NOT?: expenseWhereInput | expenseWhereInput[]
     id?: UuidFilter<"expense"> | string
     created_at?: DateTimeFilter<"expense"> | Date | string
-    name?: StringNullableFilter<"expense"> | string | null
+    name?: StringFilter<"expense"> | string
     description?: StringNullableFilter<"expense"> | string | null
-    expense_type?: EnumExpenseTypeNullableFilter<"expense"> | $Enums.ExpenseType | null
-    user_id?: UuidNullableFilter<"expense"> | string | null
+    expense_type?: EnumExpenseTypeFilter<"expense"> | $Enums.ExpenseType
+    user_id?: UuidFilter<"expense"> | string
     is_archived?: BoolFilter<"expense"> | boolean
     bill_expense?: XOR<Bill_expenseNullableScalarRelationFilter, bill_expenseWhereInput> | null
     stock?: XOR<StockNullableScalarRelationFilter, stockWhereInput> | null
@@ -12110,10 +12124,10 @@ export namespace Prisma {
   export type expenseOrderByWithRelationInput = {
     id?: SortOrder
     created_at?: SortOrder
-    name?: SortOrderInput | SortOrder
+    name?: SortOrder
     description?: SortOrderInput | SortOrder
-    expense_type?: SortOrderInput | SortOrder
-    user_id?: SortOrderInput | SortOrder
+    expense_type?: SortOrder
+    user_id?: SortOrder
     is_archived?: SortOrder
     bill_expense?: bill_expenseOrderByWithRelationInput
     stock?: stockOrderByWithRelationInput
@@ -12128,10 +12142,10 @@ export namespace Prisma {
     OR?: expenseWhereInput[]
     NOT?: expenseWhereInput | expenseWhereInput[]
     created_at?: DateTimeFilter<"expense"> | Date | string
-    name?: StringNullableFilter<"expense"> | string | null
+    name?: StringFilter<"expense"> | string
     description?: StringNullableFilter<"expense"> | string | null
-    expense_type?: EnumExpenseTypeNullableFilter<"expense"> | $Enums.ExpenseType | null
-    user_id?: UuidNullableFilter<"expense"> | string | null
+    expense_type?: EnumExpenseTypeFilter<"expense"> | $Enums.ExpenseType
+    user_id?: UuidFilter<"expense"> | string
     is_archived?: BoolFilter<"expense"> | boolean
     bill_expense?: XOR<Bill_expenseNullableScalarRelationFilter, bill_expenseWhereInput> | null
     stock?: XOR<StockNullableScalarRelationFilter, stockWhereInput> | null
@@ -12143,10 +12157,10 @@ export namespace Prisma {
   export type expenseOrderByWithAggregationInput = {
     id?: SortOrder
     created_at?: SortOrder
-    name?: SortOrderInput | SortOrder
+    name?: SortOrder
     description?: SortOrderInput | SortOrder
-    expense_type?: SortOrderInput | SortOrder
-    user_id?: SortOrderInput | SortOrder
+    expense_type?: SortOrder
+    user_id?: SortOrder
     is_archived?: SortOrder
     _count?: expenseCountOrderByAggregateInput
     _max?: expenseMaxOrderByAggregateInput
@@ -12159,10 +12173,10 @@ export namespace Prisma {
     NOT?: expenseScalarWhereWithAggregatesInput | expenseScalarWhereWithAggregatesInput[]
     id?: UuidWithAggregatesFilter<"expense"> | string
     created_at?: DateTimeWithAggregatesFilter<"expense"> | Date | string
-    name?: StringNullableWithAggregatesFilter<"expense"> | string | null
+    name?: StringWithAggregatesFilter<"expense"> | string
     description?: StringNullableWithAggregatesFilter<"expense"> | string | null
-    expense_type?: EnumExpenseTypeNullableWithAggregatesFilter<"expense"> | $Enums.ExpenseType | null
-    user_id?: UuidNullableWithAggregatesFilter<"expense"> | string | null
+    expense_type?: EnumExpenseTypeWithAggregatesFilter<"expense"> | $Enums.ExpenseType
+    user_id?: UuidWithAggregatesFilter<"expense"> | string
     is_archived?: BoolWithAggregatesFilter<"expense"> | boolean
   }
 
@@ -12172,7 +12186,7 @@ export namespace Prisma {
     NOT?: stockWhereInput | stockWhereInput[]
     id?: UuidFilter<"stock"> | string
     created_at?: DateTimeFilter<"stock"> | Date | string
-    curr_amount?: IntNullableFilter<"stock"> | number | null
+    curr_amount?: IntFilter<"stock"> | number
     min_amount?: IntFilter<"stock"> | number
     expense_id?: UuidFilter<"stock"> | string
     expense?: XOR<ExpenseScalarRelationFilter, expenseWhereInput>
@@ -12181,7 +12195,7 @@ export namespace Prisma {
   export type stockOrderByWithRelationInput = {
     id?: SortOrder
     created_at?: SortOrder
-    curr_amount?: SortOrderInput | SortOrder
+    curr_amount?: SortOrder
     min_amount?: SortOrder
     expense_id?: SortOrder
     expense?: expenseOrderByWithRelationInput
@@ -12194,7 +12208,7 @@ export namespace Prisma {
     OR?: stockWhereInput[]
     NOT?: stockWhereInput | stockWhereInput[]
     created_at?: DateTimeFilter<"stock"> | Date | string
-    curr_amount?: IntNullableFilter<"stock"> | number | null
+    curr_amount?: IntFilter<"stock"> | number
     min_amount?: IntFilter<"stock"> | number
     expense?: XOR<ExpenseScalarRelationFilter, expenseWhereInput>
   }, "id" | "expense_id">
@@ -12202,7 +12216,7 @@ export namespace Prisma {
   export type stockOrderByWithAggregationInput = {
     id?: SortOrder
     created_at?: SortOrder
-    curr_amount?: SortOrderInput | SortOrder
+    curr_amount?: SortOrder
     min_amount?: SortOrder
     expense_id?: SortOrder
     _count?: stockCountOrderByAggregateInput
@@ -12218,7 +12232,7 @@ export namespace Prisma {
     NOT?: stockScalarWhereWithAggregatesInput | stockScalarWhereWithAggregatesInput[]
     id?: UuidWithAggregatesFilter<"stock"> | string
     created_at?: DateTimeWithAggregatesFilter<"stock"> | Date | string
-    curr_amount?: IntNullableWithAggregatesFilter<"stock"> | number | null
+    curr_amount?: IntWithAggregatesFilter<"stock"> | number
     min_amount?: IntWithAggregatesFilter<"stock"> | number
     expense_id?: UuidWithAggregatesFilter<"stock"> | string
   }
@@ -12231,7 +12245,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"transaction"> | Date | string
     expense_id?: UuidFilter<"transaction"> | string
     amount?: IntFilter<"transaction"> | number
-    price?: FloatFilter<"transaction"> | number
+    price?: DecimalFilter<"transaction"> | Decimal | DecimalJsLike | number | string
     status?: EnumTransactionStatusFilter<"transaction"> | $Enums.TransactionStatus
     repeat_at?: DateTimeNullableFilter<"transaction"> | Date | string | null
     date_transact?: DateTimeFilter<"transaction"> | Date | string
@@ -12258,7 +12272,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"transaction"> | Date | string
     expense_id?: UuidFilter<"transaction"> | string
     amount?: IntFilter<"transaction"> | number
-    price?: FloatFilter<"transaction"> | number
+    price?: DecimalFilter<"transaction"> | Decimal | DecimalJsLike | number | string
     status?: EnumTransactionStatusFilter<"transaction"> | $Enums.TransactionStatus
     repeat_at?: DateTimeNullableFilter<"transaction"> | Date | string | null
     date_transact?: DateTimeFilter<"transaction"> | Date | string
@@ -12289,7 +12303,7 @@ export namespace Prisma {
     created_at?: DateTimeWithAggregatesFilter<"transaction"> | Date | string
     expense_id?: UuidWithAggregatesFilter<"transaction"> | string
     amount?: IntWithAggregatesFilter<"transaction"> | number
-    price?: FloatWithAggregatesFilter<"transaction"> | number
+    price?: DecimalWithAggregatesFilter<"transaction"> | Decimal | DecimalJsLike | number | string
     status?: EnumTransactionStatusWithAggregatesFilter<"transaction"> | $Enums.TransactionStatus
     repeat_at?: DateTimeNullableWithAggregatesFilter<"transaction"> | Date | string | null
     date_transact?: DateTimeWithAggregatesFilter<"transaction"> | Date | string
@@ -12353,19 +12367,19 @@ export namespace Prisma {
     NOT?: incomeWhereInput | incomeWhereInput[]
     id?: UuidFilter<"income"> | string
     created_at?: DateTimeFilter<"income"> | Date | string
-    amount?: FloatNullableFilter<"income"> | number | null
-    user_id?: UuidNullableFilter<"income"> | string | null
+    amount?: DecimalFilter<"income"> | Decimal | DecimalJsLike | number | string
+    user_id?: UuidFilter<"income"> | string
     from_job?: BoolFilter<"income"> | boolean
-    date_obtained?: DateTimeNullableFilter<"income"> | Date | string | null
+    date_obtained?: DateTimeFilter<"income"> | Date | string
   }
 
   export type incomeOrderByWithRelationInput = {
     id?: SortOrder
     created_at?: SortOrder
-    amount?: SortOrderInput | SortOrder
-    user_id?: SortOrderInput | SortOrder
+    amount?: SortOrder
+    user_id?: SortOrder
     from_job?: SortOrder
-    date_obtained?: SortOrderInput | SortOrder
+    date_obtained?: SortOrder
   }
 
   export type incomeWhereUniqueInput = Prisma.AtLeast<{
@@ -12374,19 +12388,19 @@ export namespace Prisma {
     OR?: incomeWhereInput[]
     NOT?: incomeWhereInput | incomeWhereInput[]
     created_at?: DateTimeFilter<"income"> | Date | string
-    amount?: FloatNullableFilter<"income"> | number | null
-    user_id?: UuidNullableFilter<"income"> | string | null
+    amount?: DecimalFilter<"income"> | Decimal | DecimalJsLike | number | string
+    user_id?: UuidFilter<"income"> | string
     from_job?: BoolFilter<"income"> | boolean
-    date_obtained?: DateTimeNullableFilter<"income"> | Date | string | null
+    date_obtained?: DateTimeFilter<"income"> | Date | string
   }, "id">
 
   export type incomeOrderByWithAggregationInput = {
     id?: SortOrder
     created_at?: SortOrder
-    amount?: SortOrderInput | SortOrder
-    user_id?: SortOrderInput | SortOrder
+    amount?: SortOrder
+    user_id?: SortOrder
     from_job?: SortOrder
-    date_obtained?: SortOrderInput | SortOrder
+    date_obtained?: SortOrder
     _count?: incomeCountOrderByAggregateInput
     _avg?: incomeAvgOrderByAggregateInput
     _max?: incomeMaxOrderByAggregateInput
@@ -12400,10 +12414,10 @@ export namespace Prisma {
     NOT?: incomeScalarWhereWithAggregatesInput | incomeScalarWhereWithAggregatesInput[]
     id?: UuidWithAggregatesFilter<"income"> | string
     created_at?: DateTimeWithAggregatesFilter<"income"> | Date | string
-    amount?: FloatNullableWithAggregatesFilter<"income"> | number | null
-    user_id?: UuidNullableWithAggregatesFilter<"income"> | string | null
+    amount?: DecimalWithAggregatesFilter<"income"> | Decimal | DecimalJsLike | number | string
+    user_id?: UuidWithAggregatesFilter<"income"> | string
     from_job?: BoolWithAggregatesFilter<"income"> | boolean
-    date_obtained?: DateTimeNullableWithAggregatesFilter<"income"> | Date | string | null
+    date_obtained?: DateTimeWithAggregatesFilter<"income"> | Date | string
   }
 
   export type budgetWhereInput = {
@@ -12454,7 +12468,7 @@ export namespace Prisma {
     description?: string | null
     completed?: boolean
     completed_at?: Date | string | null
-    title?: string | null
+    title: string
     priority_level?: number
     due_date?: Date | string | null
     repeating_type?: $Enums.DateRepeatType | null
@@ -12469,7 +12483,7 @@ export namespace Prisma {
     description?: string | null
     completed?: boolean
     completed_at?: Date | string | null
-    title?: string | null
+    title: string
     priority_level?: number
     due_date?: Date | string | null
     task_category_id: string
@@ -12484,7 +12498,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     completed?: BoolFieldUpdateOperationsInput | boolean
     completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    title?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: StringFieldUpdateOperationsInput | string
     priority_level?: IntFieldUpdateOperationsInput | number
     due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     repeating_type?: NullableEnumDateRepeatTypeFieldUpdateOperationsInput | $Enums.DateRepeatType | null
@@ -12499,7 +12513,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     completed?: BoolFieldUpdateOperationsInput | boolean
     completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    title?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: StringFieldUpdateOperationsInput | string
     priority_level?: IntFieldUpdateOperationsInput | number
     due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     task_category_id?: StringFieldUpdateOperationsInput | string
@@ -12514,7 +12528,7 @@ export namespace Prisma {
     description?: string | null
     completed?: boolean
     completed_at?: Date | string | null
-    title?: string | null
+    title: string
     priority_level?: number
     due_date?: Date | string | null
     task_category_id: string
@@ -12529,7 +12543,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     completed?: BoolFieldUpdateOperationsInput | boolean
     completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    title?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: StringFieldUpdateOperationsInput | string
     priority_level?: IntFieldUpdateOperationsInput | number
     due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     repeating_type?: NullableEnumDateRepeatTypeFieldUpdateOperationsInput | $Enums.DateRepeatType | null
@@ -12542,7 +12556,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     completed?: BoolFieldUpdateOperationsInput | boolean
     completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    title?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: StringFieldUpdateOperationsInput | string
     priority_level?: IntFieldUpdateOperationsInput | number
     due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     task_category_id?: StringFieldUpdateOperationsInput | string
@@ -12624,7 +12638,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     repeating_type?: NullableEnumDateRepeatTypeFieldUpdateOperationsInput | $Enums.DateRepeatType | null
-    running_bill?: NullableIntFieldUpdateOperationsInput | number | null
+    running_bill?: NullableFloatFieldUpdateOperationsInput | number | null
     expense?: expenseUpdateOneRequiredWithoutBill_expenseNestedInput
   }
 
@@ -12633,7 +12647,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     expense_id?: StringFieldUpdateOperationsInput | string
     repeating_type?: NullableEnumDateRepeatTypeFieldUpdateOperationsInput | $Enums.DateRepeatType | null
-    running_bill?: NullableIntFieldUpdateOperationsInput | number | null
+    running_bill?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type bill_expenseCreateManyInput = {
@@ -12648,7 +12662,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     repeating_type?: NullableEnumDateRepeatTypeFieldUpdateOperationsInput | $Enums.DateRepeatType | null
-    running_bill?: NullableIntFieldUpdateOperationsInput | number | null
+    running_bill?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type bill_expenseUncheckedUpdateManyInput = {
@@ -12656,16 +12670,16 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     expense_id?: StringFieldUpdateOperationsInput | string
     repeating_type?: NullableEnumDateRepeatTypeFieldUpdateOperationsInput | $Enums.DateRepeatType | null
-    running_bill?: NullableIntFieldUpdateOperationsInput | number | null
+    running_bill?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type expenseCreateInput = {
     id?: string
     created_at?: Date | string
-    name?: string | null
+    name: string
     description?: string | null
-    expense_type?: $Enums.ExpenseType | null
-    user_id?: string | null
+    expense_type?: $Enums.ExpenseType
+    user_id: string
     is_archived?: boolean
     bill_expense?: bill_expenseCreateNestedOneWithoutExpenseInput
     stock?: stockCreateNestedOneWithoutExpenseInput
@@ -12677,10 +12691,10 @@ export namespace Prisma {
   export type expenseUncheckedCreateInput = {
     id?: string
     created_at?: Date | string
-    name?: string | null
+    name: string
     description?: string | null
-    expense_type?: $Enums.ExpenseType | null
-    user_id?: string | null
+    expense_type?: $Enums.ExpenseType
+    user_id: string
     is_archived?: boolean
     bill_expense?: bill_expenseUncheckedCreateNestedOneWithoutExpenseInput
     stock?: stockUncheckedCreateNestedOneWithoutExpenseInput
@@ -12692,10 +12706,10 @@ export namespace Prisma {
   export type expenseUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    expense_type?: NullableEnumExpenseTypeFieldUpdateOperationsInput | $Enums.ExpenseType | null
-    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    expense_type?: EnumExpenseTypeFieldUpdateOperationsInput | $Enums.ExpenseType
+    user_id?: StringFieldUpdateOperationsInput | string
     is_archived?: BoolFieldUpdateOperationsInput | boolean
     bill_expense?: bill_expenseUpdateOneWithoutExpenseNestedInput
     stock?: stockUpdateOneWithoutExpenseNestedInput
@@ -12707,10 +12721,10 @@ export namespace Prisma {
   export type expenseUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    expense_type?: NullableEnumExpenseTypeFieldUpdateOperationsInput | $Enums.ExpenseType | null
-    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    expense_type?: EnumExpenseTypeFieldUpdateOperationsInput | $Enums.ExpenseType
+    user_id?: StringFieldUpdateOperationsInput | string
     is_archived?: BoolFieldUpdateOperationsInput | boolean
     bill_expense?: bill_expenseUncheckedUpdateOneWithoutExpenseNestedInput
     stock?: stockUncheckedUpdateOneWithoutExpenseNestedInput
@@ -12722,53 +12736,53 @@ export namespace Prisma {
   export type expenseCreateManyInput = {
     id?: string
     created_at?: Date | string
-    name?: string | null
+    name: string
     description?: string | null
-    expense_type?: $Enums.ExpenseType | null
-    user_id?: string | null
+    expense_type?: $Enums.ExpenseType
+    user_id: string
     is_archived?: boolean
   }
 
   export type expenseUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    expense_type?: NullableEnumExpenseTypeFieldUpdateOperationsInput | $Enums.ExpenseType | null
-    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    expense_type?: EnumExpenseTypeFieldUpdateOperationsInput | $Enums.ExpenseType
+    user_id?: StringFieldUpdateOperationsInput | string
     is_archived?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type expenseUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    expense_type?: NullableEnumExpenseTypeFieldUpdateOperationsInput | $Enums.ExpenseType | null
-    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    expense_type?: EnumExpenseTypeFieldUpdateOperationsInput | $Enums.ExpenseType
+    user_id?: StringFieldUpdateOperationsInput | string
     is_archived?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type stockCreateInput = {
     id?: string
     created_at?: Date | string
-    curr_amount?: number | null
-    min_amount: number
+    curr_amount?: number
+    min_amount?: number
     expense: expenseCreateNestedOneWithoutStockInput
   }
 
   export type stockUncheckedCreateInput = {
     id?: string
     created_at?: Date | string
-    curr_amount?: number | null
-    min_amount: number
+    curr_amount?: number
+    min_amount?: number
     expense_id: string
   }
 
   export type stockUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    curr_amount?: NullableIntFieldUpdateOperationsInput | number | null
+    curr_amount?: IntFieldUpdateOperationsInput | number
     min_amount?: IntFieldUpdateOperationsInput | number
     expense?: expenseUpdateOneRequiredWithoutStockNestedInput
   }
@@ -12776,7 +12790,7 @@ export namespace Prisma {
   export type stockUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    curr_amount?: NullableIntFieldUpdateOperationsInput | number | null
+    curr_amount?: IntFieldUpdateOperationsInput | number
     min_amount?: IntFieldUpdateOperationsInput | number
     expense_id?: StringFieldUpdateOperationsInput | string
   }
@@ -12784,22 +12798,22 @@ export namespace Prisma {
   export type stockCreateManyInput = {
     id?: string
     created_at?: Date | string
-    curr_amount?: number | null
-    min_amount: number
+    curr_amount?: number
+    min_amount?: number
     expense_id: string
   }
 
   export type stockUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    curr_amount?: NullableIntFieldUpdateOperationsInput | number | null
+    curr_amount?: IntFieldUpdateOperationsInput | number
     min_amount?: IntFieldUpdateOperationsInput | number
   }
 
   export type stockUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    curr_amount?: NullableIntFieldUpdateOperationsInput | number | null
+    curr_amount?: IntFieldUpdateOperationsInput | number
     min_amount?: IntFieldUpdateOperationsInput | number
     expense_id?: StringFieldUpdateOperationsInput | string
   }
@@ -12808,7 +12822,7 @@ export namespace Prisma {
     id?: string
     created_at?: Date | string
     amount?: number
-    price?: number
+    price: Decimal | DecimalJsLike | number | string
     status?: $Enums.TransactionStatus
     repeat_at?: Date | string | null
     date_transact?: Date | string
@@ -12820,7 +12834,7 @@ export namespace Prisma {
     created_at?: Date | string
     expense_id: string
     amount?: number
-    price?: number
+    price: Decimal | DecimalJsLike | number | string
     status?: $Enums.TransactionStatus
     repeat_at?: Date | string | null
     date_transact?: Date | string
@@ -12830,7 +12844,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     amount?: IntFieldUpdateOperationsInput | number
-    price?: FloatFieldUpdateOperationsInput | number
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
     repeat_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     date_transact?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12842,7 +12856,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     expense_id?: StringFieldUpdateOperationsInput | string
     amount?: IntFieldUpdateOperationsInput | number
-    price?: FloatFieldUpdateOperationsInput | number
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
     repeat_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     date_transact?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12853,7 +12867,7 @@ export namespace Prisma {
     created_at?: Date | string
     expense_id: string
     amount?: number
-    price?: number
+    price: Decimal | DecimalJsLike | number | string
     status?: $Enums.TransactionStatus
     repeat_at?: Date | string | null
     date_transact?: Date | string
@@ -12863,7 +12877,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     amount?: IntFieldUpdateOperationsInput | number
-    price?: FloatFieldUpdateOperationsInput | number
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
     repeat_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     date_transact?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12874,7 +12888,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     expense_id?: StringFieldUpdateOperationsInput | string
     amount?: IntFieldUpdateOperationsInput | number
-    price?: FloatFieldUpdateOperationsInput | number
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
     repeat_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     date_transact?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12931,64 +12945,64 @@ export namespace Prisma {
   export type incomeCreateInput = {
     id?: string
     created_at?: Date | string
-    amount?: number | null
-    user_id?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    user_id: string
     from_job?: boolean
-    date_obtained?: Date | string | null
+    date_obtained?: Date | string
   }
 
   export type incomeUncheckedCreateInput = {
     id?: string
     created_at?: Date | string
-    amount?: number | null
-    user_id?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    user_id: string
     from_job?: boolean
-    date_obtained?: Date | string | null
+    date_obtained?: Date | string
   }
 
   export type incomeUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    amount?: NullableFloatFieldUpdateOperationsInput | number | null
-    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    user_id?: StringFieldUpdateOperationsInput | string
     from_job?: BoolFieldUpdateOperationsInput | boolean
-    date_obtained?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    date_obtained?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type incomeUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    amount?: NullableFloatFieldUpdateOperationsInput | number | null
-    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    user_id?: StringFieldUpdateOperationsInput | string
     from_job?: BoolFieldUpdateOperationsInput | boolean
-    date_obtained?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    date_obtained?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type incomeCreateManyInput = {
     id?: string
     created_at?: Date | string
-    amount?: number | null
-    user_id?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    user_id: string
     from_job?: boolean
-    date_obtained?: Date | string | null
+    date_obtained?: Date | string
   }
 
   export type incomeUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    amount?: NullableFloatFieldUpdateOperationsInput | number | null
-    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    user_id?: StringFieldUpdateOperationsInput | string
     from_job?: BoolFieldUpdateOperationsInput | boolean
-    date_obtained?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    date_obtained?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type incomeUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    amount?: NullableFloatFieldUpdateOperationsInput | number | null
-    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    user_id?: StringFieldUpdateOperationsInput | string
     from_job?: BoolFieldUpdateOperationsInput | boolean
-    date_obtained?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    date_obtained?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type budgetCreateInput = {
@@ -13085,6 +13099,21 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type StringFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringFilter<$PrismaModel> | string
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -13254,6 +13283,24 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
+  export type StringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -13295,21 +13342,6 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type StringFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringFilter<$PrismaModel> | string
-  }
-
   export type TaskListRelationFilter = {
     every?: taskWhereInput
     some?: taskWhereInput
@@ -13341,33 +13373,15 @@ export namespace Prisma {
     user_id?: SortOrder
   }
 
-  export type StringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
-  }
-
-  export type IntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
   export type ExpenseScalarRelationFilter = {
@@ -13407,27 +13421,27 @@ export namespace Prisma {
     running_bill?: SortOrder
   }
 
-  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
     _count?: NestedIntNullableFilter<$PrismaModel>
     _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
-  export type EnumExpenseTypeNullableFilter<$PrismaModel = never> = {
-    equals?: $Enums.ExpenseType | EnumExpenseTypeFieldRefInput<$PrismaModel> | null
-    in?: $Enums.ExpenseType[] | ListEnumExpenseTypeFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.ExpenseType[] | ListEnumExpenseTypeFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumExpenseTypeNullableFilter<$PrismaModel> | $Enums.ExpenseType | null
+  export type EnumExpenseTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ExpenseType | EnumExpenseTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ExpenseType[] | ListEnumExpenseTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ExpenseType[] | ListEnumExpenseTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumExpenseTypeFilter<$PrismaModel> | $Enums.ExpenseType
   }
 
   export type Bill_expenseNullableScalarRelationFilter = {
@@ -13485,14 +13499,14 @@ export namespace Prisma {
     is_archived?: SortOrder
   }
 
-  export type EnumExpenseTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.ExpenseType | EnumExpenseTypeFieldRefInput<$PrismaModel> | null
-    in?: $Enums.ExpenseType[] | ListEnumExpenseTypeFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.ExpenseType[] | ListEnumExpenseTypeFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumExpenseTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.ExpenseType | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedEnumExpenseTypeNullableFilter<$PrismaModel>
-    _max?: NestedEnumExpenseTypeNullableFilter<$PrismaModel>
+  export type EnumExpenseTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ExpenseType | EnumExpenseTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ExpenseType[] | ListEnumExpenseTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ExpenseType[] | ListEnumExpenseTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumExpenseTypeWithAggregatesFilter<$PrismaModel> | $Enums.ExpenseType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumExpenseTypeFilter<$PrismaModel>
+    _max?: NestedEnumExpenseTypeFilter<$PrismaModel>
   }
 
   export type stockCountOrderByAggregateInput = {
@@ -13529,15 +13543,15 @@ export namespace Prisma {
     min_amount?: SortOrder
   }
 
-  export type FloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
+  export type DecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
   export type EnumTransactionStatusFilter<$PrismaModel = never> = {
@@ -13590,20 +13604,20 @@ export namespace Prisma {
     price?: SortOrder
   }
 
-  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+  export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
     _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
   }
 
   export type EnumTransactionStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -13651,17 +13665,6 @@ export namespace Prisma {
     cost_list?: SortOrder
   }
 
-  export type FloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
   export type incomeCountOrderByAggregateInput = {
     id?: SortOrder
     created_at?: SortOrder
@@ -13695,22 +13698,6 @@ export namespace Prisma {
 
   export type incomeSumOrderByAggregateInput = {
     amount?: SortOrder
-  }
-
-  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedFloatNullableFilter<$PrismaModel>
-    _min?: NestedFloatNullableFilter<$PrismaModel>
-    _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
   export type budgetCountOrderByAggregateInput = {
@@ -13841,7 +13828,7 @@ export namespace Prisma {
     connect?: expenseWhereUniqueInput
   }
 
-  export type NullableIntFieldUpdateOperationsInput = {
+  export type NullableFloatFieldUpdateOperationsInput = {
     set?: number | null
     increment?: number
     decrement?: number
@@ -13921,8 +13908,8 @@ export namespace Prisma {
     connect?: transportation_expenseWhereUniqueInput
   }
 
-  export type NullableEnumExpenseTypeFieldUpdateOperationsInput = {
-    set?: $Enums.ExpenseType | null
+  export type EnumExpenseTypeFieldUpdateOperationsInput = {
+    set?: $Enums.ExpenseType
   }
 
   export type bill_expenseUpdateOneWithoutExpenseNestedInput = {
@@ -14061,12 +14048,12 @@ export namespace Prisma {
     connect?: expenseWhereUniqueInput
   }
 
-  export type FloatFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
+  export type DecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
   }
 
   export type EnumTransactionStatusFieldUpdateOperationsInput = {
@@ -14102,14 +14089,6 @@ export namespace Prisma {
     upsert?: expenseUpsertWithoutTransportation_expenseInput
     connect?: expenseWhereUniqueInput
     update?: XOR<XOR<expenseUpdateToOneWithWhereWithoutTransportation_expenseInput, expenseUpdateWithoutTransportation_expenseInput>, expenseUncheckedUpdateWithoutTransportation_expenseInput>
-  }
-
-  export type NullableFloatFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type NestedUuidFilter<$PrismaModel = never> = {
@@ -14164,6 +14143,20 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
+  export type NestedStringFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringFilter<$PrismaModel> | string
+  }
+
   export type NestedIntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -14205,20 +14198,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
-  }
-
-  export type NestedStringFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringFilter<$PrismaModel> | string
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -14285,6 +14264,23 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
+  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -14336,39 +14332,6 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
-  }
-
-  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
   export type NestedFloatNullableFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel> | null
     in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
@@ -14378,56 +14341,6 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedEnumExpenseTypeNullableFilter<$PrismaModel = never> = {
-    equals?: $Enums.ExpenseType | EnumExpenseTypeFieldRefInput<$PrismaModel> | null
-    in?: $Enums.ExpenseType[] | ListEnumExpenseTypeFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.ExpenseType[] | ListEnumExpenseTypeFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumExpenseTypeNullableFilter<$PrismaModel> | $Enums.ExpenseType | null
-  }
-
-  export type NestedEnumExpenseTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.ExpenseType | EnumExpenseTypeFieldRefInput<$PrismaModel> | null
-    in?: $Enums.ExpenseType[] | ListEnumExpenseTypeFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.ExpenseType[] | ListEnumExpenseTypeFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumExpenseTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.ExpenseType | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedEnumExpenseTypeNullableFilter<$PrismaModel>
-    _max?: NestedEnumExpenseTypeNullableFilter<$PrismaModel>
-  }
-
-  export type NestedEnumTransactionStatusFilter<$PrismaModel = never> = {
-    equals?: $Enums.TransactionStatus | EnumTransactionStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.TransactionStatus[] | ListEnumTransactionStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.TransactionStatus[] | ListEnumTransactionStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumTransactionStatusFilter<$PrismaModel> | $Enums.TransactionStatus
-  }
-
-  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
-  }
-
-  export type NestedEnumTransactionStatusWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.TransactionStatus | EnumTransactionStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.TransactionStatus[] | ListEnumTransactionStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.TransactionStatus[] | ListEnumTransactionStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumTransactionStatusWithAggregatesFilter<$PrismaModel> | $Enums.TransactionStatus
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumTransactionStatusFilter<$PrismaModel>
-    _max?: NestedEnumTransactionStatusFilter<$PrismaModel>
   }
 
   export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -14446,13 +14359,74 @@ export namespace Prisma {
     _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
+  export type NestedEnumExpenseTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ExpenseType | EnumExpenseTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ExpenseType[] | ListEnumExpenseTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ExpenseType[] | ListEnumExpenseTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumExpenseTypeFilter<$PrismaModel> | $Enums.ExpenseType
+  }
+
+  export type NestedEnumExpenseTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ExpenseType | EnumExpenseTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ExpenseType[] | ListEnumExpenseTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ExpenseType[] | ListEnumExpenseTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumExpenseTypeWithAggregatesFilter<$PrismaModel> | $Enums.ExpenseType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumExpenseTypeFilter<$PrismaModel>
+    _max?: NestedEnumExpenseTypeFilter<$PrismaModel>
+  }
+
+  export type NestedDecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type NestedEnumTransactionStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.TransactionStatus | EnumTransactionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.TransactionStatus[] | ListEnumTransactionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TransactionStatus[] | ListEnumTransactionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumTransactionStatusFilter<$PrismaModel> | $Enums.TransactionStatus
+  }
+
+  export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
+  export type NestedEnumTransactionStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TransactionStatus | EnumTransactionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.TransactionStatus[] | ListEnumTransactionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TransactionStatus[] | ListEnumTransactionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumTransactionStatusWithAggregatesFilter<$PrismaModel> | $Enums.TransactionStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTransactionStatusFilter<$PrismaModel>
+    _max?: NestedEnumTransactionStatusFilter<$PrismaModel>
+  }
+
   export type expenseCreateWithoutTaskInput = {
     id?: string
     created_at?: Date | string
-    name?: string | null
+    name: string
     description?: string | null
-    expense_type?: $Enums.ExpenseType | null
-    user_id?: string | null
+    expense_type?: $Enums.ExpenseType
+    user_id: string
     is_archived?: boolean
     bill_expense?: bill_expenseCreateNestedOneWithoutExpenseInput
     stock?: stockCreateNestedOneWithoutExpenseInput
@@ -14463,10 +14437,10 @@ export namespace Prisma {
   export type expenseUncheckedCreateWithoutTaskInput = {
     id?: string
     created_at?: Date | string
-    name?: string | null
+    name: string
     description?: string | null
-    expense_type?: $Enums.ExpenseType | null
-    user_id?: string | null
+    expense_type?: $Enums.ExpenseType
+    user_id: string
     is_archived?: boolean
     bill_expense?: bill_expenseUncheckedCreateNestedOneWithoutExpenseInput
     stock?: stockUncheckedCreateNestedOneWithoutExpenseInput
@@ -14512,10 +14486,10 @@ export namespace Prisma {
   export type expenseUpdateWithoutTaskInput = {
     id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    expense_type?: NullableEnumExpenseTypeFieldUpdateOperationsInput | $Enums.ExpenseType | null
-    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    expense_type?: EnumExpenseTypeFieldUpdateOperationsInput | $Enums.ExpenseType
+    user_id?: StringFieldUpdateOperationsInput | string
     is_archived?: BoolFieldUpdateOperationsInput | boolean
     bill_expense?: bill_expenseUpdateOneWithoutExpenseNestedInput
     stock?: stockUpdateOneWithoutExpenseNestedInput
@@ -14526,10 +14500,10 @@ export namespace Prisma {
   export type expenseUncheckedUpdateWithoutTaskInput = {
     id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    expense_type?: NullableEnumExpenseTypeFieldUpdateOperationsInput | $Enums.ExpenseType | null
-    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    expense_type?: EnumExpenseTypeFieldUpdateOperationsInput | $Enums.ExpenseType
+    user_id?: StringFieldUpdateOperationsInput | string
     is_archived?: BoolFieldUpdateOperationsInput | boolean
     bill_expense?: bill_expenseUncheckedUpdateOneWithoutExpenseNestedInput
     stock?: stockUncheckedUpdateOneWithoutExpenseNestedInput
@@ -14568,7 +14542,7 @@ export namespace Prisma {
     description?: string | null
     completed?: boolean
     completed_at?: Date | string | null
-    title?: string | null
+    title: string
     priority_level?: number
     due_date?: Date | string | null
     repeating_type?: $Enums.DateRepeatType | null
@@ -14582,7 +14556,7 @@ export namespace Prisma {
     description?: string | null
     completed?: boolean
     completed_at?: Date | string | null
-    title?: string | null
+    title: string
     priority_level?: number
     due_date?: Date | string | null
     repeating_type?: $Enums.DateRepeatType | null
@@ -14625,7 +14599,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"task"> | string | null
     completed?: BoolFilter<"task"> | boolean
     completed_at?: DateTimeNullableFilter<"task"> | Date | string | null
-    title?: StringNullableFilter<"task"> | string | null
+    title?: StringFilter<"task"> | string
     priority_level?: IntFilter<"task"> | number
     due_date?: DateTimeNullableFilter<"task"> | Date | string | null
     task_category_id?: UuidFilter<"task"> | string
@@ -14637,10 +14611,10 @@ export namespace Prisma {
   export type expenseCreateWithoutBill_expenseInput = {
     id?: string
     created_at?: Date | string
-    name?: string | null
+    name: string
     description?: string | null
-    expense_type?: $Enums.ExpenseType | null
-    user_id?: string | null
+    expense_type?: $Enums.ExpenseType
+    user_id: string
     is_archived?: boolean
     stock?: stockCreateNestedOneWithoutExpenseInput
     task?: taskCreateNestedManyWithoutExpenseInput
@@ -14651,10 +14625,10 @@ export namespace Prisma {
   export type expenseUncheckedCreateWithoutBill_expenseInput = {
     id?: string
     created_at?: Date | string
-    name?: string | null
+    name: string
     description?: string | null
-    expense_type?: $Enums.ExpenseType | null
-    user_id?: string | null
+    expense_type?: $Enums.ExpenseType
+    user_id: string
     is_archived?: boolean
     stock?: stockUncheckedCreateNestedOneWithoutExpenseInput
     task?: taskUncheckedCreateNestedManyWithoutExpenseInput
@@ -14681,10 +14655,10 @@ export namespace Prisma {
   export type expenseUpdateWithoutBill_expenseInput = {
     id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    expense_type?: NullableEnumExpenseTypeFieldUpdateOperationsInput | $Enums.ExpenseType | null
-    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    expense_type?: EnumExpenseTypeFieldUpdateOperationsInput | $Enums.ExpenseType
+    user_id?: StringFieldUpdateOperationsInput | string
     is_archived?: BoolFieldUpdateOperationsInput | boolean
     stock?: stockUpdateOneWithoutExpenseNestedInput
     task?: taskUpdateManyWithoutExpenseNestedInput
@@ -14695,10 +14669,10 @@ export namespace Prisma {
   export type expenseUncheckedUpdateWithoutBill_expenseInput = {
     id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    expense_type?: NullableEnumExpenseTypeFieldUpdateOperationsInput | $Enums.ExpenseType | null
-    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    expense_type?: EnumExpenseTypeFieldUpdateOperationsInput | $Enums.ExpenseType
+    user_id?: StringFieldUpdateOperationsInput | string
     is_archived?: BoolFieldUpdateOperationsInput | boolean
     stock?: stockUncheckedUpdateOneWithoutExpenseNestedInput
     task?: taskUncheckedUpdateManyWithoutExpenseNestedInput
@@ -14728,15 +14702,15 @@ export namespace Prisma {
   export type stockCreateWithoutExpenseInput = {
     id?: string
     created_at?: Date | string
-    curr_amount?: number | null
-    min_amount: number
+    curr_amount?: number
+    min_amount?: number
   }
 
   export type stockUncheckedCreateWithoutExpenseInput = {
     id?: string
     created_at?: Date | string
-    curr_amount?: number | null
-    min_amount: number
+    curr_amount?: number
+    min_amount?: number
   }
 
   export type stockCreateOrConnectWithoutExpenseInput = {
@@ -14750,7 +14724,7 @@ export namespace Prisma {
     description?: string | null
     completed?: boolean
     completed_at?: Date | string | null
-    title?: string | null
+    title: string
     priority_level?: number
     due_date?: Date | string | null
     repeating_type?: $Enums.DateRepeatType | null
@@ -14764,7 +14738,7 @@ export namespace Prisma {
     description?: string | null
     completed?: boolean
     completed_at?: Date | string | null
-    title?: string | null
+    title: string
     priority_level?: number
     due_date?: Date | string | null
     task_category_id: string
@@ -14786,7 +14760,7 @@ export namespace Prisma {
     id?: string
     created_at?: Date | string
     amount?: number
-    price?: number
+    price: Decimal | DecimalJsLike | number | string
     status?: $Enums.TransactionStatus
     repeat_at?: Date | string | null
     date_transact?: Date | string
@@ -14796,7 +14770,7 @@ export namespace Prisma {
     id?: string
     created_at?: Date | string
     amount?: number
-    price?: number
+    price: Decimal | DecimalJsLike | number | string
     status?: $Enums.TransactionStatus
     repeat_at?: Date | string | null
     date_transact?: Date | string
@@ -14844,14 +14818,14 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     repeating_type?: NullableEnumDateRepeatTypeFieldUpdateOperationsInput | $Enums.DateRepeatType | null
-    running_bill?: NullableIntFieldUpdateOperationsInput | number | null
+    running_bill?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type bill_expenseUncheckedUpdateWithoutExpenseInput = {
     id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     repeating_type?: NullableEnumDateRepeatTypeFieldUpdateOperationsInput | $Enums.DateRepeatType | null
-    running_bill?: NullableIntFieldUpdateOperationsInput | number | null
+    running_bill?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type stockUpsertWithoutExpenseInput = {
@@ -14868,14 +14842,14 @@ export namespace Prisma {
   export type stockUpdateWithoutExpenseInput = {
     id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    curr_amount?: NullableIntFieldUpdateOperationsInput | number | null
+    curr_amount?: IntFieldUpdateOperationsInput | number
     min_amount?: IntFieldUpdateOperationsInput | number
   }
 
   export type stockUncheckedUpdateWithoutExpenseInput = {
     id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    curr_amount?: NullableIntFieldUpdateOperationsInput | number | null
+    curr_amount?: IntFieldUpdateOperationsInput | number
     min_amount?: IntFieldUpdateOperationsInput | number
   }
 
@@ -14919,7 +14893,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"transaction"> | Date | string
     expense_id?: UuidFilter<"transaction"> | string
     amount?: IntFilter<"transaction"> | number
-    price?: FloatFilter<"transaction"> | number
+    price?: DecimalFilter<"transaction"> | Decimal | DecimalJsLike | number | string
     status?: EnumTransactionStatusFilter<"transaction"> | $Enums.TransactionStatus
     repeat_at?: DateTimeNullableFilter<"transaction"> | Date | string | null
     date_transact?: DateTimeFilter<"transaction"> | Date | string
@@ -14951,10 +14925,10 @@ export namespace Prisma {
   export type expenseCreateWithoutStockInput = {
     id?: string
     created_at?: Date | string
-    name?: string | null
+    name: string
     description?: string | null
-    expense_type?: $Enums.ExpenseType | null
-    user_id?: string | null
+    expense_type?: $Enums.ExpenseType
+    user_id: string
     is_archived?: boolean
     bill_expense?: bill_expenseCreateNestedOneWithoutExpenseInput
     task?: taskCreateNestedManyWithoutExpenseInput
@@ -14965,10 +14939,10 @@ export namespace Prisma {
   export type expenseUncheckedCreateWithoutStockInput = {
     id?: string
     created_at?: Date | string
-    name?: string | null
+    name: string
     description?: string | null
-    expense_type?: $Enums.ExpenseType | null
-    user_id?: string | null
+    expense_type?: $Enums.ExpenseType
+    user_id: string
     is_archived?: boolean
     bill_expense?: bill_expenseUncheckedCreateNestedOneWithoutExpenseInput
     task?: taskUncheckedCreateNestedManyWithoutExpenseInput
@@ -14995,10 +14969,10 @@ export namespace Prisma {
   export type expenseUpdateWithoutStockInput = {
     id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    expense_type?: NullableEnumExpenseTypeFieldUpdateOperationsInput | $Enums.ExpenseType | null
-    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    expense_type?: EnumExpenseTypeFieldUpdateOperationsInput | $Enums.ExpenseType
+    user_id?: StringFieldUpdateOperationsInput | string
     is_archived?: BoolFieldUpdateOperationsInput | boolean
     bill_expense?: bill_expenseUpdateOneWithoutExpenseNestedInput
     task?: taskUpdateManyWithoutExpenseNestedInput
@@ -15009,10 +14983,10 @@ export namespace Prisma {
   export type expenseUncheckedUpdateWithoutStockInput = {
     id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    expense_type?: NullableEnumExpenseTypeFieldUpdateOperationsInput | $Enums.ExpenseType | null
-    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    expense_type?: EnumExpenseTypeFieldUpdateOperationsInput | $Enums.ExpenseType
+    user_id?: StringFieldUpdateOperationsInput | string
     is_archived?: BoolFieldUpdateOperationsInput | boolean
     bill_expense?: bill_expenseUncheckedUpdateOneWithoutExpenseNestedInput
     task?: taskUncheckedUpdateManyWithoutExpenseNestedInput
@@ -15023,10 +14997,10 @@ export namespace Prisma {
   export type expenseCreateWithoutTransactionInput = {
     id?: string
     created_at?: Date | string
-    name?: string | null
+    name: string
     description?: string | null
-    expense_type?: $Enums.ExpenseType | null
-    user_id?: string | null
+    expense_type?: $Enums.ExpenseType
+    user_id: string
     is_archived?: boolean
     bill_expense?: bill_expenseCreateNestedOneWithoutExpenseInput
     stock?: stockCreateNestedOneWithoutExpenseInput
@@ -15037,10 +15011,10 @@ export namespace Prisma {
   export type expenseUncheckedCreateWithoutTransactionInput = {
     id?: string
     created_at?: Date | string
-    name?: string | null
+    name: string
     description?: string | null
-    expense_type?: $Enums.ExpenseType | null
-    user_id?: string | null
+    expense_type?: $Enums.ExpenseType
+    user_id: string
     is_archived?: boolean
     bill_expense?: bill_expenseUncheckedCreateNestedOneWithoutExpenseInput
     stock?: stockUncheckedCreateNestedOneWithoutExpenseInput
@@ -15067,10 +15041,10 @@ export namespace Prisma {
   export type expenseUpdateWithoutTransactionInput = {
     id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    expense_type?: NullableEnumExpenseTypeFieldUpdateOperationsInput | $Enums.ExpenseType | null
-    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    expense_type?: EnumExpenseTypeFieldUpdateOperationsInput | $Enums.ExpenseType
+    user_id?: StringFieldUpdateOperationsInput | string
     is_archived?: BoolFieldUpdateOperationsInput | boolean
     bill_expense?: bill_expenseUpdateOneWithoutExpenseNestedInput
     stock?: stockUpdateOneWithoutExpenseNestedInput
@@ -15081,10 +15055,10 @@ export namespace Prisma {
   export type expenseUncheckedUpdateWithoutTransactionInput = {
     id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    expense_type?: NullableEnumExpenseTypeFieldUpdateOperationsInput | $Enums.ExpenseType | null
-    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    expense_type?: EnumExpenseTypeFieldUpdateOperationsInput | $Enums.ExpenseType
+    user_id?: StringFieldUpdateOperationsInput | string
     is_archived?: BoolFieldUpdateOperationsInput | boolean
     bill_expense?: bill_expenseUncheckedUpdateOneWithoutExpenseNestedInput
     stock?: stockUncheckedUpdateOneWithoutExpenseNestedInput
@@ -15095,10 +15069,10 @@ export namespace Prisma {
   export type expenseCreateWithoutTransportation_expenseInput = {
     id?: string
     created_at?: Date | string
-    name?: string | null
+    name: string
     description?: string | null
-    expense_type?: $Enums.ExpenseType | null
-    user_id?: string | null
+    expense_type?: $Enums.ExpenseType
+    user_id: string
     is_archived?: boolean
     bill_expense?: bill_expenseCreateNestedOneWithoutExpenseInput
     stock?: stockCreateNestedOneWithoutExpenseInput
@@ -15109,10 +15083,10 @@ export namespace Prisma {
   export type expenseUncheckedCreateWithoutTransportation_expenseInput = {
     id?: string
     created_at?: Date | string
-    name?: string | null
+    name: string
     description?: string | null
-    expense_type?: $Enums.ExpenseType | null
-    user_id?: string | null
+    expense_type?: $Enums.ExpenseType
+    user_id: string
     is_archived?: boolean
     bill_expense?: bill_expenseUncheckedCreateNestedOneWithoutExpenseInput
     stock?: stockUncheckedCreateNestedOneWithoutExpenseInput
@@ -15139,10 +15113,10 @@ export namespace Prisma {
   export type expenseUpdateWithoutTransportation_expenseInput = {
     id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    expense_type?: NullableEnumExpenseTypeFieldUpdateOperationsInput | $Enums.ExpenseType | null
-    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    expense_type?: EnumExpenseTypeFieldUpdateOperationsInput | $Enums.ExpenseType
+    user_id?: StringFieldUpdateOperationsInput | string
     is_archived?: BoolFieldUpdateOperationsInput | boolean
     bill_expense?: bill_expenseUpdateOneWithoutExpenseNestedInput
     stock?: stockUpdateOneWithoutExpenseNestedInput
@@ -15153,10 +15127,10 @@ export namespace Prisma {
   export type expenseUncheckedUpdateWithoutTransportation_expenseInput = {
     id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    expense_type?: NullableEnumExpenseTypeFieldUpdateOperationsInput | $Enums.ExpenseType | null
-    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    expense_type?: EnumExpenseTypeFieldUpdateOperationsInput | $Enums.ExpenseType
+    user_id?: StringFieldUpdateOperationsInput | string
     is_archived?: BoolFieldUpdateOperationsInput | boolean
     bill_expense?: bill_expenseUncheckedUpdateOneWithoutExpenseNestedInput
     stock?: stockUncheckedUpdateOneWithoutExpenseNestedInput
@@ -15170,7 +15144,7 @@ export namespace Prisma {
     description?: string | null
     completed?: boolean
     completed_at?: Date | string | null
-    title?: string | null
+    title: string
     priority_level?: number
     due_date?: Date | string | null
     repeating_type?: $Enums.DateRepeatType | null
@@ -15184,7 +15158,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     completed?: BoolFieldUpdateOperationsInput | boolean
     completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    title?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: StringFieldUpdateOperationsInput | string
     priority_level?: IntFieldUpdateOperationsInput | number
     due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     repeating_type?: NullableEnumDateRepeatTypeFieldUpdateOperationsInput | $Enums.DateRepeatType | null
@@ -15198,7 +15172,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     completed?: BoolFieldUpdateOperationsInput | boolean
     completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    title?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: StringFieldUpdateOperationsInput | string
     priority_level?: IntFieldUpdateOperationsInput | number
     due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     repeating_type?: NullableEnumDateRepeatTypeFieldUpdateOperationsInput | $Enums.DateRepeatType | null
@@ -15212,7 +15186,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     completed?: BoolFieldUpdateOperationsInput | boolean
     completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    title?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: StringFieldUpdateOperationsInput | string
     priority_level?: IntFieldUpdateOperationsInput | number
     due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     repeating_type?: NullableEnumDateRepeatTypeFieldUpdateOperationsInput | $Enums.DateRepeatType | null
@@ -15226,7 +15200,7 @@ export namespace Prisma {
     description?: string | null
     completed?: boolean
     completed_at?: Date | string | null
-    title?: string | null
+    title: string
     priority_level?: number
     due_date?: Date | string | null
     task_category_id: string
@@ -15238,7 +15212,7 @@ export namespace Prisma {
     id?: string
     created_at?: Date | string
     amount?: number
-    price?: number
+    price: Decimal | DecimalJsLike | number | string
     status?: $Enums.TransactionStatus
     repeat_at?: Date | string | null
     date_transact?: Date | string
@@ -15250,7 +15224,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     completed?: BoolFieldUpdateOperationsInput | boolean
     completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    title?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: StringFieldUpdateOperationsInput | string
     priority_level?: IntFieldUpdateOperationsInput | number
     due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     repeating_type?: NullableEnumDateRepeatTypeFieldUpdateOperationsInput | $Enums.DateRepeatType | null
@@ -15264,7 +15238,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     completed?: BoolFieldUpdateOperationsInput | boolean
     completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    title?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: StringFieldUpdateOperationsInput | string
     priority_level?: IntFieldUpdateOperationsInput | number
     due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     task_category_id?: StringFieldUpdateOperationsInput | string
@@ -15278,7 +15252,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     completed?: BoolFieldUpdateOperationsInput | boolean
     completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    title?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: StringFieldUpdateOperationsInput | string
     priority_level?: IntFieldUpdateOperationsInput | number
     due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     task_category_id?: StringFieldUpdateOperationsInput | string
@@ -15290,7 +15264,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     amount?: IntFieldUpdateOperationsInput | number
-    price?: FloatFieldUpdateOperationsInput | number
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
     repeat_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     date_transact?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15300,7 +15274,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     amount?: IntFieldUpdateOperationsInput | number
-    price?: FloatFieldUpdateOperationsInput | number
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
     repeat_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     date_transact?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15310,7 +15284,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     amount?: IntFieldUpdateOperationsInput | number
-    price?: FloatFieldUpdateOperationsInput | number
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
     repeat_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     date_transact?: DateTimeFieldUpdateOperationsInput | Date | string

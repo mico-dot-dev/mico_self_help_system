@@ -11,25 +11,24 @@ import { getErrorMessage } from "../lib/errors";
 export async function GetUserStock(): Promise<ActionResponse<StockModel[]>> {
   return withAuth(async (userId) => {
     try {
-      const userStock = await prisma.expense.findMany({
+      const userStock = await prisma.stock.findMany({
         where: {
-          user_id: userId,
-          stock: {
-            isNot: null,
+          expense: {
+            user_id: userId,
           },
         },
         include: {
-          stock: true,
+          expense: true,
         },
       });
 
       const parsedStock: StockModel[] = userStock.map((stock) => {
         return {
-          id: stock.stock!.id.toString(),
-          name: stock.name!,
-          description: stock.description!,
-          curr_amount: stock.stock?.curr_amount || 0,
-          min_amount: stock.stock?.min_amount || 0,
+          id: stock.id,
+          name: stock.expense.name,
+          description: stock.expense.description || "",
+          curr_amount: stock.curr_amount || 0,
+          min_amount: stock.min_amount || 0,
         };
       });
 
