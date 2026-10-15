@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { supabaseServer } from "@/src/lib/supabase/server";
 
 export async function proxy(request: NextRequest) {
-  let supabaseResponse = NextResponse.next({
+  const supabaseResponse = NextResponse.next({
     request,
   });
   const supabase = await supabaseServer();

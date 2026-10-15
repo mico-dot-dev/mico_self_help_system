@@ -254,10 +254,10 @@ export async function getTaskByID(
       return {
         success: true,
         data: {
-          id: task.id!.toString(),
-          title: task.title!,
-          description: task.description!,
-          completed: task.completed!,
+          id: task.id,
+          title: task.title,
+          description: task.description || "",
+          completed: task.completed,
           category: task.task_category.title,
           priority_level: 0,
           repeating_type: DateRepeatType.MANUAL, // Default to Manual if not provided

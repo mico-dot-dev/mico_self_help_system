@@ -1,4 +1,4 @@
-import { ComponentType, ReactNode } from "react";
+import { ComponentType } from "react";
 import { RowData } from "@tanstack/react-table";
 import { ColumnDef } from "@tanstack/react-table";
 import { AppModule } from "./module";
