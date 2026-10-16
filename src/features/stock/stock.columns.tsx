@@ -2,15 +2,15 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import { StockModel } from "@/src/schema/stock.schema";
-import { ManageStockAmount } from "@/src/actions/stock.action";
+import { manageStockAmount } from "@/src/actions/stock.action";
 import { Plus, Minus } from "lucide-react";
 import { ColumnDef } from "@tanstack/react-table";
 
 const handleStockUpdate = (
   method: "increment" | "decrement",
-  stock: StockModel,
+  stockId: string,
 ) => {
-  ManageStockAmount(stock, method);
+  manageStockAmount({ stockId: stockId, action: method });
 };
 
 export const stockColumns: Array<ColumnDef<{}, StockModel>> = [
@@ -37,13 +37,13 @@ export const stockColumns: Array<ColumnDef<{}, StockModel>> = [
         <div className="flex gap-5">
           <button
             className="button-base"
-            onClick={() => handleStockUpdate("increment", row.original)}
+            onClick={() => handleStockUpdate("increment", row.id)}
           >
             <Plus />
           </button>
           <button
             className="button-base"
-            onClick={() => handleStockUpdate("decrement", row.original)}
+            onClick={() => handleStockUpdate("decrement", row.id)}
           >
             <Minus />
           </button>

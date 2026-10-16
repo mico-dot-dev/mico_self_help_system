@@ -19,9 +19,6 @@ interface CashChartProps {
 }
 
 function CashFlowChart({ barData, pieData, g }: CashChartProps) {
-  if (!barData || !pieData) {
-    return <p>No data Found</p>;
-  }
   const [granularity, setGranularity] = useState<ChartGranularity>("day");
 
   const pages = useMemo(
@@ -32,6 +29,10 @@ function CashFlowChart({ barData, pieData, g }: CashChartProps) {
   useEffect(() => setPageIndex(0), [granularity]);
 
   const currentPage = pages[pageIndex] ?? { label: "", points: [] };
+
+  if (!barData || !pieData) {
+    return <p>No data Found</p>;
+  }
 
   if (!currentPage.points) {
     return <p>No data</p>;

@@ -139,7 +139,8 @@ exports.Prisma.Task_categoryScalarFieldEnum = {
   id: 'id',
   created_at: 'created_at',
   title: 'title',
-  user_id: 'user_id'
+  user_id: 'user_id',
+  is_system: 'is_system'
 };
 
 exports.Prisma.Bill_expenseScalarFieldEnum = {

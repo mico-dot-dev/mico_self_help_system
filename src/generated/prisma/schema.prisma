@@ -1,7 +1,7 @@
 generator client {
   provider        = "prisma-client-js"
   output          = ""
-  previewFeatures = ["multiSchema"]
+  previewFeatures = ["multiSchema", "partialIndexes"]
 }
 
 datasource db {
@@ -22,7 +22,7 @@ model task {
   due_date         DateTime?       @db.Timestamptz(6)
   task_category_id String          @db.Uuid
   repeating_type   DateRepeatType?
-  expense_id       String?         @db.Uuid
+  expense_id       String?         @unique(map: "one_active_task_per_expense", where: raw("((completed = false) AND (is_archived = false) AND (expense_id IS NOT NULL))")) @db.Uuid
   is_archived      Boolean         @default(false)
   expense          expense?        @relation(fields: [expense_id], references: [id], onDelete: Cascade)
   task_category    task_category   @relation(fields: [task_category_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
@@ -34,10 +34,12 @@ model task {
 model task_category {
   id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   created_at DateTime @default(now()) @db.Timestamptz(6)
-  title      String   @unique @default("")
-  user_id    String   @db.Uuid
+  title      String   @default("")
+  user_id    String?  @db.Uuid
+  is_system  Boolean  @default(false)
   task       task[]
 
+  @@unique([user_id, title])
   @@schema("public")
 }
 
@@ -64,7 +66,7 @@ model expense {
   is_archived            Boolean                 @default(false)
   bill_expense           bill_expense?
   stock                  stock?
-  task                   task[]
+  task                   task?
   transaction            transaction[]
   transportation_expense transportation_expense?
 

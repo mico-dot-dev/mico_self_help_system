@@ -2,11 +2,16 @@
 
 import { prisma } from "@/src/lib/prisma-client";
 import { ActionResponse } from "@/src/schema/auth.schema";
-import { StockModel } from "../schema/stock.schema";
+import {
+  StockModel,
+  AdjustStockSchema,
+  AdjustStockInputModel,
+} from "../schema/stock.schema";
 import { TaskFormModelOutput } from "@/src/schema/task.schema";
 import { withAuth } from "@/src/lib/utils/validation-wrapper";
 import { StockListSchema } from "../schema/expense.schema";
-import { getErrorMessage } from "../lib/errors";
+import { AppError, getErrorMessage } from "../lib/errors";
+import { DateRepeatType } from "../generated/prisma";
 
 export async function GetUserStock(): Promise<ActionResponse<StockModel[]>> {
   return withAuth(async (userId) => {
@@ -46,128 +51,127 @@ export async function GetUserStock(): Promise<ActionResponse<StockModel[]>> {
   });
 }
 
-export async function ManageStockAmount(
-  stock: StockModel,
-  action: "increment" | "decrement",
-) {
-  const parsedStock = StockListSchema.safeParse(stock);
+const STOCK_TASK_CATEGORY = "Home";
 
-  if (!parsedStock.success) {
+type StockAdjustResult = {
+  currAmount: number;
+  taskChange: "created" | "completed" | "none";
+};
+
+export async function manageStockAmount(
+  input: AdjustStockInputModel,
+): Promise<ActionResponse<{ message: string }>> {
+  const parsedData = AdjustStockSchema.safeParse(input);
+
+  if (!parsedData.success) {
     return {
       success: false,
       error: "Stock Parsed Failed",
     };
   }
 
-  if (action === "decrement" && stock.curr_amount <= 0) {
-    return {
-      success: false,
-      error: "Current amount cannot be less than 0",
-    };
-  }
+  const { stockId, action } = parsedData.data;
 
-  const insertRes = await withAuth(async (userId) => {
+  return withAuth(async (userId) => {
     try {
       const res = await prisma.$transaction(async (tsc) => {
         //Updates the stock table
-        const updatedStock = await tsc.stock.update({
+        const { count } = await tsc.stock.updateMany({
           where: {
-            id: stock.id,
-            expense: {
-              user_id: userId,
-            },
-          },
-          select: {
-            curr_amount: true,
-            min_amount: true,
-            expense: {
-              select: {
-                id: true,
-                name: true,
-              },
-            },
+            id: stockId,
+            expense: { user_id: userId },
+            ...(action === "decrement" ? { curr_amount: { gt: 0 } } : {}),
           },
           data: {
             curr_amount:
-              action === "increment"
-                ? stock.curr_amount + 1
-                : stock.curr_amount - 1,
+              action === "increment" ? { increment: 1 } : { decrement: 1 },
           },
         });
 
-        if (!updatedStock || updatedStock.curr_amount === null) {
-          return {
-            success: false,
-            error: "Failed to update stock amount",
-          };
+        if (count === 0) {
+          throw new AppError(
+            action === "decrement"
+              ? "Stock not found, or already at 0"
+              : "Stock not found",
+          );
         }
 
-        // Fetches a pre inserted category
-        const stockTaskCategory = await tsc.task_category.findUnique({
-          where: {
-            title: "Home",
-            user_id: userId,
+        const stock = await tsc.stock.findFirstOrThrow({
+          where: { id: stockId, expense: { user_id: userId } },
+          select: {
+            curr_amount: true,
+            min_amount: true,
+            expense: { select: { id: true, name: true } },
           },
         });
 
-        if (!stockTaskCategory) {
-          return {
-            success: false,
-            error: "Stock task category not found",
-          };
-        }
+        const needsRestock = stock.curr_amount < stock.min_amount;
 
-        const updateTask: TaskFormModelOutput = {
-          title: "Buy " + updatedStock.expense.name,
-          description: "",
-          category_id: stockTaskCategory.id,
-          completed: false,
-          priority_level: 0,
-          repeating_type: "MANUAL",
-          expense_id: updatedStock.expense.id,
-        };
-
-        const existingTask = await tsc.task.findFirst({
+        const openTask = await tsc.task.findFirst({
           where: {
-            expense_id: updatedStock.expense.id,
+            expense_id: stock.expense.id,
             completed: false,
-            task_category: {
-              user_id: userId,
-            },
+            is_archived: false,
+            task_category: { user_id: userId },
           },
+          select: { id: true },
         });
 
-        if (!existingTask) {
-          return {
-            success: false,
-            error: "No existingTask",
-          };
-        }
+        let taskChange: StockAdjustResult["taskChange"] = "none";
 
         //Checks if the current stock amount exceeds or falls short of the minimum value
-        //Creates a task if doesn't exist or update existing task to buy new stock (curr value is below minimum)
-        //Completes a task for the buy stock (curr value is above minimum)
+        if (needsRestock && !openTask) {
+          const category = await tsc.task_category.findFirst({
+            where: { is_system: true, title: STOCK_TASK_CATEGORY },
+            select: { id: true },
+          });
 
-        await tsc.task.upsert({
-          where: {
-            id: existingTask.id,
-            task_category: {
-              user_id: userId,
+          if (!category) {
+            throw new AppError(
+              `Create a "${STOCK_TASK_CATEGORY}" task category first`,
+            );
+          }
+
+          //Creates a task if doesn't exist or update existing task to buy new stock (curr value is below minimum)
+          await tsc.task.create({
+            data: {
+              title: `Buy ${stock.expense.name}`,
+              task_category_id: category.id,
+              expense_id: stock.expense.id,
+              repeating_type: DateRepeatType.MANUAL,
             },
-          },
-          update: {
-            completed: true,
-          },
-          create: {
-            title: updateTask.title,
-            description: updateTask.description,
-            task_category_id: updateTask.category_id,
-            completed: updateTask.completed,
-            priority_level: updateTask.priority_level,
-            repeating_type: updateTask.repeating_type,
-            expense_id: updateTask.expense_id ?? "",
-          },
-        });
+          });
+          taskChange = "created";
+        } else if (!needsRestock && openTask) {
+          //Completes a task for the buy stock (curr value is above minimum)
+          await tsc.task.update({
+            where: { id: openTask.id },
+            data: { completed: true },
+          });
+          taskChange = "completed";
+        }
+
+        //  await tsc.task.upsert({
+        //           where: {
+        //             id: existingTask.id,
+        //             task_category: {
+        //               user_id: userId,
+        //             },
+        //           },
+        //           update: {
+        //             completed: true,
+        //           },
+        //           create: {
+        //             title: updateTask.title,
+        //             description: updateTask.description,
+        //             task_category_id: updateTask.category_id,
+        //             completed: updateTask.completed,
+        //             priority_level: updateTask.priority_level,
+        //             repeating_type: updateTask.repeating_type,
+        //             expense_id: updateTask.expense_id ?? "",
+        //           },
+        //         });
+
         //  if (
         //         existingTask &&
         //         updatedStock.curr_amount >= updatedStock.min_amount
@@ -201,12 +205,6 @@ export async function ManageStockAmount(
         // }
       });
 
-      if (!res?.success) {
-        return {
-          success: false,
-          error: "Update Failed",
-        };
-      }
       return {
         success: true,
         data: { message: "Success" },

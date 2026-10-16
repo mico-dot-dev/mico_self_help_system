@@ -283,6 +283,12 @@ export async function updateTask(
 
   return withAuth(async (userId) => {
     try {
+      const cat = await prisma.task_category.findFirst({
+        where: { id: data.category_id, user_id: userId },
+        select: { id: true },
+      });
+      if (!cat) return { success: false, error: "Category not found" };
+
       const res = await prisma.task.update({
         where: {
           id: data.id,
