@@ -1,6 +1,6 @@
 import React, { Suspense, use } from "react";
 import { ListParams } from "@/src/type/data-list";
-import { GetUserCategory } from "@/src/actions/category.action";
+import { getUserCategory } from "@/src/actions/category.action";
 import DataListContainer from "@/src/components/ui/DataListContainer";
 import TaskStatisticsWrapper from "@/features/task/components/TaskStatisticsWrapper";
 import TaskHeader from "@/features/task/components/TaskHeader";
@@ -12,7 +12,7 @@ interface PageProps {
 
 async function page({ searchParams }: PageProps) {
   const params = await searchParams;
-  const res = await GetUserCategory();
+  const res = await getUserCategory();
   if (!res.success) {
     return;
   }

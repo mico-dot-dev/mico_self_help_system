@@ -11,7 +11,7 @@ import { ActionResponse } from "@/src/schema/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CreateTask, getTaskByID, updateTask } from "@/src/actions/task.action";
 import Swal from "sweetalert2";
-import { GetUserCategory } from "@/src/actions/category.action";
+import { getUserCategory } from "@/src/actions/category.action";
 import { CategoryListModel } from "@/src/schema/category.schema";
 import { DateRepeatType } from "@/src/generated/prisma";
 import { upperCaseFormat } from "@/src/lib/utils/formatter";
@@ -56,7 +56,7 @@ function TaskForm({ closeModal, id }: AddFormProps) {
       try {
         const taskExists = id ? getTaskByID(id) : Promise.resolve(null);
         const [categories, existingTask] = await Promise.all([
-          GetUserCategory(),
+          getUserCategory(),
           taskExists,
         ]);
 

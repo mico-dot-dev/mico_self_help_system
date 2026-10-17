@@ -11,58 +11,89 @@ import { prisma } from "@/src/lib/prisma-client";
 import { withAuth } from "@/src/lib/utils/validation-wrapper";
 import { getErrorMessage } from "../lib/errors";
 
-export async function GetUserCategory(): Promise<
+export async function getUserCategory(): Promise<
   ActionResponse<CategoryListModel[]>
 > {
-  try {
-    const res = await withAuth(async (userId) => {
+  return await withAuth(async (userId) => {
+    try {
+      const res = await prisma.task_category.findMany({
+        where: {
+          OR: [
+            {
+              user_id: userId,
+            },
+            {
+              is_system: true,
+            },
+          ],
+        },
+        orderBy: {
+          title: "asc",
+        },
+      });
+
       return {
         success: true,
-        data: await prisma.task_category.findMany({
-          where: {
-            user_id: userId,
-          },
-          orderBy: {
-            title: "asc",
-          },
-        }),
+        data: res,
       };
-    });
-
-    if (!res.success) {
+    } catch (error) {
+      console.error("Error fetching user categories:", error);
       return {
         success: false,
-        error: "User Not Authenticated",
+        error: getErrorMessage(error),
       };
     }
+  });
 
-    const categories = res.data;
+  // try {
+  //   const res = await withAuth(async (userId) => {
+  //     return {
+  //       success: true,
+  //       data: await prisma.task_category.findMany({
+  //         where: {
+  //           user_id: userId,
+  //         },
+  //         orderBy: {
+  //           title: "asc",
+  //         },
+  //       }),
+  //     };
+  //   });
 
-    if (categories[0] === undefined) {
-      return {
-        success: true,
-        data: [],
-      };
-    }
+  //   if (!res.success) {
+  //     return {
+  //       success: false,
+  //       error: "User Not Authenticated",
+  //     };
+  //   }
 
-    const parsedCategories: CategoryListModel[] = categories.map(
-      (category) => ({
-        id: category.id,
-        title: category.title || "",
-      }),
-    );
+  //   const categories = res.data;
 
-    return {
-      success: true,
-      data: parsedCategories,
-    };
-  } catch (error) {
-    console.error("Error fetching user categories:", error);
-    return {
-      success: false,
-      error: getErrorMessage(error),
-    };
-  }
+  //   if (categories[0] === undefined) {
+  //     return {
+  //       success: true,
+  //       data: [],
+  //     };
+  //   }
+
+  //   const parsedCategories: CategoryListModel[] = categories.map(
+  //     (category) => ({
+  //       id: category.id,
+  //       title: category.title || "",
+  //     }),
+  //   );
+
+  //   return {
+  //     success: true,
+  //     data: parsedCategories,
+  //   };
+  // } catch (error) {
+  //   console.error("Error fetching user categories:", error);
+  //   return {
+  //     success: false,
+  //     error: getErrorMessage(error),
+  //   };
+  // }
 }
 
 export async function CreateCategory(
