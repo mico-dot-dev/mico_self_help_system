@@ -1,5 +1,5 @@
 import React from "react";
-import { GetUserTasks } from "@/src/actions/task.action";
+import { getUserTasks } from "@/src/actions/task.action";
 import { ListParams } from "@/src/type/data-list";
 import { taskColumns } from "@/features/task/task.columns";
 import DataShowcase from "@/src/components/ui/DataShowcase";
@@ -10,7 +10,7 @@ interface TaskListProps {
 }
 
 async function TaskList({ searchParams }: TaskListProps) {
-  const tasks = await GetUserTasks({ ...searchParams });
+  const tasks = await getUserTasks({ ...searchParams });
   if (!tasks.success) {
     return <p>Task Data Not Found</p>;
   }

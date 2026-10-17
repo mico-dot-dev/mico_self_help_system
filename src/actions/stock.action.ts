@@ -12,6 +12,7 @@ import { withAuth } from "@/src/lib/utils/validation-wrapper";
 import { StockListSchema } from "../schema/expense.schema";
 import { AppError, getErrorMessage } from "../lib/errors";
 import { DateRepeatType } from "../generated/prisma";
+import { revalidatePath } from "next/cache";
 
 export async function GetUserStock(): Promise<ActionResponse<StockModel[]>> {
   return withAuth(async (userId) => {
@@ -112,12 +113,16 @@ export async function manageStockAmount(
             expense_id: stock.expense.id,
             completed: false,
             is_archived: false,
-            task_category: { user_id: userId },
+            task_category: { title: STOCK_TASK_CATEGORY, is_system: true },
           },
           select: { id: true },
         });
 
+        console.log(openTask);
+
         let taskChange: StockAdjustResult["taskChange"] = "none";
+
+        let t = null;
 
         //Checks if the current stock amount exceeds or falls short of the minimum value
         if (needsRestock && !openTask) {
@@ -133,77 +138,34 @@ export async function manageStockAmount(
           }
 
           //Creates a task if doesn't exist or update existing task to buy new stock (curr value is below minimum)
-          await tsc.task.create({
+          t = await tsc.task.create({
             data: {
               title: `Buy ${stock.expense.name}`,
               task_category_id: category.id,
               expense_id: stock.expense.id,
               repeating_type: DateRepeatType.MANUAL,
+              user_id: userId,
             },
           });
           taskChange = "created";
         } else if (!needsRestock && openTask) {
           //Completes a task for the buy stock (curr value is above minimum)
-          await tsc.task.update({
-            where: { id: openTask.id },
+          t = await tsc.task.update({
+            where: {
+              id: openTask.id,
+              task_category: { user_id: userId },
+              is_archived: false,
+              completed: false,
+            },
             data: { completed: true },
           });
           taskChange = "completed";
         }
-
-        //  await tsc.task.upsert({
-        //           where: {
-        //             id: existingTask.id,
-        //             task_category: {
-        //               user_id: userId,
-        //             },
-        //           },
-        //           update: {
-        //             completed: true,
-        //           },
-        //           create: {
-        //             title: updateTask.title,
-        //             description: updateTask.description,
-        //             task_category_id: updateTask.category_id,
-        //             completed: updateTask.completed,
-        //             priority_level: updateTask.priority_level,
-        //             repeating_type: updateTask.repeating_type,
-        //             expense_id: updateTask.expense_id ?? "",
-        //           },
-        //         });
-
-        //  if (
-        //         existingTask &&
-        //         updatedStock.curr_amount >= updatedStock.min_amount
-        //       ) {
-        //   await tsc.task.update({
-        //     where: {
-        //       id: existingTask.id,
-        //       task_category: {
-        //         user_id: userId,
-        //       },
-        //     },
-        //     data: {
-        //       completed: true,
-        //     },
-        //   });
-        // } else if (
-        //   !existingTask &&
-        //   updatedStock.curr_amount < updatedStock.min_amount
-        // ) {
-        //   await tsc.task.create({
-        //     data: {
-        //       title: updateTask.title,
-        //       description: updateTask.description,
-        //       task_category_id: updateTask.category_id,
-        //       completed: updateTask.completed,
-        //       priority_level: updateTask.priority_level,
-        //       repeating_type: updateTask.repeating_type,
-        //       expense_id: updateTask.expense_id,
-        //     },
-        //   });
-        // }
+        console.log(t);
+        console.log(taskChange);
       });
+      console.log(res);
+      revalidatePath("/dashboard/task");
 
       return {
         success: true,

@@ -15,7 +15,7 @@ import { DateRepeatType, Prisma } from "@/src/generated/prisma";
 import { getErrorMessage } from "@/lib/errors";
 import { ListParams } from "../type/data-list";
 
-export async function GetUserTasks({
+export async function getUserTasks({
   category,
   searchText,
   filter,
@@ -25,13 +25,13 @@ export async function GetUserTasks({
     const rawTaskData = await withAuth(async (userId) => {
       const data = await prisma.task_category.findMany({
         where: {
-          user_id: userId,
           ...(category ? { id: category } : {}),
         },
         select: {
           title: true,
           task: {
             where: {
+              user_id: userId,
               is_archived: false,
               ...(searchText
                 ? {
@@ -120,6 +120,7 @@ export async function CreateTask(
                 ? new Date(parsedTask.due_date)
                 : null,
               expense_id: parsedTask.expense_id ?? null,
+              user_id: user_id,
             },
           },
         },

@@ -1,16 +1,20 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
-import { StockModel } from "@/src/schema/stock.schema";
+import { StockModel, AdjustStockInputModel } from "@/src/schema/stock.schema";
 import { manageStockAmount } from "@/src/actions/stock.action";
 import { Plus, Minus } from "lucide-react";
 import { ColumnDef } from "@tanstack/react-table";
 
-const handleStockUpdate = (
+const handleStockUpdate = async (
   method: "increment" | "decrement",
   stockId: string,
 ) => {
-  manageStockAmount({ stockId: stockId, action: method });
+  const input: AdjustStockInputModel = { stockId: stockId, action: method };
+  const res = await manageStockAmount(input);
+  if (!res.success) {
+    console.log(res.error);
+  }
 };
 
 export const stockColumns: Array<ColumnDef<{}, StockModel>> = [
@@ -37,13 +41,17 @@ export const stockColumns: Array<ColumnDef<{}, StockModel>> = [
         <div className="flex gap-5">
           <button
             className="button-base"
-            onClick={() => handleStockUpdate("increment", row.id)}
+            onClick={async () => {
+              await handleStockUpdate("increment", row.original.id);
+            }}
           >
             <Plus />
           </button>
           <button
             className="button-base"
-            onClick={() => handleStockUpdate("decrement", row.id)}
+            onClick={async () => {
+              await handleStockUpdate("decrement", row.original.id);
+            }}
           >
             <Minus />
           </button>
