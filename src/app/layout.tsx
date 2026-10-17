@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Mulish } from "next/font/google";
 import "./globals.css";
+import { Providers } from "./providers/theme-provider";
 
 export const metadata: Metadata = {
   title: "Mico Personal Help System ",
@@ -29,9 +30,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${cormorantGaramond.variable} ${mulish.variable}`}
     >
-      <body className=" bg-background">{children}</body>
+      <body className=" bg-background">
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
