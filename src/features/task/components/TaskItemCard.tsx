@@ -3,16 +3,15 @@
 import React from "react";
 import { TaskListModel } from "@/src/schema/task.schema";
 import { twJoin } from "tailwind-merge";
-import { UpdateTaskCompletion } from "@/src/actions/task.action";
+import { updateTaskCompletion } from "@/src/actions/task.action";
 import { Circle, CircleCheck, EllipsisVertical } from "lucide-react";
 import { ModuleCardProps } from "@/src/type/data-table";
 import Swal from "sweetalert2";
 
 function TaskItemCard({ data }: ModuleCardProps<TaskListModel>) {
-  function handleToggleComplete() {
-    try {
-      const res = UpdateTaskCompletion(data.id);
-    } catch (error) {
+  async function handleToggleComplete() {
+    const res = await updateTaskCompletion(data.id);
+    if (!res.success) {
       Swal.fire({
         title: "Error",
         text: "An error occurred while toggling task completion.",

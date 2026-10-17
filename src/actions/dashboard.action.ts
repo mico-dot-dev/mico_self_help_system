@@ -38,7 +38,7 @@ export async function getUserHeaderStatistics(
           SELECT (i.date_obtained AT TIME ZONE 'Asia/Manila')::date AS day,
                  i.amount::float8 AS amount, 'in' AS transit
           FROM public.income i
-          WHERE i.user_id = ${userId}::uuid
+          WHERE i.user_id::uuid = ${userId}::uuid
 
           UNION ALL
 
@@ -46,7 +46,7 @@ export async function getUserHeaderStatistics(
                  t.price::float8, 'out'
           FROM public.expense e
           JOIN public."transaction" t ON t.expense_id = e.id
-          WHERE e.user_id = ${userId}::uuid
+          WHERE e.user_id::uuid = ${userId}::uuid
             AND t.status IS DISTINCT FROM 'CANCELLED'
         ),
 
@@ -55,7 +55,10 @@ export async function getUserHeaderStatistics(
           COALESCE(SUM(f.amount) FILTER (WHERE f.transit = 'in'),  0) AS income,
           COALESCE(SUM(f.amount) FILTER (WHERE f.transit = 'out'), 0) AS expense
         FROM weeks w
-        LEFT JOIN flows f ON f.day BETWEEN ${from} AND ${to}
+        LEFT JOIN flows f
+  ON f.day >= (${from}::date + w.week_index * 7)
+ AND f.day <  (${from}::date + (w.week_index + 1) * 7)
+ AND f.day <= ${to}::date
         GROUP BY w.week_index
         ORDER BY w.week_index),
 
@@ -101,13 +104,13 @@ export async function getUserBarStatistics(
       SUM(stats_data.amount) as total
       FROM (
         SELECT amount, date_obtained as created_at, 'in' as transit FROM income i
-        WHERE i.user_id = ${userId}
+        WHERE i.user_id::uuid = ${userId}::uuid
 
         UNION ALL 
 
         SELECT t.price as amount, t.created_at, 'out' as transit FROM expense e
         JOIN public.transaction t ON t.expense_id = e.id
-        WHERE e.user_id = ${userId}
+        WHERE e.user_id::uuid = ${userId}::uuid
       ) as stats_data
       WHERE stats_data.created_at >= ${daterange.from} AND stats_data.created_at <= ${daterange.to}
       GROUP BY "date", transit
@@ -138,7 +141,7 @@ export async function getUserExpenseBreakdown(
   FROM public.expense e
   JOIN public.transaction t
     ON t.expense_id = e.id
-  WHERE e.user_id = ${userID}
+  WHERE e.user_id::uuid = ${userID}::uuid
     AND t.created_at >= ${daterange.from}
     AND t.created_at <= ${daterange.to}
   GROUP BY e.expense_type

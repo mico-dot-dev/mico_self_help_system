@@ -1,7 +1,7 @@
 "use client";
 import { TaskListModel } from "@/schema/task.schema";
 import { ColumnDef, tableFeatures } from "@tanstack/react-table";
-import { UpdateTaskCompletion } from "@/actions/task.action";
+import { updateTaskCompletion } from "@/actions/task.action";
 import { Ellipsis } from "lucide-react";
 import Link from "next/link";
 
@@ -12,7 +12,7 @@ export const taskColumns: Array<ColumnDef<{}, TaskListModel>> = [
       <button
         type="button"
         className="flex button-base w-5 aspect-square justify-self-center rounded"
-        onClick={() => UpdateTaskCompletion(row.original.id)}
+        onClick={() => updateTaskCompletion(row.original.id)}
       ></button>
     ),
   },

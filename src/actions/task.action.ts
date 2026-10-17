@@ -142,8 +142,10 @@ export async function CreateTask(
   });
 }
 
-export async function UpdateTaskCompletion(taskId: string) {
-  const res = await withAuth(async (userId) => {
+export async function UpdateTaskCompletion(
+  taskId: string,
+): Promise<ActionResponse<{ message: string }>> {
+  return await withAuth(async (userId) => {
     try {
       const existingTask = await prisma.task.findUnique({
         where: {
@@ -174,9 +176,10 @@ export async function UpdateTaskCompletion(taskId: string) {
         data: { completed: !existingTask.completed },
       });
 
+      revalidatePath("/dashboard/tasks");
       return {
         success: true,
-        data: res,
+        data: { message: "Task completion status updated successfully" },
       };
     } catch (error) {
       console.error("Error occurred while updating task completion:", error);
@@ -186,9 +189,6 @@ export async function UpdateTaskCompletion(taskId: string) {
       };
     }
   });
-  // if (res) {
-  //   revalidatePath("/(dashboard)/tasks");
-  // }
 }
 
 export async function DeleteTask(taskId: string) {
@@ -218,7 +218,7 @@ export async function DeleteTask(taskId: string) {
         };
       }
 
-      // revalidatePath("/(dashboard)/tasks");
+      revalidatePath("/dashboard/tasks");
       return {
         success: true,
         data: res,
@@ -312,7 +312,7 @@ export async function updateTask(
         return { success: false, error: "" };
       }
 
-      // revalidatePath("/(dashboard)/tasks");
+      revalidatePath("/dashboard/tasks");
       return {
         success: true,
         data: {
