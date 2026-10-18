@@ -59,7 +59,8 @@ function Navbar() {
               <Landmark size={20} />
               <p>Transaction</p>
             </a>
-            <a href="/" className="nav-item-base">
+            <span className="divider" />
+            <a href="/" className="nav-item-base my-0 py-0">
               <LogOut size={20} />
               <p>Logout</p>
             </a>

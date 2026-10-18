@@ -142,7 +142,7 @@ export async function CreateTask(
   });
 }
 
-export async function UpdateTaskCompletion(
+export async function updateTaskCompletion(
   taskId: string,
 ): Promise<ActionResponse<{ message: string }>> {
   return await withAuth(async (userId) => {
