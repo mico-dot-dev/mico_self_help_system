@@ -11,15 +11,13 @@ import { FcGoogle } from "react-icons/fc";
 import { Button } from "../ui/button";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Loader2 } from "lucide-react";
+import { GoogleSignInButton } from "../auth/google";
 
 function AccountForm() {
   const router = useRouter();
@@ -172,8 +170,8 @@ function AccountForm() {
                 or {content.mode} with
               </span>
             </div>
-            <div className="flex justify-between w-full text-3xl">
-              <FcGoogle className="" />
+            <div className="grid grid-cols-3 w-full text-3xl  justify-items-center items-center">
+              <GoogleSignInButton />
               <FaFacebook className="" />
               <FaDiscord className="" />
             </div>
@@ -193,7 +191,6 @@ function AccountForm() {
           </div>
         </div>
       </div>
-
       {/* Loading */}
       <Dialog open={isSubmitting}>
         <Dialog open={busy}>
