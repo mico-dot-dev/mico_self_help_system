@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Mulish } from "next/font/google";
+import { Cormorant_Garamond, Mulish, Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers/theme-provider";
+import { cn } from "@/src/lib/utils";
 
 export const metadata: Metadata = {
   title: "Mico Personal Help System ",
@@ -15,12 +16,7 @@ const cormorantGaramond = Cormorant_Garamond({
   display: "swap",
 });
 
-const mulish = Mulish({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-sans",
-  display: "swap",
-});
+const inter = Inter({subsets:['latin'],variable:'--font-sans'});
 
 export default function RootLayout({
   children,
@@ -31,7 +27,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${cormorantGaramond.variable} ${mulish.variable}`}
+      className={cn(cormorantGaramond.variable, "font-sans", inter.variable)}
     >
       <body className=" bg-background">
         <Providers>{children}</Providers>
