@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
@@ -8,12 +8,25 @@ import { SignUpUser, LoginUser } from "@/src/actions/auth.action";
 import { useRouter } from "next/navigation";
 import { FaFacebook, FaDiscord } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { twJoin } from "tailwind-merge";
 import { Button } from "../ui/button";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Loader2 } from "lucide-react";
 
 function AccountForm() {
   const router = useRouter();
   const [mode, setMode] = useState<"login" | "signup">("login");
+  const [loading, setLoading] = useState(false);
+  const [isRedirecting, startTransition] = useTransition();
+  const busy = loading || isRedirecting;
 
   const content = {
     login: {
@@ -51,10 +64,12 @@ function AccountForm() {
   }
 
   async function AuthSubmit(data: AuthModel) {
+    setLoading(true);
     try {
       const res = await authService(data);
 
       if (!res.success || !res) {
+        setLoading(false);
         await Swal.fire({
           icon: "error",
           title: mode === "login" ? "Login Failed" : "Sign Up Failed",
@@ -65,19 +80,22 @@ function AccountForm() {
 
       //Login
       if (mode === "login") {
-        router.push("/dashboard");
-        router.refresh();
-
-        // Sign up
-      } else {
-        await Swal.fire({
-          icon: "success",
-          title: "Email Sent",
-          text: "Validation email sent. Please check your inbox to complete the registration.",
-        }).then(() => {
-          setMode("login");
+        startTransition(() => {
+          router.push("/dashboard");
+          router.refresh();
         });
+        setLoading(false);
+        return;
       }
+      // Sign up
+      setLoading(false);
+      await Swal.fire({
+        icon: "success",
+        title: "Email Sent",
+        text: "Validation email sent. Please check your inbox to complete the registration.",
+      }).then(() => {
+        setMode("login");
+      });
     } catch (error) {
       console.error("Error submitting form:", error);
       await Swal.fire({
@@ -135,11 +153,11 @@ function AccountForm() {
                 <Button
                   type="submit"
                   variant={"default"}
-                  disabled={isSubmitting}
+                  disabled={busy}
                   size={"lg"}
                   className="w-full rounded-4xl p-5 text-md"
                 >
-                  {isSubmitting ? "Loading" : content.mode}
+                  {busy ? "Loading" : content.mode}
                 </Button>
               </div>
             </div>
@@ -174,9 +192,22 @@ function AccountForm() {
             </button>
           </div>
         </div>
-
-        {/* Loading */}
       </div>
+
+      {/* Loading */}
+      <Dialog open={isSubmitting}>
+        <Dialog open={busy}>
+          <DialogContent showCloseButton={false} className="sm:max-w-sm">
+            <DialogHeader className="items-center text-center">
+              <Loader2 className="size-8 animate-spin" />
+              <DialogTitle>
+                {mode === "login" ? "Logging in…" : "Creating account…"}
+              </DialogTitle>
+              <DialogDescription>Please wait a moment.</DialogDescription>
+            </DialogHeader>
+          </DialogContent>
+        </Dialog>
+      </Dialog>
     </>
   );
 }
