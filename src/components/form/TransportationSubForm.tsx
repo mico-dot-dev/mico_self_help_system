@@ -3,7 +3,7 @@
 import { useFormContext, useFieldArray } from "react-hook-form";
 import { DynamicFormModel } from "@/src/schema/expense.schema";
 import { Plus, Trash } from "lucide-react";
-import { Button } from "../ui/Button";
+import { Button } from "../ui/button";
 import { FormField } from "../ui/FormField";
 
 function TransportationSubForm() {

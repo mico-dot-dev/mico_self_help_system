@@ -14,7 +14,7 @@ import { CreateExpense } from "@/src/actions/expense.action";
 import Swal from "sweetalert2";
 import { upperCaseFormat } from "@/src/lib/utils/formatter";
 import { FormField } from "../ui/FormField";
-import { Button } from "../ui/Button";
+import { Button } from "../ui/button";
 
 interface AddFormProps {
   closeModal: () => void;

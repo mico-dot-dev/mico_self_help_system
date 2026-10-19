@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Button } from "@/src/components/ui/Button";
+import { Button } from "@/src/components/ui/button";
 import { BanknoteArrowUp, BanknoteArrowDown } from "lucide-react";
 import IconContainer from "@/src/components/ui/IconContainer";
 import { ButtonWithIconModel } from "@/src/type/component";

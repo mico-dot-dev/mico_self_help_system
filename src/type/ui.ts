@@ -1,6 +1,6 @@
 import { LucideIcon } from "lucide-react";
 
-export type size = "sm" | "md" | "lg";
+export type size = "sm" | "default" | "lg";
 
 //Reusable Icon  Color Mapping
 export type IconTypes =

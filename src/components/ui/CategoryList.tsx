@@ -6,7 +6,7 @@ import AddCategoryModal from "../modal/AddModal";
 import { useRouter, useSearchParams } from "next/navigation";
 import { CategoryFilterModel } from "@/src/type/data-list";
 import { AppModule } from "@/src/type/module";
-import { Button } from "./Button";
+import { Button } from "./button";
 
 interface ContentProps {
   module: AppModule;
@@ -37,7 +37,7 @@ function CategoryList({ content, module }: ContentProps) {
           </p>
           <Button
             size={"sm"}
-            variant={!activeCategory ? "primary" : "secondary"}
+            variant={!activeCategory ? "default" : "secondary"}
             className="min-w-fit"
             onClick={() => handleCatgoryFilter("all")}
           >
@@ -50,7 +50,7 @@ function CategoryList({ content, module }: ContentProps) {
               <Button
                 size={"sm"}
                 variant={
-                  activeCategory === category.id ? "primary" : "secondary"
+                  activeCategory === category.id ? "default" : "secondary"
                 }
                 key={category.id}
                 onClick={() => handleCatgoryFilter(category.id)}

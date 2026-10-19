@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import { FaFacebook, FaDiscord } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { twJoin } from "tailwind-merge";
-import { Button } from "../ui/Button";
+import { Button } from "../ui/button";
 
 function AccountForm() {
   const router = useRouter();
@@ -51,7 +51,6 @@ function AccountForm() {
   }
 
   async function AuthSubmit(data: AuthModel) {
-    await Swal.showLoading();
     try {
       const res = await authService(data);
 
@@ -68,7 +67,7 @@ function AccountForm() {
       if (mode === "login") {
         router.push("/dashboard");
         router.refresh();
-        await Swal.close();
+
         // Sign up
       } else {
         await Swal.fire({
@@ -135,8 +134,10 @@ function AccountForm() {
               <div className="button-aura rounded-4xl">
                 <Button
                   type="submit"
-                  variant={"action"}
+                  variant={"default"}
                   disabled={isSubmitting}
+                  size={"lg"}
+                  className="w-full rounded-4xl p-5 text-md"
                 >
                   {isSubmitting ? "Loading" : content.mode}
                 </Button>
@@ -173,6 +174,8 @@ function AccountForm() {
             </button>
           </div>
         </div>
+
+        {/* Loading */}
       </div>
     </>
   );

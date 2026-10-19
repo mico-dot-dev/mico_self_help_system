@@ -26,7 +26,7 @@ function Toolbar({
         )}
         {/* Add Button */}
         <div className="flex min-h-full pl-3">
-          {buttonModule && <AddButton content={buttonModule} size="md" />}
+          {buttonModule && <AddButton content={buttonModule} size="default" />}
         </div>
       </div>
       {toolBarProps && (

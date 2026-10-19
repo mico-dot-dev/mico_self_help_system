@@ -1,7 +1,7 @@
 import React from "react";
 import { twJoin } from "tailwind-merge";
 import { DynamicListModel } from "@/src/schema/expense.schema";
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/src/components/ui/button";
 
 interface TransactionExpenseCardProps {
   data: DynamicListModel;
@@ -18,7 +18,7 @@ function TransactionExpenseCard({
     <Button
       key={data.id}
       type="button"
-      variant={isSelected ? "primary" : "secondary"}
+      variant={isSelected ? "default" : "secondary"}
       onClick={() => {
         onSelectType(data.id);
       }}

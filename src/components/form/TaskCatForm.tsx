@@ -9,7 +9,7 @@ import {
   CategoryFormModel,
 } from "@/src/schema/category.schema";
 import Swal from "sweetalert2";
-import { Button } from "../ui/Button";
+import { Button } from "../ui/button";
 import { FormField } from "../ui/FormField";
 
 interface AddFormProps {
@@ -63,9 +63,7 @@ function TaskCatForm({ closeModal, id }: AddFormProps) {
           {...register("title")}
         />
       </div> */}
-      <Button type="submit" variant={"primary"}>
-        Add Category
-      </Button>
+      <Button type="submit">Add Category</Button>
     </form>
   );
 }

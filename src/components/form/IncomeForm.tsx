@@ -9,7 +9,7 @@ import {
 import { createIncome } from "@/src/actions/income.action";
 import Swal from "sweetalert2";
 import { FormField } from "../ui/FormField";
-import { Button } from "../ui/Button";
+import { Button } from "../ui/button";
 
 interface AddFormProps {
   closeModal: () => void;
@@ -74,9 +74,7 @@ function IncomeForm({ closeModal, id }: AddFormProps) {
           />
         </fieldset> */}
 
-        <Button type="submit" variant={"primary"}>
-          Submit
-        </Button>
+        <Button type="submit">Submit</Button>
       </form>
     </FormProvider>
   );

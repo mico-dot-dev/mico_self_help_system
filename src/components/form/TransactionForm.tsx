@@ -22,7 +22,7 @@ import { createTransaction } from "@/src/actions/transaction.action";
 import Swal from "sweetalert2";
 import { Stepper } from "@/src/components/ui/Steps";
 import { FormField } from "../ui/FormField";
-import { Button } from "../ui/Button";
+import { Button } from "../ui/button";
 
 interface AddFormProps {
   closeModal: () => void;
@@ -188,16 +188,11 @@ function TransactionForm({ closeModal, id }: AddFormProps) {
             )}
 
             {step < 3 ? (
-              <Button
-                type="button"
-                onClick={nextStep}
-                variant={"primary"}
-                className="w-fit"
-              >
+              <Button type="button" onClick={nextStep} className="w-fit">
                 Next
               </Button>
             ) : (
-              <Button type="submit" variant={"primary"} className="w-fit">
+              <Button type="submit" className="w-fit">
                 Submit
               </Button>
             )}

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Plus } from "lucide-react";
 import AddFormModal from "../modal/AddModal";
 import { ModuleWithModals } from "@/src/type/module";
-import { Button } from "./Button";
+import { Button } from "./button";
 import { size } from "@/src/type/ui";
 
 interface AddButtonProps {

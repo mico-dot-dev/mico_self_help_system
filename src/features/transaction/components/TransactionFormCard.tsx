@@ -4,7 +4,7 @@ import { twJoin } from "tailwind-merge";
 import { expenseIconProps } from "@/src/lib/utils/expense-mapper";
 import { ExpenseType } from "@/src/generated/prisma";
 import { Circle } from "lucide-react";
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/src/components/ui/button";
 import IconContainer from "@/components/ui/IconContainer";
 
 type expenseButtonProps = {
@@ -24,7 +24,7 @@ function ExpenseTypeCard({
 
   return (
     <Button
-      variant={isSelected ? "primary" : "secondary"}
+      variant={isSelected ? "default" : "secondary"}
       type="button"
       onClick={() => onSelectType(expenseType)}
       className="flex flex-row justify-items-start"

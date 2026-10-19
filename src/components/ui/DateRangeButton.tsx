@@ -5,7 +5,7 @@ import type { DateRange } from "@/src/type/date-range";
 import DateRangeModal from "../modal/DateRangeModal";
 import { Calendar, ChevronDown } from "lucide-react";
 import { formatDate } from "@/src/lib/utils/date-formatter";
-import { Button } from "./Button";
+import { Button } from "./button";
 import { useRouter, useSearchParams } from "next/navigation";
 
 function DateRangeButton() {

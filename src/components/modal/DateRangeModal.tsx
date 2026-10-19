@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import type { DateRange, DateRangePreset } from "@/src/type/date-range";
 import { getDateRangeFromPreset } from "@/src/lib/date-range";
 import { X } from "lucide-react";
-import { Button } from "../ui/Button";
+import { Button } from "../ui/button";
 import Calendar from "../ui/Calendar";
 
 type DateRangeModalProps = {
@@ -166,7 +166,6 @@ function DateRangeModal({
             onApply(range);
           }}
           className="modal-button-primary w-fit"
-          variant={"primary"}
         >
           Apply
         </Button>

@@ -16,7 +16,7 @@ import { CategoryListModel } from "@/src/schema/category.schema";
 import { DateRepeatType } from "@/src/generated/prisma";
 import { upperCaseFormat } from "@/src/lib/utils/formatter";
 import { FormField } from "../ui/FormField";
-import { Button } from "../ui/Button";
+import { Button } from "../ui/button";
 
 interface AddFormProps {
   closeModal: () => void;
