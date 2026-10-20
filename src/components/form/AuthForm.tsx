@@ -1,5 +1,5 @@
 "use client";
-import { useState, useTransition } from "react";
+import { useState, useTransition, useRef } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
@@ -7,7 +7,6 @@ import { AuthSchema, AuthModel } from "@/src/schema/auth.schema";
 import { SignUpUser, LoginUser } from "@/src/actions/auth.action";
 import { useRouter } from "next/navigation";
 import { FaFacebook, FaDiscord } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
 import { Button } from "../ui/button";
 import {
   Dialog,
@@ -18,6 +17,7 @@ import {
 } from "@/components/ui/dialog";
 import { Loader2 } from "lucide-react";
 import { GoogleSignInButton } from "../auth/google";
+import HCaptcha from "@hcaptcha/react-hcaptcha";
 
 function AccountForm() {
   const router = useRouter();
@@ -25,6 +25,8 @@ function AccountForm() {
   const [loading, setLoading] = useState(false);
   const [isRedirecting, startTransition] = useTransition();
   const [googleLoading, setGoogleLoading] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const captcha = useRef<HCaptcha>(null);
   const busy = loading || isRedirecting || googleLoading;
 
   const content = {
@@ -109,11 +111,11 @@ function AccountForm() {
     <>
       <div className="flex text-text-primary h-screen w-full items-center justify-center">
         <div className="flex flex-col h-3/4 lg:w-1/4 items-center sm:w-full">
-          <p className="lg:text-3xl sm:text-2xl text-center font-bold lg:mb-20 mb-10">
+          <p className="lg:text-3xl sm:text-2xl text-center font-bold lg:mb-12 mb-10">
             {content.title}
           </p>
           <form
-            className="flex flex-col w-full mb-15"
+            className="flex flex-col w-full mb-12"
             onSubmit={handleSubmit(AuthSubmit)}
             noValidate
           >
@@ -147,6 +149,18 @@ function AccountForm() {
               </fieldset>
             </div>
 
+            {/* Captcha */}
+            <div className="flex self-center mb-3">
+              <HCaptcha
+                ref={captcha}
+                sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY!}
+                onVerify={(token) => setCaptchaToken(token)}
+                onExpire={() => setCaptchaToken(null)}
+                theme={"dark"}
+                size="normal"
+              />
+            </div>
+
             <div className="aura text-text-info duration-3000 rounded-4xl ">
               <div className="button-aura rounded-4xl">
                 <Button
@@ -162,7 +176,7 @@ function AccountForm() {
             </div>
           </form>
 
-          <fieldset className="flex flex-col w-full">
+          <fieldset className="flex flex-col w-full mb-5">
             <div className="text-center px-2 mb-3 relative w-full self-center">
               <div className="absolute inset-0 flex items-center w-full">
                 <div className="w-full border-t border-text-primary" />

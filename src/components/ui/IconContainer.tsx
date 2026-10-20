@@ -11,6 +11,7 @@ const container = cva("inline-flex items-center justify-center shrink-0", {
       md: "p-3",
       lg: "p-4",
     },
+
     shape: {
       square: "rounded-none",
       rounded: "rounded-xl",
