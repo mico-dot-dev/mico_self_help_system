@@ -10,17 +10,24 @@ declare global {
   }
 }
 
-export function GoogleSignInButton() {
+interface Props {
+  onLoadingChange: (loading: boolean) => void;
+}
+
+export function GoogleSignInButton({ onLoadingChange }: Props) {
   const router = useRouter();
 
   useEffect(() => {
     window.userSignIn = async (response) => {
+      onLoadingChange(true);
+
       const supabase = supabaseClient();
       const { error } = await supabase.auth.signInWithIdToken({
         provider: "google",
         token: response.credential,
       });
       if (error) {
+        onLoadingChange(false);
         console.error("Google sign-in failed:", error.message);
         return;
       }
@@ -30,7 +37,7 @@ export function GoogleSignInButton() {
     return () => {
       delete window.userSignIn;
     };
-  }, [router]);
+  }, [router, onLoadingChange]);
 
   return (
     <div>

@@ -24,7 +24,8 @@ function AccountForm() {
   const [mode, setMode] = useState<"login" | "signup">("login");
   const [loading, setLoading] = useState(false);
   const [isRedirecting, startTransition] = useTransition();
-  const busy = loading || isRedirecting;
+  const [googleLoading, setGoogleLoading] = useState(false);
+  const busy = loading || isRedirecting || googleLoading;
 
   const content = {
     login: {
@@ -171,7 +172,7 @@ function AccountForm() {
               </span>
             </div>
             <div className="grid grid-cols-3 w-full text-3xl  justify-items-center items-center">
-              <GoogleSignInButton />
+              <GoogleSignInButton onLoadingChange={setGoogleLoading} />
               <FaFacebook className="" />
               <FaDiscord className="" />
             </div>
