@@ -1,12 +1,7 @@
 import React from "react";
 import InfoCard from "@/components/dashboard/InfoCard";
 import { HeaderCardModel } from "@/type/component";
-import {
-  CreditCard,
-  TrendingUp,
-  TrendingDown,
-  PhilippinePeso,
-} from "lucide-react";
+import { Wallet, TrendingUp, TrendingDown, PhilippinePeso } from "lucide-react";
 import { HeaderStatisticsModel } from "@/schema/dashboard.schema";
 import DateRangeButton from "../ui/DateRangeButton";
 import { LineChartModel } from "@/type/chart";
@@ -20,11 +15,11 @@ async function InfoCardHeader({ data }: HeaderStatisticsProps) {
     prev === 0 ? 0 : ((curr - prev) / prev) * 100;
 
   const incomeSeries: LineChartModel[] = data.weekly_statistics.map((w) => ({
-    day: `W${w.week_index + 1}`,
+    day: `Week ${w.week_index + 1}`,
     value: w.income,
   }));
   const expenseSeries: LineChartModel[] = data.weekly_statistics.map((w) => ({
-    day: `W${w.week_index + 1}`,
+    day: `Week ${w.week_index + 1}`,
     value: w.expense,
   }));
 
@@ -34,7 +29,7 @@ async function InfoCardHeader({ data }: HeaderStatisticsProps) {
       kind: "trend",
       title: "Total Balance",
       CardIcon: {
-        Icon: CreditCard,
+        Icon: Wallet,
         iconColorScheme: "violet",
       },
       amount: data.total_income - data.total_expense,

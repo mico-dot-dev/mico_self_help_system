@@ -20,7 +20,6 @@ export function GoogleSignInButton({ onLoadingChange }: Props) {
   useEffect(() => {
     window.userSignIn = async (response) => {
       onLoadingChange(true);
-
       const supabase = supabaseClient();
       const { error } = await supabase.auth.signInWithIdToken({
         provider: "google",
