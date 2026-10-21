@@ -43,7 +43,7 @@ export function GoogleSignInButton({ onLoadingChange }: Props) {
       />
       <div
         id="g_id_onload"
-        data-client_id="149952135447-a3i8ucmhe26cv28g96k4il0l7euj4qp6.apps.googleusercontent.com"
+        data-client_id={process.env.GOOGLE_CLIENT_ID!}
         data-context="signin"
         data-ux_mode="popup"
         data-callback="userSignIn"
