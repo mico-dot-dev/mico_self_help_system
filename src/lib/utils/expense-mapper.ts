@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 import { ExpenseType } from "@/src/generated/prisma";
 import { DynamicListModel } from "@/src/schema/expense.schema";
-import { upperCaseFormat } from "./formatter";
+import { upperCaseFormat } from "@/lib/format/string";
 
 //Move to types
 export interface expenseCardSubContent {

@@ -1,8 +1,8 @@
 "use server";
 
 import { ActionResponse } from "../schema/auth.schema";
-import { prisma } from "@/src/lib/prisma-client";
-import { withAuth } from "../lib/utils/validation-wrapper";
+import { prisma } from "@/src/lib/db/prisma";
+import { withAuth } from "../lib/auth/with-auth";
 import { ExpenseFrequency } from "@/src/type/chart";
 import {
   CashFlowPointModel,

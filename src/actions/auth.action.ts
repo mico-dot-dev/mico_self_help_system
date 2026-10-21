@@ -1,5 +1,5 @@
 "use server";
-import { supabaseServer } from "../lib/supabase/server";
+import { supabaseServer } from "../lib/db/supabase/server";
 import {
   AuthModel,
   ActionResponse,

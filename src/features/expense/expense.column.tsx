@@ -2,8 +2,8 @@
 
 import React from "react";
 import { DynamicListModel } from "@/src/schema/expense.schema";
-import { ColumnDef, tableFeatures } from "@tanstack/react-table";
-import { upperCaseFormat } from "@/src/lib/utils/formatter";
+import { ColumnDef } from "@tanstack/react-table";
+import { upperCaseFormat } from "@/lib/format/string";
 import { getExpenseListSubContent } from "@/src/lib/utils/expense-mapper";
 import { Ellipsis } from "lucide-react";
 

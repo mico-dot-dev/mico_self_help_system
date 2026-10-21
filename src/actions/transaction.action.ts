@@ -1,13 +1,13 @@
 "use server";
 
-import { prisma } from "../lib/prisma-client";
+import { prisma } from "../lib/db/prisma";
 import { ActionResponse } from "../schema/auth.schema";
 import {
   TransactionFormModel,
   TransactionListModel,
   TransactionSchema,
 } from "@/src/schema/transaction.schema";
-import { withAuth } from "@/src/lib/utils/validation-wrapper";
+import { withAuth } from "@/src/lib/auth/with-auth";
 import { TransactionStatus } from "@/src/generated/prisma";
 import { getErrorMessage } from "../lib/errors";
 

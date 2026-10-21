@@ -14,7 +14,7 @@ import Swal from "sweetalert2";
 import { getUserCategory } from "@/src/actions/category.action";
 import { CategoryListModel } from "@/src/schema/category.schema";
 import { DateRepeatType } from "@/src/generated/prisma";
-import { upperCaseFormat } from "@/src/lib/utils/formatter";
+import { upperCaseFormat } from "@/lib/format/string";
 import { FormField } from "../ui/FormField";
 import { Button } from "../ui/button";
 

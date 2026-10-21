@@ -12,7 +12,7 @@ import BillSubForm from "./BillSubForm";
 import StockSubForm from "./StockSubForm";
 import { CreateExpense } from "@/src/actions/expense.action";
 import Swal from "sweetalert2";
-import { upperCaseFormat } from "@/src/lib/utils/formatter";
+import { upperCaseFormat } from "@/lib/format/string";
 import { FormField } from "../ui/FormField";
 import { Button } from "../ui/button";
 

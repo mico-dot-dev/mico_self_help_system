@@ -7,8 +7,8 @@ import {
   CategoryListSchema,
   CategorySchema,
 } from "@/src/schema/category.schema";
-import { prisma } from "@/src/lib/prisma-client";
-import { withAuth } from "@/src/lib/utils/validation-wrapper";
+import { prisma } from "@/src/lib/db/prisma";
+import { withAuth } from "@/src/lib/auth/with-auth";
 import { getErrorMessage } from "../lib/errors";
 
 export async function getUserCategory(): Promise<

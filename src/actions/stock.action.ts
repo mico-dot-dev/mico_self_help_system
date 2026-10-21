@@ -1,6 +1,6 @@
 "use server";
 
-import { prisma } from "@/src/lib/prisma-client";
+import { prisma } from "@/src/lib/db/prisma";
 import { ActionResponse } from "@/src/schema/auth.schema";
 import {
   StockModel,
@@ -8,7 +8,7 @@ import {
   AdjustStockInputModel,
 } from "../schema/stock.schema";
 import { TaskFormModelOutput } from "@/src/schema/task.schema";
-import { withAuth } from "@/src/lib/utils/validation-wrapper";
+import { withAuth } from "@/src/lib/auth/with-auth";
 import { StockListSchema } from "../schema/expense.schema";
 import { AppError, getErrorMessage } from "../lib/errors";
 import { DateRepeatType } from "../generated/prisma";

@@ -2,13 +2,13 @@
 
 import { parse } from "path";
 import { ActionResponse } from "../schema/auth.schema";
-import { withAuth } from "../lib/utils/validation-wrapper";
+import { withAuth } from "../lib/auth/with-auth";
 import {
   incomeSchema,
   incomeListModel,
   incomeInputModel,
 } from "../schema/income.schema";
-import { prisma } from "@/src/lib/prisma-client";
+import { prisma } from "@/src/lib/db/prisma";
 import { error } from "console";
 import { getErrorMessage } from "../lib/errors";
 

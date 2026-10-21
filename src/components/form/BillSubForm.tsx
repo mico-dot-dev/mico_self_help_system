@@ -2,7 +2,7 @@ import React from "react";
 import { DateRepeatType } from "@/src/generated/prisma";
 import { useFormContext } from "react-hook-form";
 import { DynamicFormModel } from "@/src/schema/expense.schema";
-import { upperCaseFormat } from "@/src/lib/utils/formatter";
+import { upperCaseFormat } from "@/lib/format/string";
 import { FormField } from "../ui/FormField";
 
 function BillSubForm() {

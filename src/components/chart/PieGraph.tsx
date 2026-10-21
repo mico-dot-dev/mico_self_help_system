@@ -8,12 +8,9 @@ import { scaleOrdinal } from "@tanstack/charts/scales/ordinal";
 import { Circle, PhilippinePeso } from "lucide-react";
 import { ExpenseFrequency } from "@/src/type/chart";
 import { ExpenseType } from "@/src/generated/prisma";
-import { upperCaseFormat } from "@/src/lib/utils/formatter";
-import {
-  formatToPercentage,
-  formatToPesoCompact,
-  formatToDecimal,
-} from "@/src/lib/utils/formatter";
+import { upperCaseFormat } from "@/lib/format/string";
+import { formatToPercentage, formatToDecimal } from "@/lib/format/number";
+import { formatToPesoCompact } from "@/lib/format/currency";
 
 const expenseColorScale = scaleOrdinal(Object.values(ExpenseType), [
   "var(--chart-bills)",

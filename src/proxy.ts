@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { supabaseServer } from "@/src/lib/supabase/server";
+import { supabaseServer } from "@/src/lib/db/supabase/server";
 
 export async function proxy(request: NextRequest) {
   const supabaseResponse = NextResponse.next({

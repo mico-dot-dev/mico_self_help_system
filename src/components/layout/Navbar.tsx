@@ -2,13 +2,11 @@
 
 import React from "react";
 import {
-  Trophy,
   LayoutDashboard,
   Clipboard,
   Package,
   ShoppingBasket,
   Landmark,
-  Menu,
   LogOut,
   LucideIcon,
 } from "lucide-react";
@@ -19,6 +17,7 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
+  SidebarFooter,
 } from "@/components/ui/sidebar";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
@@ -59,7 +58,7 @@ const CONTENTS: NavItem[] = [
 function Navbar() {
   const pathname = usePathname();
   return (
-    <Sidebar>
+    <Sidebar className="">
       <SidebarHeader className="px-3">
         <p>TaskTracker</p>
       </SidebarHeader>
@@ -82,6 +81,16 @@ function Navbar() {
           })}
         </SidebarMenu>
       </SidebarContent>
+      <SidebarFooter>
+        <SidebarMenu>
+          <SidebarMenuItem className="w-full">
+            <SidebarMenuButton tooltip={"Logout"} render={<Link href={"/"} />}>
+              <LogOut size={20} />
+              <span>Logout</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarFooter>
     </Sidebar>
 
     // <div className="drawer md:fixed lg:drawer-open lg:w-64 lg:relative bg-transparent text-text-primary z-9">

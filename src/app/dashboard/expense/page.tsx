@@ -1,7 +1,7 @@
 import React from "react";
 import DataListContainer from "@/src/components/ui/DataListContainer";
 import { ExpenseType } from "@/src/generated/prisma";
-import { upperCaseFormat } from "@/src/lib/utils/formatter";
+import { upperCaseFormat } from "@/lib/format/string";
 import { ListParams } from "@/src/type/data-list";
 
 interface PageProps {

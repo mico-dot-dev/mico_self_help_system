@@ -5,6 +5,7 @@ import { Wallet, TrendingUp, TrendingDown, PhilippinePeso } from "lucide-react";
 import { HeaderStatisticsModel } from "@/schema/dashboard.schema";
 import DateRangeButton from "../ui/DateRangeButton";
 import { LineChartModel } from "@/type/chart";
+import { getHours } from "date-fns";
 
 interface HeaderStatisticsProps {
   data: HeaderStatisticsModel;
@@ -80,12 +81,28 @@ async function InfoCardHeader({ data }: HeaderStatisticsProps) {
     },
   ];
 
+  const getGreeting = (): string => {
+    const hour = getHours(new Date());
+    // Morning: 5:00 AM to 11:59 AM
+    if (hour >= 5 && hour < 12) {
+      return "Good morning";
+    }
+
+    // Afternoon: 12:00 PM to 4:59 PM (16:59)
+    if (hour >= 12 && hour < 17) {
+      return "Good afternoon";
+    }
+
+    // Evening: 5:00 PM (17:00) to 4:59 AM
+    return "Good evening";
+  };
+
   return (
     <header className=" w-full">
       <div className="flex flex-row justify-between min-w-full mb-3">
         <div>
-          <p className="text-2xl font-bold">Good Evening</p>
-          <p className="text-text-secondary text-sm">
+          <p className="text-xl font-semibold capitalize">{getGreeting()}</p>
+          <p className="text-text-secondary text-xs">
             Here's Your Finance Statistics Overview
           </p>
         </div>

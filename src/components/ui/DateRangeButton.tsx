@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import type { DateRange } from "@/src/type/date-range";
 import DateRangeModal from "../modal/DateRangeModal";
 import { Calendar, ChevronDown } from "lucide-react";
-import { formatDate } from "@/src/lib/utils/date-formatter";
+import { formatDate } from "@/lib/format/date";
 import { Button } from "./button";
 import { useRouter, useSearchParams } from "next/navigation";
 

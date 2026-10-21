@@ -1,6 +1,6 @@
 "use server";
 
-import { prisma } from "@/src/lib/prisma-client";
+import { prisma } from "@/src/lib/db/prisma";
 import {
   TaskListModel,
   TaskFormSchema,
@@ -9,7 +9,7 @@ import {
   TaskUpdateSchema,
 } from "@/src/schema/task.schema";
 import { ActionResponse } from "@/src/schema/auth.schema";
-import { withAuth } from "@/src/lib/utils/validation-wrapper";
+import { withAuth } from "@/src/lib/auth/with-auth";
 import { revalidatePath } from "next/cache";
 import { DateRepeatType, Prisma } from "@/src/generated/prisma";
 import { getErrorMessage } from "@/lib/errors";

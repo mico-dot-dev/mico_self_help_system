@@ -9,7 +9,7 @@ import { ChartGranularity, granularityMap } from "@/src/type/chart";
 import { twJoin } from "tailwind-merge";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { groupIntoPages } from "@/src/lib/utils/chart-pagintation";
-import { formatPageRange } from "@/src/lib/utils/date-formatter";
+import { formatPageRange } from "@/lib/format/date";
 import { Square } from "lucide-react";
 
 interface CashChartProps {

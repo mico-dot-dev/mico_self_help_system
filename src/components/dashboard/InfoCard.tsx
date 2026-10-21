@@ -3,7 +3,7 @@ import { HeaderCardModel } from "@/src/type/component";
 import { PhilippinePeso } from "lucide-react";
 import IconContainer from "../ui/IconContainer";
 import { twJoin } from "tailwind-merge";
-import { formatFloat } from "@/src/lib/utils/formatter";
+import { formatToDecimal } from "@/lib/format/number";
 import CompletionAreaGraph from "../chart/TransactionGraph";
 
 type HeaderProps = {
@@ -21,24 +21,24 @@ function InfoCard({ data }: HeaderProps) {
               iconColorScheme={data.CardIcon.iconColorScheme}
             />
           </div>
-          <p className="text-text-secondary font-semibold">{data.title}</p>
-        </div>
-        <div>
-          <div className="flex flex-col">
-            <div
-              className={twJoin(
-                "flex flex-row items-center gap-0.5 font-semibold",
-                data.kind === "budget" ? "text-xl " : "text-xl ",
+          <div>
+            <p className="text-text-secondary text-sm">{data.title}</p>
+            <div className="flex flex-col">
+              {data.kind === "trend" ? (
+                <div className="flex flex-row items-center gap-0.5 font-semibold ">
+                  <PhilippinePeso size={18} className="self-center" />
+                  <span className="text-xl">
+                    {" "}
+                    {formatToDecimal.format(data.amount)}
+                  </span>
+                </div>
+              ) : (
+                <></>
               )}
-            >
-              <PhilippinePeso
-                size={data.kind === "budget" ? 12 : 22}
-                className="self-center"
-              />
-              <p> {formatFloat(data.amount)}</p>
             </div>
           </div>
         </div>
+        <div></div>
         <div>
           {data.kind == "trend" ? (
             <div

@@ -2,7 +2,7 @@
 import Script from "next/script";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { supabaseClient } from "@/src/lib/supabase/client";
+import { supabaseClient } from "@/src/lib/db/supabase/client";
 import { authGoogle } from "@/src/actions/auth.action";
 
 declare global {

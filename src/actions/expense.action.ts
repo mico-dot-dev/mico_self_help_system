@@ -1,6 +1,6 @@
 "use server";
 
-import { prisma } from "@/src/lib/prisma-client";
+import { prisma } from "@/src/lib/db/prisma";
 import {
   DynamicFormInputModel,
   DynamicFormSchema,
@@ -9,9 +9,9 @@ import {
 } from "@/src/schema/expense.schema";
 import { ActionResponse } from "../schema/auth.schema";
 import { DateRepeatType, ExpenseType, Prisma } from "../generated/prisma";
-import { withAuth } from "../lib/utils/validation-wrapper";
+import { withAuth } from "../lib/auth/with-auth";
 import { ListParams } from "@/src/type/data-list";
-import { getNextDueDate } from "../lib/utils/date-formatter";
+import { getNextDueDate } from "@/lib/format/date";
 import { getErrorMessage } from "../lib/errors";
 import { success } from "zod";
 import { da } from "zod/v4/locales";

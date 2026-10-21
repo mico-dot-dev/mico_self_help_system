@@ -12,7 +12,7 @@ import {
 import { scaleBand, scaleLinear } from "d3-scale";
 import { CashFlowPointModel } from "@/src/schema/dashboard.schema";
 import { ChartGranularity } from "@/src/type/chart";
-import { createDateRange } from "@/src/lib/utils/date-formatter";
+import { createDateRange } from "@/lib/format/date";
 
 const financeColors = ["#22c55e", "#ef4444"];
 
