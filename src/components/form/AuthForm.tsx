@@ -189,7 +189,10 @@ function AccountForm() {
                 Try the app as a Guest
               </span>
               <Dialog open={captchaModal} onOpenChange={setCaptchaModal}>
-                <CaptchaModal onClose={setCaptchaModal} />
+                <CaptchaModal
+                  onClose={setCaptchaModal}
+                  onRedirect={startTransition}
+                />
               </Dialog>
             </div>
             <div className="">

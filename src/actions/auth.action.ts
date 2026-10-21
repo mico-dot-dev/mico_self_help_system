@@ -6,6 +6,7 @@ import {
   AuthSchema,
 } from "@/src/schema/auth.schema";
 import { getErrorMessage } from "@/lib/errors";
+import { success } from "zod";
 
 export async function GetAuthUser(): Promise<
   ActionResponse<{ userId: string }>
@@ -100,5 +101,51 @@ export async function SignUpUser(
       success: false,
       error: getErrorMessage(error),
     };
+  }
+}
+
+export async function authGoogle(
+  authData: string,
+): Promise<ActionResponse<{ message: string }>> {
+  try {
+    const supabase = await supabaseServer();
+    const { error } = await supabase.auth.signInWithIdToken({
+      provider: "google",
+      token: authData,
+    });
+
+    if (error) {
+      return {
+        success: false,
+        error: "google auth error ",
+      };
+    }
+
+    return {
+      success: true,
+      data: { message: "success" },
+    };
+  } catch (error) {
+    console.log(getErrorMessage(error));
+    return {
+      success: false,
+      error: "google auth error ",
+    };
+  }
+}
+
+export async function createGuestUser(
+  captchaToken: string,
+): Promise<ActionResponse<{ message: string }>> {
+  try {
+    const supabase = await supabaseServer();
+    const { error } = await supabase.auth.signInAnonymously({
+      options: { captchaToken },
+    });
+    if (error)
+      return { success: false, error: "Could not create guest session." };
+    return { success: true, data: { message: "Guest session created" } };
+  } catch (error) {
+    return { success: false, error: getErrorMessage(error) };
   }
 }

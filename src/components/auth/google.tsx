@@ -3,6 +3,7 @@ import Script from "next/script";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { supabaseClient } from "@/src/lib/supabase/client";
+import { authGoogle } from "@/src/actions/auth.action";
 
 declare global {
   interface Window {
@@ -20,14 +21,10 @@ export function GoogleSignInButton({ onLoadingChange }: Props) {
   useEffect(() => {
     window.userSignIn = async (response) => {
       onLoadingChange(true);
-      const supabase = supabaseClient();
-      const { error } = await supabase.auth.signInWithIdToken({
-        provider: "google",
-        token: response.credential,
-      });
-      if (error) {
+      const res = await authGoogle(response.credential);
+
+      if (!res.success) {
         onLoadingChange(false);
-        console.error("Google sign-in failed:", error.message);
         return;
       }
       router.push("/dashboard");
