@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/dialog";
 import { Loader2 } from "lucide-react";
 import { GoogleSignInButton } from "../auth/google";
-import HCaptcha from "@hcaptcha/react-hcaptcha";
+import CaptchaModal from "../modal/CaptchaModal";
 
 function AccountForm() {
   const router = useRouter();
@@ -25,8 +25,8 @@ function AccountForm() {
   const [loading, setLoading] = useState(false);
   const [isRedirecting, startTransition] = useTransition();
   const [googleLoading, setGoogleLoading] = useState(false);
-  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
-  const captcha = useRef<HCaptcha>(null);
+  const [captchaModal, setCaptchaModal] = useState(false);
+
   const busy = loading || isRedirecting || googleLoading;
 
   const content = {
@@ -149,18 +149,6 @@ function AccountForm() {
               </fieldset>
             </div>
 
-            {/* Captcha */}
-            <div className="flex self-center mb-3">
-              <HCaptcha
-                ref={captcha}
-                sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY!}
-                onVerify={(token) => setCaptchaToken(token)}
-                onExpire={() => setCaptchaToken(null)}
-                theme={"dark"}
-                size="normal"
-              />
-            </div>
-
             <div className="aura text-text-info duration-3000 rounded-4xl ">
               <div className="button-aura rounded-4xl">
                 <Button
@@ -192,33 +180,45 @@ function AccountForm() {
             </div>
           </fieldset>
 
-          <div className="flex flex-1">
-            <button
-              className="flex justify-self-center text-center cursor-pointer  text-text self-end"
-              type="button"
-              onClick={toggleMode}
-            >
-              <p>{content.invertText} &thinsp;</p>{" "}
-              <p className="text-primary hover:underline">
-                {content.invertTitle}
-              </p>
-            </button>
+          <div className="flex flex-1 flex-col">
+            <div>
+              <span
+                className="text-sm text-text-muted cursor-pointer hover:text-primary"
+                onClick={() => setCaptchaModal(true)}
+              >
+                Try the app as a Guest
+              </span>
+              <Dialog open={captchaModal} onOpenChange={setCaptchaModal}>
+                <CaptchaModal onClose={setCaptchaModal} />
+              </Dialog>
+            </div>
+            <div className="">
+              <button
+                className="flex justify-self-center text-center cursor-pointer  text-text self-end"
+                type="button"
+                onClick={toggleMode}
+              >
+                <p>{content.invertText} &thinsp;</p>{" "}
+                <p className="text-primary hover:underline">
+                  {content.invertTitle}
+                </p>
+              </button>
+            </div>
           </div>
         </div>
       </div>
       {/* Loading */}
-      <Dialog open={isSubmitting}>
-        <Dialog open={busy}>
-          <DialogContent showCloseButton={false} className="sm:max-w-sm">
-            <DialogHeader className="items-center text-center">
-              <Loader2 className="size-8 animate-spin" />
-              <DialogTitle>
-                {mode === "login" ? "Logging in…" : "Creating account…"}
-              </DialogTitle>
-              <DialogDescription>Please wait a moment.</DialogDescription>
-            </DialogHeader>
-          </DialogContent>
-        </Dialog>
+
+      <Dialog open={busy}>
+        <DialogContent showCloseButton={false} className="sm:max-w-sm">
+          <DialogHeader className="items-center text-center">
+            <Loader2 className="size-8 animate-spin" />
+            <DialogTitle>
+              {mode === "login" ? "Logging in…" : "Creating account…"}
+            </DialogTitle>
+            <DialogDescription>Please wait a moment.</DialogDescription>
+          </DialogHeader>
+        </DialogContent>
       </Dialog>
     </>
   );
