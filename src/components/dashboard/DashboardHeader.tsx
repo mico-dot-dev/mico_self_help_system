@@ -49,7 +49,10 @@ async function InfoCardHeader({ data }: HeaderStatisticsProps) {
       amount: data.period_income,
       status: data.period_income >= data.prev_income ? "up" : "down",
       statsData: Math.abs(pct(data.period_income, data.prev_income)),
-      chartData: incomeSeries,
+      chartData: {
+        data: incomeSeries,
+        color: "var(--chart-2)",
+      },
     },
 
     //Monthly Expenses
@@ -63,7 +66,7 @@ async function InfoCardHeader({ data }: HeaderStatisticsProps) {
       amount: data.period_expense,
       status: data.prev_expense >= data.period_expense ? "up" : "down",
       statsData: Math.abs(pct(data.period_expense, data.prev_expense)),
-      chartData: expenseSeries,
+      chartData: { data: expenseSeries, color: "var(--chart-3)" },
     },
 
     //Monthly Budget

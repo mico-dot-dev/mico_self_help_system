@@ -14,13 +14,11 @@ const iconContainer = cva("inline-flex items-center justify-center shrink-0", {
     },
     tone: {
       none: "",
-      violet: "bg-primary/15 text-primary-light",
-      violetA: "bg-primary/15 text-text-primary",
-      violetB: "bg-primary/85 text-text-primary",
-      green: "bg-success/15 text-green-icon",
-      amber: "bg-warning/15 text-amber-icon",
-      red: "bg-error/15 text-red-icon",
-      blue: "bg-info/15 text-info",
+      violet: "bg-chart-1/80 text-text-primary",
+      green: "bg-chart-2/80 text-text-primary",
+      red: "bg-chart-3/80 text-text-primary",
+      blue: "bg-chart-4 text-text-primary",
+      amber: "bg-chart-5/80 text-text-primary",
     },
     shape: {
       square: "rounded-none",

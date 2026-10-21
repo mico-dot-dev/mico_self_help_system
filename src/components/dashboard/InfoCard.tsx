@@ -4,7 +4,7 @@ import { PhilippinePeso } from "lucide-react";
 import IconContainer from "../ui/IconContainer";
 import { twJoin } from "tailwind-merge";
 import { formatToDecimal } from "@/lib/format/number";
-import CompletionAreaGraph from "../chart/TransactionGraph";
+import DashboardHeaderGraph from "../chart/TransactionGraph";
 
 type HeaderProps = {
   data: HeaderCardModel;
@@ -12,7 +12,7 @@ type HeaderProps = {
 
 function InfoCard({ data }: HeaderProps) {
   return (
-    <div className="flex flex-row p-5 shadow-shadow card-base">
+    <div className="flex flex-row p-5 shadow-shadow dashboard-card">
       <div className="flex flex-col flex-1 ">
         <div className="flex flex-row items-center gap-3 mb-3">
           <div className="">
@@ -81,7 +81,10 @@ function InfoCard({ data }: HeaderProps) {
       <div className=" content-center">
         {data.chartData !== undefined &&
           (data.kind === "trend" ? (
-            <CompletionAreaGraph data={data.chartData} />
+            <DashboardHeaderGraph
+              data={data.chartData.data}
+              color={data.chartData.color}
+            />
           ) : (
             <></>
           ))}

@@ -6,7 +6,10 @@ type BaseHeaderCardModel = {
   title: string;
   iconInfo: IconContainerModel;
   amount: number;
-  chartData?: LineChartModel[];
+  chartData?: {
+    color: string;
+    data: LineChartModel[];
+  };
 };
 
 interface TrendCard extends BaseHeaderCardModel {

@@ -10,7 +10,7 @@ import { LineChartModel } from "@/src/type/chart";
 const BRAND = "#a855f7";
 const curve = d3Curve(curveMonotoneX);
 
-const createCompletionChart = (data: LineChartModel[]) =>
+const createCompletionChart = (data: LineChartModel[], color: string) =>
   defineChart(
     {
       marks: [
@@ -20,7 +20,8 @@ const createCompletionChart = (data: LineChartModel[]) =>
           x: "day",
           y: "value",
           curve,
-          fill: "var(--primary-light)",
+          fill: color,
+          fillOpacity: 0.15,
         }),
 
         // 2. the line on top edge
@@ -29,7 +30,7 @@ const createCompletionChart = (data: LineChartModel[]) =>
           x: "day",
           y: "value",
           curve,
-          stroke: BRAND,
+          stroke: color,
           strokeWidth: 2,
         }),
       ],
@@ -50,15 +51,18 @@ const createCompletionChart = (data: LineChartModel[]) =>
     { focus: "group-x", tooltip: { use: tooltip } },
   );
 
-export default function CompletionAreaGraph({
+export default function DashboardHeaderGraph({
   data,
+  color,
 }: {
   data: LineChartModel[];
+  color: string;
 }) {
+  console.log(color);
   return (
     <Chart
       ariaLabel="Task completion rate"
-      definition={createCompletionChart(data)}
+      definition={createCompletionChart(data, color)}
       height={50}
       width={80}
     />

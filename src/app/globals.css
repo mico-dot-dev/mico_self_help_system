@@ -584,6 +584,41 @@
   .card-base {
     @apply bg-card border border-border rounded-xl hover:bg-card-hover p-5;
   }
+
+  /* Standard dashboard card */
+  .dashboard-card {
+    background: var(--card);
+    color: var(--card-foreground);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-sm);
+    transition:
+      border-color 180ms ease,
+      box-shadow 180ms ease,
+      transform 180ms ease;
+  }
+
+  /* Subtle hover response */
+  .dashboard-card:hover {
+    border-color: rgb(139 92 246 / 35%);
+    box-shadow: var(--shadow-card);
+  }
+
+  /* Popovers and dropdown menus */
+  .dashboard-popover {
+    background: var(--popover);
+    color: var(--popover-foreground);
+    border: 1px solid var(--border);
+    border-radius: 0.875rem;
+    box-shadow: var(--shadow-popover);
+  }
+
+  /* Accessible keyboard focus */
+  :where(button, input, select, textarea):focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+    box-shadow: var(--shadow-focus);
+  }
 }
 
 @layer utilities {
