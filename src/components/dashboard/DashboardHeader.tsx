@@ -29,9 +29,9 @@ async function InfoCardHeader({ data }: HeaderStatisticsProps) {
     {
       kind: "trend",
       title: "Total Balance",
-      CardIcon: {
+      iconInfo: {
         Icon: Wallet,
-        iconColorScheme: "violet",
+        tone: "violet",
       },
       amount: data.total_income - data.total_expense,
       status: "up",
@@ -42,9 +42,9 @@ async function InfoCardHeader({ data }: HeaderStatisticsProps) {
     {
       kind: "trend",
       title: "Monthly Income",
-      CardIcon: {
+      iconInfo: {
         Icon: TrendingUp,
-        iconColorScheme: "green",
+        tone: "green",
       },
       amount: data.period_income,
       status: data.period_income >= data.prev_income ? "up" : "down",
@@ -56,9 +56,9 @@ async function InfoCardHeader({ data }: HeaderStatisticsProps) {
     {
       kind: "trend",
       title: "Monthly Expense",
-      CardIcon: {
+      iconInfo: {
         Icon: TrendingDown,
-        iconColorScheme: "red",
+        tone: "red",
       },
       amount: data.period_expense,
       status: data.prev_expense >= data.period_expense ? "up" : "down",
@@ -70,9 +70,9 @@ async function InfoCardHeader({ data }: HeaderStatisticsProps) {
     {
       kind: "budget",
       title: "Budget Usage",
-      CardIcon: {
+      iconInfo: {
         Icon: PhilippinePeso,
-        iconColorScheme: "amber",
+        tone: "amber",
       },
       amount: 5127.45,
       percentage: 0,

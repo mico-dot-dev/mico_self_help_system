@@ -52,7 +52,7 @@ function QuickStartButtons() {
             >
               <IconContainer
                 Icon={value.icon}
-                iconColorScheme="none"
+                tone="none"
                 size={"sm"}
               ></IconContainer>
               {value.label}

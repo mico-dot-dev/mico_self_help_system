@@ -29,7 +29,7 @@ function ExpenseTypeCard({
       onClick={() => onSelectType(expenseType)}
       className="flex flex-row justify-items-start"
     >
-      <IconContainer Icon={IconComponent} iconColorScheme="none" fill={true} />
+      <IconContainer Icon={IconComponent} tone="none" />
       {/* <div className="p-2">
         <IconComponent />
       </div> */}

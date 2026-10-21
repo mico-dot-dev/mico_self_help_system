@@ -1,25 +1,9 @@
 import { LucideIcon } from "lucide-react";
+import { IconTone } from "@/components/ui/IconContainer";
 
 export type size = "sm" | "default" | "lg";
 
-//Reusable Icon  Color Mapping
-export type IconTypes =
-  | "none"
-  | "violet"
-  | "green"
-  | "amber"
-  | "red"
-  | "blue"
-  | "violetA"
-  | "violetB";
-
-export interface IconContents {
-  color: string;
-  background: string;
-}
-
 export interface IconContainerModel {
   Icon: LucideIcon;
-  iconColorScheme: IconTypes;
-  fill?: boolean;
+  tone: IconTone;
 }

@@ -10,7 +10,7 @@ import {
 import IconContainer from "@/components/ui/IconContainer";
 import { twJoin } from "tailwind-merge";
 
-function HeaderInfoCard({ title, CardIcon, amount, kind }: HeaderCardModel) {
+function HeaderInfoCard({ title, iconInfo, amount, kind }: HeaderCardModel) {
   const ArrowIcon: LucideIcon = status === "up" ? ArrowUp : ArrowDown;
   let TrendingIcon: LucideIcon = TrendingDown;
   let trendColor = "text-[#ef4444]";
@@ -26,10 +26,7 @@ function HeaderInfoCard({ title, CardIcon, amount, kind }: HeaderCardModel) {
   return (
     <div className="flex flex-col card-base p-5 gap-3">
       <div className={twJoin("h-fit p-2 rounded-4xl w-fit")}>
-        <IconContainer
-          Icon={CardIcon.Icon}
-          iconColorScheme={CardIcon.iconColorScheme}
-        />
+        <IconContainer Icon={iconInfo.Icon} tone={iconInfo.tone} />
       </div>
 
       <div className="flex flex-col flex-1 gap-3">

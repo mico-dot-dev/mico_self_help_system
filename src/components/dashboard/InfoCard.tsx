@@ -17,8 +17,8 @@ function InfoCard({ data }: HeaderProps) {
         <div className="flex flex-row items-center gap-3 mb-3">
           <div className="">
             <IconContainer
-              Icon={data.CardIcon.Icon}
-              iconColorScheme={data.CardIcon.iconColorScheme}
+              Icon={data.iconInfo.Icon}
+              tone={data.iconInfo.tone}
             />
           </div>
           <div>
@@ -49,7 +49,8 @@ function InfoCard({ data }: HeaderProps) {
             >
               <span>
                 {data.status === "up" ? " +" : "-"}
-                {data.statsData} % from last month
+                {data.statsData}%{" "}
+                <span className=" text-text-muted">vs last month</span>
               </span>
             </div>
           ) : (
@@ -60,7 +61,7 @@ function InfoCard({ data }: HeaderProps) {
                   className="self-center"
                   strokeWidth={3}
                 />
-                <span>{data.budgetRemaining}</span>
+                <span>{data.amount}</span>
               </span>
               <span>of</span>
               <span className="flex flex-row">

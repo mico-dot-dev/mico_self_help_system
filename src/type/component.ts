@@ -4,7 +4,7 @@ import { LineChartModel } from "@/src/type/chart";
 
 type BaseHeaderCardModel = {
   title: string;
-  CardIcon: IconContainerModel;
+  iconInfo: IconContainerModel;
   amount: number;
   chartData?: LineChartModel[];
 };
