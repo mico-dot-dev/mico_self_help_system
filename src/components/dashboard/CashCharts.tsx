@@ -5,12 +5,12 @@ import BarGraph from "@/src/components/chart/BarGraph";
 import PieGraph from "@/src/components/chart/PieGraph";
 import { CashFlowPointModel } from "@/src/schema/dashboard.schema";
 import { ExpenseFrequency } from "@/src/type/chart";
-import { ChartGranularity, granularityMap } from "@/src/type/chart";
-import { twJoin } from "tailwind-merge";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { groupIntoPages } from "@/src/lib/utils/chart-pagintation";
-import { formatPageRange } from "@/lib/format/date";
-import { Square } from "lucide-react";
+import { ChartGranularity } from "@/src/type/chart";
+import { ChartPage, groupIntoPages } from "@/src/lib/utils/chart-pagintation";
+import { Square, ChartNoAxesCombined } from "lucide-react";
+import ChartControls from "./ChartControl";
+import { formatPageRange } from "@/src/lib/format/date";
+import IconContainer from "../ui/IconContainer";
 
 interface CashChartProps {
   barData: CashFlowPointModel[];
@@ -28,7 +28,17 @@ function CashFlowChart({ barData, pieData, g }: CashChartProps) {
   const [pageIndex, setPageIndex] = useState(0);
   useEffect(() => setPageIndex(0), [granularity]);
 
-  const currentPage = pages[pageIndex] ?? { label: "", points: [] };
+  const currentPage: ChartPage = pages[pageIndex] ?? { label: "", points: [] };
+
+  const handleGranularityChange = (g: ChartGranularity) => {
+    setGranularity(g);
+    setPageIndex(0);
+  };
+
+  const firstPoint = currentPage.points[0]?.date || new Date();
+  const lastPoint =
+    currentPage.points[currentPage.points.length - 1]?.date || new Date();
+  const rangeDisplay = formatPageRange(firstPoint, lastPoint);
 
   if (!barData || !pieData) {
     return <p>No data Found</p>;
@@ -38,72 +48,43 @@ function CashFlowChart({ barData, pieData, g }: CashChartProps) {
     return <p>No data</p>;
   }
 
-  const firstPoint = currentPage.points[0]?.date || new Date();
-  const lastPoint =
-    currentPage.points[currentPage.points.length - 1]?.date || new Date();
-  const rangeDisplay = formatPageRange(firstPoint, lastPoint);
-
   return (
     <div className="flex flex-col gap-3 ">
-      <div className="flex flex-row justify-between card-base p-0 px-5">
-        <div className="flex flex-row justify-between w-1/4">
-          <button
-            className="cursor-pointer"
-            disabled={pageIndex === 0}
-            onClick={() => setPageIndex((i) => i - 1)}
-          >
-            <ChevronLeft
-              size={15}
-              className="text-text-secondary hover:text-text-primary"
-              strokeWidth={3}
-            />
-          </button>
-          <span className="content-center">{rangeDisplay}</span>
-          <button
-            className="cursor-pointer"
-            disabled={pageIndex === pages.length - 1}
-            onClick={() => setPageIndex((i) => i + 1)}
-          >
-            <ChevronRight
-              size={15}
-              className="text-text-secondary hover:text-text-primary"
-              strokeWidth={3}
-            />
-          </button>
-        </div>
-        <div className="flex flex-row border border-border rounded-2xl">
-          {g.map((key, index) => {
-            return (
-              <button
-                key={index}
-                className={twJoin(
-                  "px-7 rounded-2xl transition-colors capitalize h-12 cursor-pointer",
-                  granularity === key
-                    ? "bg-primary text-white font-medium"
-                    : "bg-transparent text-text-muted hover:bg-white/5",
-                )}
-                onClick={async () => await setGranularity(key)}
-              >
-                {key}
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
       <div className="grid lg:grid-cols-5 sm:grid-cols-2 w-full gap-4 ">
         <div className="flex flex-col p-5 lg:col-span-3 sm:grid:col-span-1 card-base">
           <div className="flex justify-between mb-4">
-            <div>
-              <p>Cash Flow Overview</p>
-              <p className="text-text-muted text-sm">Income vs Expense</p>
+            <div className="flex flex-row">
+              <IconContainer
+                Icon={ChartNoAxesCombined}
+                size={"sm"}
+                tone={"blue"}
+                shape={"semi"}
+              />
+              <span>
+                <p className="text-sm">Cash Flow Overview</p>
+                <p className="text-text-muted text-xs">Income vs Expense</p>
+              </span>
             </div>
-            <div className="flex flex-col  text-sm justify-self-end">
-              <div className="flex flex-row items-center gap-2">
+            <div className="flex flex-1 ">
+              <ChartControls
+                rangeLabel={rangeDisplay}
+                canPrev={pageIndex > 0}
+                canNext={pageIndex < pages.length - 1}
+                onPrev={() => setPageIndex((i) => i - 1)}
+                onNext={() => setPageIndex((i) => i + 1)}
+                granularity={granularity}
+                options={g}
+                onGranularityChange={handleGranularityChange}
+              />
+            </div>
+          </div>
+          <div>
+            <div className="flex flex-row  text-sm justify-self-end gap-3">
+              <div className="flex flex-row items-center gap-1">
                 <Square size={8} className="text-success " fill="#22c55e" />
                 <p>Money in</p>
               </div>
-              <div className="flex flex-row items-center gap-2 ">
+              <div className="flex flex-row items-center gap-1">
                 <Square size={8} className="text-error" fill="#ef4444" />
                 <p>Money Out</p>
               </div>

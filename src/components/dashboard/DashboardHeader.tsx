@@ -78,9 +78,13 @@ async function InfoCardHeader({ data }: HeaderStatisticsProps) {
         tone: "amber",
       },
       amount: 5127.45,
-      percentage: 0,
+      percentage: 0.06,
       budget: 300,
       budgetRemaining: 200,
+      chartData: {
+        color: "green",
+        data: [],
+      },
     },
   ];
 

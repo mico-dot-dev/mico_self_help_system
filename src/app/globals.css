@@ -14,6 +14,7 @@
   --surface: #0d0d12;
   --card: oklch(1 0 0);
   --card-hover: #16161f;
+  --card-opacity: 70%;
 
   /* ---------- Borders ---------- */
   --border: oklch(0.923 0.003 48.717);
@@ -587,7 +588,11 @@
 
   /* Standard dashboard card */
   .dashboard-card {
-    background: var(--card);
+    background: color-mix(
+      in srgb,
+      var(--card) var(--card-opacity),
+      transparent
+    );
     color: var(--card-foreground);
     border: 1px solid var(--border);
     border-radius: 1rem;

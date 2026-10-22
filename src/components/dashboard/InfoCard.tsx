@@ -3,8 +3,9 @@ import { HeaderCardModel } from "@/src/type/component";
 import { PhilippinePeso } from "lucide-react";
 import IconContainer from "../ui/IconContainer";
 import { twJoin } from "tailwind-merge";
-import { formatToDecimal } from "@/lib/format/number";
+import { formatToDecimal, formatToPercentage } from "@/lib/format/number";
 import DashboardHeaderGraph from "../chart/TransactionGraph";
+import BudgetProgressBar from "../chart/BudgetProgressBar";
 
 type HeaderProps = {
   data: HeaderCardModel;
@@ -22,8 +23,15 @@ function InfoCard({ data }: HeaderProps) {
             />
           </div>
           <div>
-            <p className="text-text-secondary text-sm">{data.title}</p>
-            <div className="flex flex-col">
+            <p className="text-text-secondary text-sm font-semibold">
+              {data.title}
+            </p>
+            <div
+              className={twJoin(
+                "flex flex-col",
+                data.kind === "trend" && "p-1.5",
+              )}
+            >
               {data.kind === "trend" ? (
                 <div className="flex flex-row items-center gap-0.5 font-semibold ">
                   <PhilippinePeso size={18} className="self-center" />
@@ -33,7 +41,10 @@ function InfoCard({ data }: HeaderProps) {
                   </span>
                 </div>
               ) : (
-                <></>
+                <div>
+                  {" "}
+                  <span>{formatToPercentage.format(data.percentage)}</span>
+                </div>
               )}
             </div>
           </div>
@@ -54,25 +65,30 @@ function InfoCard({ data }: HeaderProps) {
               </span>
             </div>
           ) : (
-            <div className="text-xs text-text-muted flex flex-row gap-1 font-semibold">
-              <span className="flex flex-row">
-                <PhilippinePeso
-                  size={9}
-                  className="self-center"
-                  strokeWidth={3}
-                />
-                <span>{data.amount}</span>
-              </span>
-              <span>of</span>
-              <span className="flex flex-row">
-                <PhilippinePeso
-                  size={9}
-                  className="self-center"
-                  strokeWidth={3}
-                />
-                <span>{data.budgetRemaining}</span>
-              </span>
-              <span> budget</span>
+            <div className="flex flex-col gap-3">
+              <div className="text-xs text-text-muted flex flex-row gap-1 font-semibold">
+                <span className="flex flex-row">
+                  <PhilippinePeso
+                    size={9}
+                    className="self-center"
+                    strokeWidth={3}
+                  />
+                  <span>{data.amount}</span>
+                </span>
+                <span>of</span>
+                <span className="flex flex-row">
+                  <PhilippinePeso
+                    size={9}
+                    className="self-center"
+                    strokeWidth={3}
+                  />
+                  <span>{data.budgetRemaining}</span>
+                </span>
+                <span> budget</span>
+              </div>
+              <div>
+                <BudgetProgressBar />
+              </div>
             </div>
           )}
         </div>
