@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/sidebar";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { twJoin } from "tailwind-merge";
 
 interface NavItem {
   label: string;
@@ -58,23 +59,24 @@ const CONTENTS: NavItem[] = [
 function Navbar() {
   const pathname = usePathname();
   return (
-    <Sidebar className="">
-      <SidebarHeader className="px-3">
-        <p>TaskTracker</p>
+    <Sidebar className="text-text-muted">
+      <SidebarHeader className="px-3 text-text-primary text-xl font-semibold">
+        <p>MSHS</p>
       </SidebarHeader>
       <SidebarContent>
         <SidebarMenu className="flex flex-col gap-3 w-full items-start px-3">
           {CONTENTS.map(({ href, label, icon: Icon }) => {
             const active = pathname === href || pathname.endsWith(`${href}/`);
             return (
-              <SidebarMenuItem key={href} className="w-full">
+              <SidebarMenuItem key={href} className="w-full py-1">
                 <SidebarMenuButton
                   isActive={active}
                   tooltip={label}
                   render={<Link href={href} />}
+                  className={twJoin(active && "bg-sidebar-primary!")}
                 >
                   <Icon size={20} />
-                  <span>{label}</span>
+                  <span className="text-sm">{label}</span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             );
@@ -86,7 +88,7 @@ function Navbar() {
           <SidebarMenuItem className="w-full">
             <SidebarMenuButton tooltip={"Logout"} render={<Link href={"/"} />}>
               <LogOut size={20} />
-              <span>Logout</span>
+              <span className="text-sm">Logout</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

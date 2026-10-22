@@ -13,7 +13,7 @@ type HeaderProps = {
 
 function InfoCard({ data }: HeaderProps) {
   return (
-    <div className="flex flex-row p-5 shadow-shadow dashboard-card">
+    <div className="flex flex-row p-3 shadow-shadow dashboard-card">
       <div className="flex flex-col flex-1 ">
         <div className="flex flex-row items-center gap-3 mb-3">
           <div className="">
@@ -23,20 +23,19 @@ function InfoCard({ data }: HeaderProps) {
             />
           </div>
           <div>
-            <p className="text-text-secondary text-sm font-semibold">
+            <p className="text-text-secondary text-xs font-semibold">
               {data.title}
             </p>
             <div
               className={twJoin(
                 "flex flex-col",
-                data.kind === "trend" && "p-1.5",
+                data.kind === "trend" && "p-1",
               )}
             >
               {data.kind === "trend" ? (
-                <div className="flex flex-row items-center gap-0.5 font-semibold ">
-                  <PhilippinePeso size={18} className="self-center" />
-                  <span className="text-xl">
-                    {" "}
+                <div className="flex flex-row items-center gap-0.5 font-semibold">
+                  <PhilippinePeso size={16} className="self-center" />
+                  <span className="text-lg">
                     {formatToDecimal.format(data.amount)}
                   </span>
                 </div>
@@ -95,15 +94,12 @@ function InfoCard({ data }: HeaderProps) {
       </div>
 
       <div className=" content-center">
-        {data.chartData !== undefined &&
-          (data.kind === "trend" ? (
-            <DashboardHeaderGraph
-              data={data.chartData.data}
-              color={data.chartData.color}
-            />
-          ) : (
-            <></>
-          ))}
+        {data.chartData !== undefined && data.kind === "trend" && (
+          <DashboardHeaderGraph
+            data={data.chartData.data}
+            color={data.chartData.color}
+          />
+        )}
       </div>
     </div>
   );

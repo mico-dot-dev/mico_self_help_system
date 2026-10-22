@@ -3,6 +3,7 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { twJoin } from "tailwind-merge";
 import type { ChartGranularity } from "@/src/type/chart";
+import { Button } from "../ui/button";
 
 interface ChartControlsProps {
   rangeLabel: string;
@@ -26,27 +27,31 @@ export default function ChartControls({
   onGranularityChange,
 }: ChartControlsProps) {
   return (
-    <div className="flex flex-row p-0 px-5 w-full">
-      <div className="flex flex-row flex-1  ">
-        <button
+    <div className="flex flex-row w-full justify-end gap-3">
+      <div className="flex flex-row rounded-lg dashboard-card p-0 items-center w-1/2 justify-between">
+        <Button
           type="button"
-          className="cursor-pointer disabled:opacity-40"
           disabled={!canPrev}
           onClick={onPrev}
+          variant={"ghost"}
           aria-label="Previous range"
+          className={twJoin("hover:text-text-primary")}
         >
           <ChevronLeft
             size={15}
             strokeWidth={3}
             className="text-text-secondary hover:text-text-primary"
           />
-        </button>
-        <span className="content-center">{rangeLabel}</span>
-        <button
+        </Button>
+
+        <span className="content-center text-sm">{rangeLabel}</span>
+
+        <Button
           type="button"
           className="cursor-pointer disabled:opacity-40"
           disabled={!canNext}
           onClick={onNext}
+          variant={"ghost"}
           aria-label="Next range"
         >
           <ChevronRight
@@ -54,24 +59,26 @@ export default function ChartControls({
             strokeWidth={3}
             className="text-text-secondary hover:text-text-primary"
           />
-        </button>
+        </Button>
       </div>
 
-      <div className="flex flex-row border border-border rounded-2xl h-8">
+      <div className="flex flex-row border border-border rounded-md h-10">
         {options.map((key) => (
-          <button
+          <Button
             key={key}
             type="button"
-            className={twJoin(
-              "px-3 rounded-2xl transition-colors capitalize cursor-pointer",
-              granularity === key
-                ? "bg-primary text-white font-medium"
-                : "bg-transparent text-text-muted hover:bg-white/5",
-            )}
+            variant={granularity === key ? "default" : "ghost"}
+            className="h-full capitalize px-5"
+            // className={twJoin(
+            //   "px-3 rounded-2xl transition-colors capitalize cursor-pointer",
+            //   granularity === key
+            //     ? "bg-primary text-white font-medium"
+            //     : "bg-transparent text-text-muted hover:bg-white/5",
+            // )}
             onClick={() => onGranularityChange(key)}
           >
             {key}
-          </button>
+          </Button>
         ))}
       </div>
     </div>

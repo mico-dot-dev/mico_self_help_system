@@ -243,7 +243,7 @@
 
 @theme inline {
   /* ---------- Typography ---------- */
-  --font-sans: var(--font-sans);
+  --font-sans: var(--font-inter);
   --font-mono: var(--font-geist-mono);
 
   /* ---------- Backgrounds ---------- */
@@ -315,7 +315,7 @@
   --color-chart-transport: var(--chart-transport);
   --color-chart-shopping: var(--chart-shopping);
   --color-chart-other: var(--chart-other);
-  --font-heading: var(--font-sans);
+  --font-heading: var(--font-inter);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -593,6 +593,7 @@
       var(--card) var(--card-opacity),
       transparent
     );
+
     color: var(--card-foreground);
     border: 1px solid var(--border);
     border-radius: 1rem;
@@ -601,6 +602,8 @@
       border-color 180ms ease,
       box-shadow 180ms ease,
       transform 180ms ease;
+
+    @apply p-3;
   }
 
   /* Subtle hover response */
@@ -635,6 +638,9 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-inter), Inter, ui-sans-serif, system-ui, sans-serif;
+    font-feature-settings: "tnum";
+    font-variant-numeric: tabular-nums;
   }
   html {
     @apply font-sans;

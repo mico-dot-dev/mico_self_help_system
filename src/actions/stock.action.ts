@@ -118,8 +118,6 @@ export async function manageStockAmount(
           select: { id: true },
         });
 
-        console.log(openTask);
-
         let taskChange: StockAdjustResult["taskChange"] = "none";
 
         let t = null;
@@ -161,10 +159,8 @@ export async function manageStockAmount(
           });
           taskChange = "completed";
         }
-        console.log(t);
-        console.log(taskChange);
       });
-      console.log(res);
+
       revalidatePath("/dashboard/task");
 
       return {

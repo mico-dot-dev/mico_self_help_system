@@ -17,7 +17,7 @@ const iconContainer = cva("inline-flex items-center justify-center shrink-0", {
       violet: "bg-chart-1/80 text-text-primary",
       green: "bg-chart-2/80 text-text-primary",
       red: "bg-chart-3/80 text-text-primary",
-      blue: "bg-chart-4 text-text-primary",
+      blue: "bg-chart-4/50 text-text-primary",
       amber: "bg-chart-5/80 text-text-primary",
     },
     shape: {

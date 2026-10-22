@@ -9,14 +9,11 @@ export const metadata: Metadata = {
   description: "A self help system for personal growth and development.",
 };
 
-const cormorantGaramond = Cormorant_Garamond({
+const inter = Inter({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-heading",
+  variable: "--font-inter",
   display: "swap",
 });
-
-const inter = Inter({subsets:['latin'],variable:'--font-sans'});
 
 export default function RootLayout({
   children,
@@ -24,11 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={cn(cormorantGaramond.variable, "font-sans", inter.variable)}
-    >
+    <html lang="en" suppressHydrationWarning className={cn(inter.variable)}>
       <body className=" bg-background">
         <Providers>{children}</Providers>
       </body>

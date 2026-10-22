@@ -20,7 +20,7 @@ function BudgetProgressBar() {
   return (
     <div>
       <div
-        className="h-2.5 w-full overflow-hidden rounded-full"
+        className="h-1.5 w-full overflow-hidden rounded-full"
         style={{ backgroundColor: "var(--muted)" }}
         role="progressbar"
         aria-label="Budget used"

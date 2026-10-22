@@ -49,65 +49,66 @@ function CashFlowChart({ barData, pieData, g }: CashChartProps) {
   }
 
   return (
-    <div className="flex flex-col gap-3 ">
-      <div className="grid lg:grid-cols-5 sm:grid-cols-2 w-full gap-4 ">
-        <div className="flex flex-col p-5 lg:col-span-3 sm:grid:col-span-1 card-base">
-          <div className="flex justify-between mb-4">
-            <div className="flex flex-row">
-              <IconContainer
-                Icon={ChartNoAxesCombined}
-                size={"sm"}
-                tone={"blue"}
-                shape={"semi"}
-              />
-              <span>
-                <p className="text-sm">Cash Flow Overview</p>
-                <p className="text-text-muted text-xs">Income vs Expense</p>
-              </span>
-            </div>
-            <div className="flex flex-1 ">
-              <ChartControls
-                rangeLabel={rangeDisplay}
-                canPrev={pageIndex > 0}
-                canNext={pageIndex < pages.length - 1}
-                onPrev={() => setPageIndex((i) => i - 1)}
-                onNext={() => setPageIndex((i) => i + 1)}
-                granularity={granularity}
-                options={g}
-                onGranularityChange={handleGranularityChange}
-              />
-            </div>
+    <div className="grid lg:grid-cols-5 sm:grid-cols-2 w-full gap-4 ">
+      <div className="flex flex-col lg:col-span-3 sm:grid:col-span-1 dashboard-card justify-between gap-2">
+        {/* Header */}
+        <div className="flex justify-between ">
+          <div className="flex flex-row gap-5 items-center">
+            <IconContainer
+              Icon={ChartNoAxesCombined}
+              size={"md"}
+              tone={"blue"}
+              shape={"semi"}
+              className="p-2"
+            />
+            <span>
+              <p className="text-sm">Cash Flow Overview</p>
+              <p className="text-text-muted text-xs">Income vs Expense</p>
+            </span>
           </div>
-          <div>
-            <div className="flex flex-row  text-sm justify-self-end gap-3">
-              <div className="flex flex-row items-center gap-1">
-                <Square size={8} className="text-success " fill="#22c55e" />
-                <p>Money in</p>
-              </div>
-              <div className="flex flex-row items-center gap-1">
-                <Square size={8} className="text-error" fill="#ef4444" />
-                <p>Money Out</p>
-              </div>
-            </div>
+          <div className="flex flex-1 ">
+            <ChartControls
+              rangeLabel={rangeDisplay}
+              canPrev={pageIndex > 0}
+              canNext={pageIndex < pages.length - 1}
+              onPrev={() => setPageIndex((i) => i - 1)}
+              onNext={() => setPageIndex((i) => i + 1)}
+              granularity={granularity}
+              options={g}
+              onGranularityChange={handleGranularityChange}
+            />
           </div>
-          <div className="flex flex-col justify-between flex-1 min-h-0 ">
-            <div className="flex-1 h-full min-h-0">
-              {barData && (
-                <BarGraph data={currentPage.points} granularity={granularity} />
-              )}
+        </div>
+
+        <div>
+          <div className="flex flex-row  text-xs text-text-secondary justify-self-end gap-3">
+            <div className="flex flex-row items-center gap-1">
+              <Square size={8} className="text-success " fill="#22c55e" />
+              <p>Money in</p>
+            </div>
+            <div className="flex flex-row items-center gap-1">
+              <Square size={8} className="text-error" fill="#ef4444" />
+              <p>Money Out</p>
             </div>
           </div>
         </div>
-        <div className="col-span-2 sm:grid:col-span-1 card-base ">
-          <div className="flex flex-col mb-5">
-            <p>Expense Breakdown</p>
-            <p className="text-text-muted text-sm">
-              See where your expenses go
-            </p>
+
+        <div className="flex flex-col justify-between flex-1 min-h-0 ">
+          <div className="flex-1 h-full min-h-0">
+            {barData && (
+              <BarGraph data={currentPage.points} granularity={granularity} />
+            )}
           </div>
-          <div>
-            <PieGraph data={pieData} />
-          </div>
+        </div>
+      </div>
+
+      <div className="col-span-2 sm:grid:col-span-1 dashboard-card ">
+        <div className="flex flex-col mb-5">
+          <p>Expense Breakdown</p>
+          <p className="text-text-muted text-sm">See where your expenses go</p>
+        </div>
+        <div>
+          <PieGraph data={pieData} />
         </div>
       </div>
     </div>
