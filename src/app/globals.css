@@ -566,6 +566,46 @@
     background: var(--primary-hover);
   }
 
+  /* TaskTracker dashboard scrollbar */
+  .dashboard-scrollbar {
+    overflow-y: auto;
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: rgb(139 92 246 / 55%) transparent;
+    overscroll-behavior: contain;
+  }
+
+  /* Chrome, Edge, Safari */
+  .dashboard-scrollbar::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  .dashboard-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+    margin-block: 4px;
+  }
+
+  .dashboard-scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgb(139 92 246 / 45%);
+    border: 3px solid transparent;
+    background-clip: content-box;
+    border-radius: 999px;
+    min-height: 40px;
+    transition: background-color 180ms ease;
+  }
+
+  .dashboard-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(139 92 246 / 80%);
+  }
+
+  .dashboard-scrollbar::-webkit-scrollbar-thumb:active {
+    background-color: #8b5cf6;
+  }
+
+  .dashboard-scrollbar::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
   .content-container-base {
     @apply flex flex-1 flex-col min-h-full overflow-hidden pt-8 p-5 pr-0 overflow-y-scroll;
   }

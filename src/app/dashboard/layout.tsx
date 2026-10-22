@@ -8,7 +8,7 @@ function layout({ children }: { children: React.ReactNode }) {
       <SidebarProvider className="">
         <Navbar />
 
-        <main className="overflow-y-hidden flex-1 py-5 pl-5 pr-3 ">
+        <main className="overflow-hidden dashboard-scrollbar overflow-y-auto flex-1 py-5 pl-5 pr-2 ">
           <SidebarTrigger className={"lg:hidden md:hidden sm:block"} />
           <div className="">{children}</div>
         </main>
