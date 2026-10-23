@@ -2,11 +2,11 @@
 
 import React, { useState, useEffect } from "react";
 import { Plus } from "lucide-react";
-import AddCategoryModal from "../modal/AddModal";
+import AddCategoryModal from "./modal/AddModal";
 import { useRouter, useSearchParams } from "next/navigation";
 import { CategoryFilterModel } from "@/src/type/data-list";
 import { AppModule } from "@/src/type/module";
-import { Button } from "./button";
+import { Button } from "../ui/button";
 
 interface ContentProps {
   module: AppModule;

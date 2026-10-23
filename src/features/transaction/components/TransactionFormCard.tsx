@@ -5,7 +5,7 @@ import { expenseIconProps } from "@/src/lib/utils/expense-mapper";
 import { ExpenseType } from "@/src/generated/prisma";
 import { Circle } from "lucide-react";
 import { Button } from "@/src/components/ui/button";
-import IconContainer from "@/components/ui/IconContainer";
+import IconContainer from "@/src/components/shared/IconContainer";
 
 type expenseButtonProps = {
   isSelected: boolean;

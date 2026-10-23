@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useEffect, useState, useMemo } from "react";
-import BarGraph from "@/src/components/chart/BarGraph";
-import PieGraph from "@/src/components/chart/PieGraph";
+import BarGraph from "@/src/components/charts/BarGraph";
+import PieGraph from "@/src/components/charts/PieGraph";
 import { CashFlowPointModel } from "@/src/schema/dashboard.schema";
 import { ExpenseFrequency } from "@/src/type/chart";
 import { ChartGranularity } from "@/src/type/chart";
@@ -10,7 +10,7 @@ import { ChartPage, groupIntoPages } from "@/src/lib/utils/chart-pagintation";
 import { Square, ChartNoAxesCombined } from "lucide-react";
 import ChartControls from "./ChartControl";
 import { formatPageRange } from "@/src/lib/format/date";
-import IconContainer from "../ui/IconContainer";
+import IconContainer from "../shared/IconContainer";
 
 interface CashChartProps {
   barData: CashFlowPointModel[];

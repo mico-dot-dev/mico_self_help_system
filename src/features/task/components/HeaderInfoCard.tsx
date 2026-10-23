@@ -7,7 +7,7 @@ import {
   LucideIcon,
   ArrowDown,
 } from "lucide-react";
-import IconContainer from "@/components/ui/IconContainer";
+import IconContainer from "@/src/components/shared/IconContainer";
 import { twJoin } from "tailwind-merge";
 
 function HeaderInfoCard({ title, iconInfo, amount, kind }: HeaderCardModel) {

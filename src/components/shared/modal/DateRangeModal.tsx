@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from "react";
 import type { DateRange, DateRangePreset } from "@/src/type/date-range";
-import { getDateRangeFromPreset } from "@/src/lib/date-range";
+import { getDateRangeFromPreset } from "@/src/lib/date/date-range";
 import { X } from "lucide-react";
-import { Button } from "../ui/button";
-import Calendar from "../ui/Calendar";
+import { Button } from "../../ui/button";
+import Calendar from "../Calendar";
 
 type DateRangeModalProps = {
   open: boolean;

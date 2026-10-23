@@ -1,5 +1,5 @@
 import React from "react";
-import DataShowcase from "@/src/components/ui/DataShowcase";
+import DataShowcase from "@/src/components/shared/DataShowcase";
 import IncomeItemCard from "@/features/income/components/IncomeItemCard";
 import { incomeColumns } from "@/features/income/income.columns";
 import { getUserIncome } from "@/src/actions/income.action";

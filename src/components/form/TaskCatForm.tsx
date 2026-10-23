@@ -10,7 +10,7 @@ import {
 } from "@/src/schema/category.schema";
 import Swal from "sweetalert2";
 import { Button } from "../ui/button";
-import { FormField } from "../ui/FormField";
+import { FormField } from "../shared/FormField";
 
 interface AddFormProps {
   closeModal: () => void;

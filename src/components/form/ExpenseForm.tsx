@@ -13,7 +13,7 @@ import StockSubForm from "./StockSubForm";
 import { CreateExpense } from "@/src/actions/expense.action";
 import Swal from "sweetalert2";
 import { upperCaseFormat } from "@/lib/format/string";
-import { FormField } from "../ui/FormField";
+import { FormField } from "../shared/FormField";
 import { Button } from "../ui/button";
 
 interface AddFormProps {

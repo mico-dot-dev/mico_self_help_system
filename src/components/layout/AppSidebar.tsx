@@ -56,7 +56,7 @@ const CONTENTS: NavItem[] = [
   },
 ];
 
-function Navbar() {
+function AppSidebar() {
   const pathname = usePathname();
   return (
     <Sidebar className="text-text-muted">
@@ -154,4 +154,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default AppSidebar;

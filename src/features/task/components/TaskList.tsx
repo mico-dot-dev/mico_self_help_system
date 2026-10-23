@@ -2,7 +2,7 @@ import React from "react";
 import { getUserTasks } from "@/src/actions/task.action";
 import { ListParams } from "@/src/type/data-list";
 import { taskColumns } from "@/features/task/task.columns";
-import DataShowcase from "@/src/components/ui/DataShowcase";
+import DataShowcase from "@/src/components/shared/DataShowcase";
 import TaskItemCard from "./TaskItemCard";
 
 interface TaskListProps {

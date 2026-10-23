@@ -16,8 +16,8 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Loader2 } from "lucide-react";
-import { GoogleSignInButton } from "../auth/google";
-import CaptchaModal from "../modal/CaptchaModal";
+import { GoogleSignInButton } from "../../features/auth/components/GoogleSignInButton";
+import CaptchaModal from "../../features/auth/components/CaptchaModal";
 
 function AccountForm() {
   const router = useRouter();

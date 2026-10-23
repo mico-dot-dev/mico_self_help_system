@@ -1,7 +1,7 @@
 import React from "react";
 import { useFormContext } from "react-hook-form";
 import { DynamicFormModel } from "@/src/schema/expense.schema";
-import { FormField } from "../ui/FormField";
+import { FormField } from "../shared/FormField";
 
 function StockSubForm() {
   const { register } = useFormContext<DynamicFormModel>();

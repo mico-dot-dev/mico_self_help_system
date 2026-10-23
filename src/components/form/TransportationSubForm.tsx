@@ -4,7 +4,7 @@ import { useFormContext, useFieldArray } from "react-hook-form";
 import { DynamicFormModel } from "@/src/schema/expense.schema";
 import { Plus, Trash } from "lucide-react";
 import { Button } from "../ui/button";
-import { FormField } from "../ui/FormField";
+import { FormField } from "../shared/FormField";
 
 function TransportationSubForm() {
   const { register, control } = useFormContext<DynamicFormModel>();

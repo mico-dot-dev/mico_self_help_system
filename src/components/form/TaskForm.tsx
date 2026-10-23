@@ -15,7 +15,7 @@ import { getUserCategory } from "@/src/actions/category.action";
 import { CategoryListModel } from "@/src/schema/category.schema";
 import { DateRepeatType } from "@/src/generated/prisma";
 import { upperCaseFormat } from "@/lib/format/string";
-import { FormField } from "../ui/FormField";
+import { FormField } from "../shared/FormField";
 import { Button } from "../ui/button";
 
 interface AddFormProps {

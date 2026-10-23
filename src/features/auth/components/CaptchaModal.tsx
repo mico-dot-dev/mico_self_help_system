@@ -10,7 +10,7 @@ import {
   DialogTitle,
   DialogClose,
 } from "@/components/ui/dialog";
-import { Button } from "../ui/button";
+import { Button } from "../../../components/ui/button";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { createGuestUser } from "@/src/actions/auth.action";
 import Swal from "sweetalert2";

@@ -3,7 +3,7 @@ import InfoCard from "@/components/dashboard/InfoCard";
 import { HeaderCardModel } from "@/type/component";
 import { Wallet, TrendingUp, TrendingDown, PhilippinePeso } from "lucide-react";
 import { HeaderStatisticsModel } from "@/schema/dashboard.schema";
-import DateRangeButton from "../ui/DateRangeButton";
+import DateRangeButton from "../shared/DateRangeButton";
 import { LineChartModel } from "@/type/chart";
 import { getHours } from "date-fns";
 

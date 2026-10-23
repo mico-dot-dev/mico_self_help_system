@@ -1,11 +1,11 @@
 import React, { ReactNode } from "react";
 import { HeaderCardModel } from "@/src/type/component";
 import { PhilippinePeso } from "lucide-react";
-import IconContainer from "../ui/IconContainer";
+import IconContainer from "../shared/IconContainer";
 import { twJoin } from "tailwind-merge";
 import { formatToDecimal, formatToPercentage } from "@/lib/format/number";
-import DashboardHeaderGraph from "../chart/TransactionGraph";
-import BudgetProgressBar from "../chart/BudgetProgressBar";
+import DashboardHeaderGraph from "../charts/TransactionGraph";
+import BudgetProgressBar from "../charts/BudgetProgressBar";
 
 type HeaderProps = {
   data: HeaderCardModel;

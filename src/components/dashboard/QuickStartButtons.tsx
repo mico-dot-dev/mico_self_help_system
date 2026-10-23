@@ -3,9 +3,9 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "@/src/components/ui/button";
 import { BanknoteArrowUp, BanknoteArrowDown } from "lucide-react";
-import IconContainer from "@/src/components/ui/IconContainer";
+import IconContainer from "@/src/components/shared/IconContainer";
 import { ButtonWithIconModel } from "@/src/type/component";
-import AddFormModal from "../modal/AddModal";
+import AddFormModal from "../shared/modal/AddModal";
 import { ModuleWithModals } from "@/src/type/module";
 
 interface QuickStartItem extends ButtonWithIconModel {

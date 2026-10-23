@@ -8,7 +8,7 @@ import {
 } from "@/src/schema/income.schema";
 import { createIncome } from "@/src/actions/income.action";
 import Swal from "sweetalert2";
-import { FormField } from "../ui/FormField";
+import { FormField } from "../shared/FormField";
 import { Button } from "../ui/button";
 
 interface AddFormProps {

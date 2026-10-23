@@ -21,7 +21,7 @@ import { twJoin } from "tailwind-merge";
 import { createTransaction } from "@/src/actions/transaction.action";
 import Swal from "sweetalert2";
 import { Stepper } from "@/src/components/ui/Steps";
-import { FormField } from "../ui/FormField";
+import { FormField } from "../shared/FormField";
 import { Button } from "../ui/button";
 
 interface AddFormProps {

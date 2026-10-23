@@ -1,5 +1,5 @@
 import React from "react";
-import DataListContainer from "@/src/components/ui/DataListContainer";
+import DataListContainer from "@/src/components/shared/DataListContainer";
 import { ExpenseType } from "@/src/generated/prisma";
 import { upperCaseFormat } from "@/lib/format/string";
 import { ListParams } from "@/src/type/data-list";

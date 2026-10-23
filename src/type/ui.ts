@@ -1,5 +1,5 @@
 import { LucideIcon } from "lucide-react";
-import { IconTone } from "@/components/ui/IconContainer";
+import { IconTone } from "@/src/components/shared/IconContainer";
 
 export type size = "sm" | "default" | "lg";
 

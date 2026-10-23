@@ -538,11 +538,7 @@
   .modal-body::-webkit-scrollbar-thumb:hover {
     @apply bg-text-disabled;
   }
-  /* ---------- NavBar ---------- */
 
-  .nav-item-base {
-    @apply cursor-pointer w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all text-text-muted border border-transparent hover:text-text-primary hover:bg-white/3;
-  }
   /* ---------- Scrollbar ---------- */
   .scrollbar-styled {
     scrollbar-width: thin; /* Firefox */

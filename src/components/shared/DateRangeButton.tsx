@@ -2,10 +2,10 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import type { DateRange } from "@/src/type/date-range";
-import DateRangeModal from "../modal/DateRangeModal";
+import DateRangeModal from "./modal/DateRangeModal";
 import { Calendar, ChevronDown } from "lucide-react";
 import { formatDate } from "@/lib/format/date";
-import { Button } from "./button";
+import { Button } from "../ui/button";
 import { useRouter, useSearchParams } from "next/navigation";
 
 function DateRangeButton() {

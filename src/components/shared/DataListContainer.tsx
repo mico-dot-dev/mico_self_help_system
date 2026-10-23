@@ -1,9 +1,9 @@
 import React, { Suspense } from "react";
-import AddButton from "@/src/components/ui/AddButton";
-import ToolBar from "@/src/components/ui/Toolbar";
+import AddButton from "@/src/components/shared/AddButton";
+import ToolBar from "@/src/components/shared/Toolbar";
 import { DataListProps } from "@/src/type/data-list";
 import { dataListRegistry } from "@/src/lib/utils/data-list-registry";
-import EditModal from "../modal/EditModal";
+import EditModal from "./modal/EditModal";
 
 function DataListContainer({
   module,

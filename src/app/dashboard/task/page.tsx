@@ -1,7 +1,7 @@
 import React, { Suspense, use } from "react";
 import { ListParams } from "@/src/type/data-list";
 import { getUserCategory } from "@/src/actions/category.action";
-import DataListContainer from "@/src/components/ui/DataListContainer";
+import DataListContainer from "@/src/components/shared/DataListContainer";
 import TaskStatisticsWrapper from "@/features/task/components/TaskStatisticsWrapper";
 import TaskHeader from "@/features/task/components/TaskHeader";
 

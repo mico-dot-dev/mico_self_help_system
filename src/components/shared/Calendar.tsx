@@ -9,7 +9,7 @@ import {
   subMonths,
 } from "date-fns";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { getCalendarDays } from "@/src/lib/date-range";
+import { getCalendarDays } from "@/src/lib/date/date-range";
 import type { DateRange } from "@/src/type/date-range";
 
 interface CalendarDayProps {

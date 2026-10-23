@@ -1,9 +1,9 @@
 import React, { Suspense } from "react";
-import SearchBar from "@/src/components/ui/SearchBar";
-import CategoryList from "@/src/components/ui/CategoryList";
+import SearchBar from "@/src/components/shared/SearchBar";
+import CategoryList from "@/src/components/shared/CategoryList";
 import Filter from "@/src/components/ui/Filter";
 import { DataListProps } from "@/src/type/data-list";
-import AddButton from "@/src/components/ui/AddButton";
+import AddButton from "@/src/components/shared/AddButton";
 
 function Toolbar({
   module,

@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import DataListContainer from "@/src/components/ui/DataListContainer";
+import DataListContainer from "@/src/components/shared/DataListContainer";
 
 function page() {
   return (

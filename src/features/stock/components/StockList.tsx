@@ -2,7 +2,7 @@ import React from "react";
 import { GetUserStock } from "@/src/actions/stock.action";
 import { stockColumns } from "../stock.columns";
 import StockItemCard from "./StockItemCard";
-import DataShowcase from "@/components/ui/DataShowcase";
+import DataShowcase from "@/src/components/shared/DataShowcase";
 
 async function StockList() {
   const userStock = await GetUserStock();
