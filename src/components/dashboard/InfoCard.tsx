@@ -13,7 +13,7 @@ type HeaderProps = {
 
 function InfoCard({ data }: HeaderProps) {
   return (
-    <div className="flex flex-row p-3 shadow-shadow dashboard-card">
+    <div className="flex flex-row p-3 shadow-shadow card-base">
       <div className="flex flex-col flex-1 ">
         <div className="flex flex-row items-center gap-3 mb-3">
           <div className="">

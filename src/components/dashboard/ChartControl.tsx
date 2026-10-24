@@ -27,8 +27,8 @@ export default function ChartControls({
   onGranularityChange,
 }: ChartControlsProps) {
   return (
-    <div className="flex flex-row w-full justify-end gap-3">
-      <div className="flex flex-row rounded-lg dashboard-card p-0 items-center w-1/2 justify-between">
+    <div className="flex flex-row w-full justify-end gap-3 ">
+      <div className="flex flex-row rounded-lg card-base p-0 items-center w-1/2 justify-between h-[80%] self-center">
         <Button
           type="button"
           disabled={!canPrev}
@@ -44,7 +44,7 @@ export default function ChartControls({
           />
         </Button>
 
-        <span className="content-center text-sm">{rangeLabel}</span>
+        <span className="content-center text-xs">{rangeLabel}</span>
 
         <Button
           type="button"
@@ -69,12 +69,6 @@ export default function ChartControls({
             type="button"
             variant={granularity === key ? "default" : "ghost"}
             className="h-full capitalize px-5"
-            // className={twJoin(
-            //   "px-3 rounded-2xl transition-colors capitalize cursor-pointer",
-            //   granularity === key
-            //     ? "bg-primary text-white font-medium"
-            //     : "bg-transparent text-text-muted hover:bg-white/5",
-            // )}
             onClick={() => onGranularityChange(key)}
           >
             {key}

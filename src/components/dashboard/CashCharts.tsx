@@ -7,7 +7,7 @@ import { CashFlowPointModel } from "@/src/schema/dashboard.schema";
 import { ExpenseFrequency } from "@/src/type/chart";
 import { ChartGranularity } from "@/src/type/chart";
 import { ChartPage, groupIntoPages } from "@/src/lib/utils/chart-pagintation";
-import { Square, ChartNoAxesCombined } from "lucide-react";
+import { Square, ChartNoAxesCombined, PieChart } from "lucide-react";
 import ChartControls from "./ChartControl";
 import { formatPageRange } from "@/src/lib/format/date";
 import IconContainer from "../shared/IconContainer";
@@ -50,7 +50,7 @@ function CashFlowChart({ barData, pieData, g }: CashChartProps) {
 
   return (
     <div className="grid lg:grid-cols-5 sm:grid-cols-2 w-full gap-4 ">
-      <div className="flex flex-col lg:col-span-3 sm:grid:col-span-1 dashboard-card justify-between gap-2">
+      <div className="flex flex-col lg:col-span-3 sm:grid:col-span-1 card-base justify-between gap-2">
         {/* Header */}
         <div className="flex justify-between ">
           <div className="flex flex-row gap-5 items-center">
@@ -102,10 +102,21 @@ function CashFlowChart({ barData, pieData, g }: CashChartProps) {
         </div>
       </div>
 
-      <div className="col-span-2 sm:grid:col-span-1 dashboard-card ">
-        <div className="flex flex-col mb-5">
-          <p>Expense Breakdown</p>
-          <p className="text-text-muted text-sm">See where your expenses go</p>
+      <div className="flex flex-col gap-2 col-span-2 sm:grid:col-span-1 card-base ">
+        <div className="flex flex-row items-center gap-5">
+          <IconContainer
+            Icon={PieChart}
+            size={"md"}
+            tone={"violet"}
+            shape={"semi"}
+            className="p-2"
+          />
+          <span className="">
+            <p className="text-sm">Expense Breakdown</p>
+            <p className="text-text-muted text-xs">
+              See where your expenses go
+            </p>
+          </span>
         </div>
         <div>
           <PieGraph data={pieData} />

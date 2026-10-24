@@ -618,12 +618,8 @@
     @apply bg-surface border border-border rounded-md;
   }
 
-  .card-base {
-    @apply bg-card border border-border rounded-xl hover:bg-card-hover p-5;
-  }
-
   /* Standard dashboard card */
-  .dashboard-card {
+  .card-base {
     background: color-mix(
       in srgb,
       var(--card) var(--card-opacity),
@@ -643,13 +639,13 @@
   }
 
   /* Subtle hover response */
-  .dashboard-card:hover {
+  .card-base:hover {
     border-color: rgb(139 92 246 / 35%);
     box-shadow: var(--shadow-card);
   }
 
   /* Popovers and dropdown menus */
-  .dashboard-popover {
+  .card-base-popover {
     background: var(--popover);
     color: var(--popover-foreground);
     border: 1px solid var(--border);

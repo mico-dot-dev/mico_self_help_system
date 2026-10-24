@@ -71,7 +71,7 @@ function DateRangeModal({
     range.from !== null && range.to !== null && range.from <= range.to;
 
   return (
-    <div className="flex flex-col p-3 card-base shadow-card gap-1">
+    <div className="flex flex-col p-3 card-base bg-card shadow-card gap-1">
       {/* Header */}
       <header className="flex justify-self-end">
         <button
