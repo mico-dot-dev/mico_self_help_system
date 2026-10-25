@@ -15,11 +15,12 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Loader2, Mail, LockKeyhole } from "lucide-react";
+import { Loader2, Mail, LockKeyhole, UserRound } from "lucide-react";
 import { GoogleSignInButton } from "../../features/auth/components/GoogleSignInButton";
 import CaptchaModal from "../../features/auth/components/CaptchaModal";
 import { FormField } from "../shared/FormField";
 import { Input } from "../ui/input";
+import { FieldLabel, Field } from "../ui/field";
 
 function AccountForm() {
   const router = useRouter();
@@ -118,18 +119,19 @@ function AccountForm() {
             <p className="text-lg font-semibold">{content.subtitle}</p>
           </span>
           <form
-            className="flex flex-col w-full mb-12"
+            className="flex flex-col w-full  gap-3"
             onSubmit={handleSubmit(AuthSubmit)}
             noValidate
             autoComplete="off"
           >
-            <div className="flex flex-col gap-5 mb-10">
+            <div className="flex flex-col gap-5 ">
               <FormField
                 label="Email Adress"
                 placeholder="you@example.com"
                 {...register("email")}
                 error={errors.email?.message}
                 Icon={Mail}
+                onFocus={(e) => e.target.removeAttribute("readonly")}
               />
               <FormField
                 label="Password"
@@ -139,82 +141,59 @@ function AccountForm() {
                 {...register("password")}
                 error={errors.password?.message}
                 Icon={LockKeyhole}
+                onFocus={(e) => e.target.removeAttribute("readonly")}
               />
-              {/* <fieldset className="flex flex-col">
-                {errors.email && (
-                  <label htmlFor="email" className="text-text-error text-sm">
-                    {errors.email.message}
-                  </label>
-                )}
-                <input
-                  type="text"
-                  placeholder="Email Adress"
-                  className="input-base indent-2.5 lg:py-1.5 h-12"
-                  {...register("email")}
-                />
-              </fieldset> */}
-              {/* <fieldset className="flex flex-col">
-                {errors.password && (
-                  <label htmlFor="password" className="text-text-error text-sm">
-                    {errors.password.message}
-                  </label>
-                )}
-                <input
-                  type="password"
-                  placeholder="Password"
-                  className="input-base indent-2.5 py-1.5 h-12"
-                  autoComplete="off"
-                  {...register("password")}
-                />
-              </fieldset> */}
             </div>
 
-            <div className="flex flex-row justify-between">
-              <span className="flex flex-row ">
-                <Input type="checkbox" className="w-5" />
-                <label htmlFor="">Remember me</label>
+            <div className="flex flex-row text-xs justify-between mb-2">
+              <Field className="flex flex-row w-fit items-center">
+                <Input type="checkbox" className="h-3 w-3" />
+                <FieldLabel className="whitespace-nowrap ">
+                  Remember me
+                </FieldLabel>
+              </Field>
+              <span className="text-primary/80 active:text-primary hover:text-primary cursor-pointer">
+                Forget Password?
               </span>
-              <span>Forget Password?</span>
             </div>
 
-            <div className="aura text-text-info duration-3000 rounded-4xl ">
-              <div className="button-aura rounded-4xl">
-                <Button
-                  type="submit"
-                  variant={"default"}
-                  disabled={busy}
-                  size={"lg"}
-                  className="w-full rounded-4xl p-5 text-md"
-                >
-                  {busy ? "Loading" : content.mode}
-                </Button>
-              </div>
-            </div>
+            <Button
+              type="submit"
+              variant={"default"}
+              disabled={busy}
+              size={"lg"}
+              className="w-full p-5 text-md rounded-xl"
+            >
+              {busy ? "Loading" : content.mode}
+            </Button>
           </form>
 
-          <fieldset className="flex flex-col w-full mb-5">
+          <div className="flex flex-col w-full text-sm gap-2">
             <div className="text-center px-2 mb-3 relative w-full self-center">
               <div className="absolute inset-0 flex items-center w-full">
                 <div className="w-full border-t border-text-primary" />
               </div>
-              <span className="relative bg-background px-2">
+              <span className="relative bg-background px-2 text-text-secondary">
                 or {content.mode} with
               </span>
             </div>
-            <div className="grid grid-cols-3 w-full text-3xl  justify-items-center items-center">
-              <GoogleSignInButton onLoadingChange={setGoogleLoading} />
+
+            <div className="grid grid-cols-3 w-full text-3xl justify-items-center items-center mb-2">
+              <GoogleSignInButton
+                onLoadingChange={setGoogleLoading}
+                size="medium"
+              />
               <FaFacebook className="" />
               <FaDiscord className="" />
             </div>
-          </fieldset>
 
-          <div className="flex flex-1 flex-col">
-            <div>
+            <div className="flex flex-row w-full bg-card items-center justify-center py-3 rounded-xl gap-1">
+              <UserRound size={15} />
               <span
-                className="text-sm text-text-muted cursor-pointer hover:text-primary"
+                className="text-xs cursor-pointer hover:text-primary"
                 onClick={() => setCaptchaModal(true)}
               >
-                Try the app as a Guest
+                Continue as a Guest
               </span>
               <Dialog open={captchaModal} onOpenChange={setCaptchaModal}>
                 <CaptchaModal
@@ -223,13 +202,18 @@ function AccountForm() {
                 />
               </Dialog>
             </div>
-            <div className="">
+          </div>
+
+          <div className="flex flex-1 flex-col">
+            <div className="text-sm">
               <button
-                className="flex justify-self-center text-center cursor-pointer  text-text self-end"
+                className="flex justify-self-center text-center cursor-pointer text-text self-end"
                 type="button"
                 onClick={toggleMode}
               >
-                <p>{content.invertText} &thinsp;</p>{" "}
+                <p className="text-text-secondary">
+                  {content.invertText} &thinsp;
+                </p>{" "}
                 <p className="text-primary hover:underline">
                   {content.invertTitle}
                 </p>

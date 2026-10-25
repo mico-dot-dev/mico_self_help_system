@@ -12,9 +12,13 @@ declare global {
 
 interface Props {
   onLoadingChange: (loading: boolean) => void;
+  size: "small" | "medium" | "large";
 }
 
-export function GoogleSignInButton({ onLoadingChange }: Props) {
+export function GoogleSignInButton({
+  onLoadingChange,
+  size = "medium",
+}: Props) {
   const router = useRouter();
 
   useEffect(() => {
@@ -53,7 +57,7 @@ export function GoogleSignInButton({ onLoadingChange }: Props) {
         data-type="icon"
         data-shape="circle"
         data-theme="filled_black"
-        data-size="large"
+        data-size={size}
       />
     </div>
   );
