@@ -1,43 +1,59 @@
 // src/components/ui/FormField.tsx
 import { forwardRef } from "react";
 import { twMerge } from "tailwind-merge";
+import {
+  Field,
+  FieldContent,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+  FieldLegend,
+  FieldSeparator,
+  FieldSet,
+  FieldTitle,
+} from "@/components/ui/field";
+import { Input } from "../ui/input";
+import {
+  InputGroup,
+  InputGroupInput,
+  InputGroupAddon,
+} from "../ui/input-group";
+import { LucideIcon } from "lucide-react";
 
 interface FormFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: string;
+  Icon?: LucideIcon;
 }
 
 export const FormField = forwardRef<HTMLInputElement, FormFieldProps>(
-  ({ label, error, id, className, placeholder, type, ...rest }, ref) => {
-    const inputId = id ?? rest.name; // falls back to the RHF field name
-
+  ({ label, error, id, className, placeholder, type, Icon, ...rest }, ref) => {
+    const inputId = id ?? rest.name;
     return (
-      <fieldset className="form-field-container w-full">
+      <Field className="form-field-container w-full">
         {label && (
-          <label htmlFor={inputId} className="input-label">
+          <FieldLabel htmlFor={inputId} className="">
             {label}
-          </label>
+          </FieldLabel>
         )}
-        <input
-          type={type}
-          id={inputId}
-          ref={ref}
-          placeholder={placeholder ? `E.G., ${placeholder}` : undefined}
-          className={twMerge(
-            "input-base p-2",
-            error && "border-error focus:border-error",
-            className,
-          )}
-          aria-invalid={!!error}
-          aria-describedby={error ? `${inputId}-error` : undefined}
-          {...rest}
-        />
+        <InputGroup className="border border-border py-5">
+          <InputGroupInput
+            type={type}
+            id={inputId}
+            ref={ref}
+            placeholder={placeholder && `${placeholder}`}
+            className=""
+            {...rest}
+          />
+          <InputGroupAddon>{Icon && <Icon />}</InputGroupAddon>
+        </InputGroup>
         {error && (
           <p id={`${inputId}-error`} className="text-sm text-error">
             {error}
           </p>
         )}
-      </fieldset>
+      </Field>
     );
   },
 );

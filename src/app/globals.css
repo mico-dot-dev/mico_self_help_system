@@ -374,15 +374,6 @@
 
   /* ---------- Input Fields ---------- */
 
-  .input-label {
-    @apply text-sm font-medium leading-5
-  text-text-body;
-  }
-
-  .input-label-required {
-    @apply text-error;
-  }
-
   .input-helper {
     @apply mt-1
   text-xs font-normal leading-4

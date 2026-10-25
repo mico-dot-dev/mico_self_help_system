@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import SearchBar from "@/src/components/shared/SearchBar";
 import CategoryList from "@/src/components/shared/CategoryList";
-import Filter from "@/src/components/ui/Filter";
+import Filter from "@/src/components/shared/Filter";
 import { DataListProps } from "@/src/type/data-list";
 import AddButton from "@/src/components/shared/AddButton";
 

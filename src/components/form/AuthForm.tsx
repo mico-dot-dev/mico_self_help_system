@@ -15,9 +15,11 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Loader2 } from "lucide-react";
+import { Loader2, Mail, LockKeyhole } from "lucide-react";
 import { GoogleSignInButton } from "../../features/auth/components/GoogleSignInButton";
 import CaptchaModal from "../../features/auth/components/CaptchaModal";
+import { FormField } from "../shared/FormField";
+import { Input } from "../ui/input";
 
 function AccountForm() {
   const router = useRouter();
@@ -110,17 +112,35 @@ function AccountForm() {
   return (
     <>
       <div className="flex text-text-primary h-screen w-full items-center justify-center">
-        <div className="flex flex-col h-3/4 lg:w-1/4 items-center sm:w-full">
-          <p className="lg:text-3xl sm:text-2xl text-center font-bold lg:mb-12 mb-10">
-            {content.title}
-          </p>
+        <div className="flex flex-col h-3/4 lg:w-1/4 items-center md:w-full w-[80%] gap-5">
+          <span className="flex flex-col self-start">
+            <p className="text-xs font-bold text-primary ">{content.title}</p>
+            <p className="text-lg font-semibold">{content.subtitle}</p>
+          </span>
           <form
             className="flex flex-col w-full mb-12"
             onSubmit={handleSubmit(AuthSubmit)}
             noValidate
+            autoComplete="off"
           >
-            <div className="flex flex-col gap-8 mb-10">
-              <fieldset className="flex flex-col">
+            <div className="flex flex-col gap-5 mb-10">
+              <FormField
+                label="Email Adress"
+                placeholder="you@example.com"
+                {...register("email")}
+                error={errors.email?.message}
+                Icon={Mail}
+              />
+              <FormField
+                label="Password"
+                placeholder="Enter Your Password"
+                type="password"
+                autoComplete="off"
+                {...register("password")}
+                error={errors.password?.message}
+                Icon={LockKeyhole}
+              />
+              {/* <fieldset className="flex flex-col">
                 {errors.email && (
                   <label htmlFor="email" className="text-text-error text-sm">
                     {errors.email.message}
@@ -132,8 +152,8 @@ function AccountForm() {
                   className="input-base indent-2.5 lg:py-1.5 h-12"
                   {...register("email")}
                 />
-              </fieldset>
-              <fieldset className="flex flex-col">
+              </fieldset> */}
+              {/* <fieldset className="flex flex-col">
                 {errors.password && (
                   <label htmlFor="password" className="text-text-error text-sm">
                     {errors.password.message}
@@ -146,7 +166,15 @@ function AccountForm() {
                   autoComplete="off"
                   {...register("password")}
                 />
-              </fieldset>
+              </fieldset> */}
+            </div>
+
+            <div className="flex flex-row justify-between">
+              <span className="flex flex-row ">
+                <Input type="checkbox" className="w-5" />
+                <label htmlFor="">Remember me</label>
+              </span>
+              <span>Forget Password?</span>
             </div>
 
             <div className="aura text-text-info duration-3000 rounded-4xl ">

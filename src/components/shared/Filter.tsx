@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { ChevronDown } from "lucide-react";
-import { Button } from "./button";
+import { Button } from "../ui/button";
 
 function Filter() {
   const [groupBy, setGroupBy] = useState<string | null>();
