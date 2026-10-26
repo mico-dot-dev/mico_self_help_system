@@ -59,16 +59,19 @@ function DateRangeButton() {
     <div className="relative w-full " ref={containerRef}>
       <Button
         type="button"
-        className="flex flex-row gap-2 border-3 hover:border-primary p-5 max-w-fit"
+        className=" gap-2 border-3 hover:border-primary py-5 w-full justify-between "
         variant={"secondary"}
         size={"sm"}
         onClick={() => setIsOpen((prev) => !prev)}
       >
-        <Calendar size={20} />
-        <span>{formatDate(dateRange.from ?? new Date())}</span>
-        <span>-</span>
-        <span>{formatDate(dateRange.to ?? new Date())}</span>
-        <ChevronDown size={20} />
+        <div className="flex flex-row items-center gap-3">
+          <Calendar size={20} />
+          <span>{formatDate(dateRange.from ?? new Date())}</span>
+          <span>-</span>
+          <span>{formatDate(dateRange.to ?? new Date())}</span>
+        </div>
+
+        <ChevronDown className="" size={20} />
       </Button>
 
       {isOpen && (

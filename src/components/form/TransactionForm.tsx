@@ -20,7 +20,7 @@ import TransactionExpenseCard from "@/features/transaction/components/Transactio
 import { twJoin } from "tailwind-merge";
 import { createTransaction } from "@/src/actions/transaction.action";
 import Swal from "sweetalert2";
-import { Stepper } from "@/src/components/ui/Steps";
+import { Stepper } from "@/src/components/shared/Steps";
 import { FormField } from "../shared/FormField";
 import { Button } from "../ui/button";
 

@@ -119,7 +119,7 @@ function AccountForm() {
             <p className="text-lg font-semibold">{content.subtitle}</p>
           </span>
           <form
-            className="flex flex-col w-full  gap-3"
+            className="flex flex-col w-full  gap-5"
             onSubmit={handleSubmit(AuthSubmit)}
             noValidate
             autoComplete="off"
@@ -152,7 +152,7 @@ function AccountForm() {
                   Remember me
                 </FieldLabel>
               </Field>
-              <span className="text-primary/80 active:text-primary hover:text-primary cursor-pointer">
+              <span className="text-primary active:text-primary/80 hover:text-primary/80 cursor-pointer">
                 Forget Password?
               </span>
             </div>
@@ -187,14 +187,17 @@ function AccountForm() {
               <FaDiscord className="" />
             </div>
 
-            <div className="flex flex-row w-full bg-card items-center justify-center py-3 rounded-xl gap-1">
-              <UserRound size={15} />
-              <span
-                className="text-xs cursor-pointer hover:text-primary"
+            <div className="">
+              <Button
+                className="flex flex-row w-full items-center justify-center py-5"
+                variant={"secondary"}
                 onClick={() => setCaptchaModal(true)}
               >
-                Continue as a Guest
-              </span>
+                <UserRound size={15} />
+                <span className="text-xs  hover:text-primary">
+                  Continue as a Guest
+                </span>
+              </Button>
               <Dialog open={captchaModal} onOpenChange={setCaptchaModal}>
                 <CaptchaModal
                   onClose={setCaptchaModal}

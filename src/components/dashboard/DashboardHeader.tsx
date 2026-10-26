@@ -106,14 +106,14 @@ async function InfoCardHeader({ data }: HeaderStatisticsProps) {
 
   return (
     <header className=" w-full">
-      <div className="flex flex-row justify-between min-w-full mb-3">
+      <div className="flex flex-col justify-between min-w-full mb-3">
         <div>
           <p className="text-xl font-semibold capitalize">{getGreeting()}</p>
           <p className="text-text-secondary text-xs">
             Here's Your Finance Statistics Overview
           </p>
         </div>
-        <div className="flex items-center mr-3 ">
+        <div className="flex items-center mr-3 w-full ">
           <DateRangeButton />
         </div>
       </div>
