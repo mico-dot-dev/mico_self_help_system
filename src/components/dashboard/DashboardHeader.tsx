@@ -118,9 +118,16 @@ async function InfoCardHeader({ data }: HeaderStatisticsProps) {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-3 grid-cols-2 grid-rows-3 lg:grid-cols-4 lg:grid-rows-1">
         {cardData.map((data, i) => {
-          return <InfoCard key={i} data={data} />;
+          const isFullWidth = i === 0 || i === 3;
+          return (
+            <InfoCard
+              key={i}
+              data={data}
+              gridCol={isFullWidth ? "col-span-2" : "col-span-1"}
+            />
+          );
         })}
       </div>
     </header>

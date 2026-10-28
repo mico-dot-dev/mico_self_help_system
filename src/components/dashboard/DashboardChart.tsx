@@ -49,8 +49,9 @@ function CashFlowChart({ barData, pieData, g }: CashChartProps) {
   }
 
   return (
-    <div className="grid lg:grid-cols-5 sm:grid-cols-2 w-full gap-4 ">
-      <div className="flex flex-col lg:col-span-3 sm:grid:col-span-1 card-base justify-between gap-2">
+    <div className="grid w-full ">
+      {/* Bar */}
+      <div className="flex flex-col card-base w-full">
         {/* Header */}
         <div className="flex justify-between ">
           <div className="flex flex-row gap-5 items-center">
@@ -66,7 +67,7 @@ function CashFlowChart({ barData, pieData, g }: CashChartProps) {
               <p className="text-text-muted text-xs">Income vs Expense</p>
             </span>
           </div>
-          <div className="flex flex-1 ">
+          <div className="flex flex-1 hidden lg:block">
             <ChartControls
               rangeLabel={rangeDisplay}
               canPrev={pageIndex > 0}
@@ -102,7 +103,8 @@ function CashFlowChart({ barData, pieData, g }: CashChartProps) {
         </div>
       </div>
 
-      <div className="flex flex-col gap-2 col-span-2 sm:grid:col-span-1 card-base ">
+      {/* Pie */}
+      <div className="flex flex-col card-base ">
         <div className="flex flex-row items-center gap-5">
           <IconContainer
             Icon={PieChart}

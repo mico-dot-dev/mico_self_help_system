@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import CashFlowChart from "@/src/components/dashboard/CashCharts";
+import CashFlowChart from "@/src/components/dashboard/DashboardChart";
 import DashboardHeader from "@/src/components/dashboard/DashboardHeader";
 import {
   DateRangeModel,

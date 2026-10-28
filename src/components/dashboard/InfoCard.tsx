@@ -9,11 +9,17 @@ import BudgetProgressBar from "../charts/BudgetProgressBar";
 
 type HeaderProps = {
   data: HeaderCardModel;
+  gridCol?: string;
 };
 
-function InfoCard({ data }: HeaderProps) {
+function InfoCard({ data, gridCol }: HeaderProps) {
   return (
-    <div className="flex flex-row p-3 shadow-shadow card-base">
+    <div
+      className={twJoin(
+        "flex flex-row p-3 shadow-shadow card-base lg:col-span-1 ",
+        gridCol,
+      )}
+    >
       <div className="flex flex-col flex-1 ">
         <div className="flex flex-row items-center gap-3 mb-3">
           <div className="">
@@ -93,7 +99,7 @@ function InfoCard({ data }: HeaderProps) {
         </div>
       </div>
 
-      <div className=" content-center">
+      <div className="content-center hidden">
         {data.chartData !== undefined && data.kind === "trend" && (
           <DashboardHeaderGraph
             data={data.chartData.data}
