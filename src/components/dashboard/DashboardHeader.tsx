@@ -42,6 +42,7 @@ async function InfoCardHeader({ data }: HeaderStatisticsProps) {
     {
       kind: "trend",
       title: "Monthly Income",
+      mobileTitle: "Income",
       iconInfo: {
         Icon: TrendingUp,
         tone: "green",
@@ -59,6 +60,7 @@ async function InfoCardHeader({ data }: HeaderStatisticsProps) {
     {
       kind: "trend",
       title: "Monthly Expense",
+      mobileTitle: "Expense",
       iconInfo: {
         Icon: TrendingDown,
         tone: "red",

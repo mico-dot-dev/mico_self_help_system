@@ -79,6 +79,7 @@ export default function BarGraph({ data, granularity }: CashFlowProps) {
     () => createBarChart(data, granularity),
     [data, granularity],
   );
+
   return (
     <div ref={ref} className="w-full min-w-0 overflow-x-auto">
       <Chart

@@ -6,43 +6,51 @@ import { twJoin } from "tailwind-merge";
 import { formatToDecimal, formatToPercentage } from "@/lib/format/number";
 import DashboardHeaderGraph from "../charts/TransactionGraph";
 import BudgetProgressBar from "../charts/BudgetProgressBar";
+import { headers } from "next/headers";
+import { userAgent } from "next/server";
 
 type HeaderProps = {
   data: HeaderCardModel;
   gridCol?: string;
 };
 
-function InfoCard({ data, gridCol }: HeaderProps) {
+async function InfoCard({ data, gridCol }: HeaderProps) {
+  const { title, amount, iconInfo, kind, chartData, mobileTitle } = data;
+  const headersList = await headers();
+
+  // 2. Use Next.js built-in userAgent parser
+  const { device } = userAgent({ headers: headersList });
+
+  const isMobile: boolean =
+    mobileTitle !== undefined && device.type === "mobile";
   return (
     <div
       className={twJoin(
-        "flex flex-row p-3 shadow-shadow card-base lg:col-span-1 ",
+        "flex flex-row shadow-shadow card-base p-3 py-2 lg:col-span-1 ",
         gridCol,
       )}
     >
-      <div className="flex flex-col flex-1 ">
-        <div className="flex flex-row items-center gap-3 mb-3">
+      <div className="flex flex-col flex-1 self-center">
+        <div className="flex flex-row items-center gap-3 mb-1 ">
           <div className="">
             <IconContainer
-              Icon={data.iconInfo.Icon}
-              tone={data.iconInfo.tone}
+              Icon={iconInfo.Icon}
+              tone={iconInfo.tone}
+              size={"sm"}
             />
           </div>
           <div>
             <p className="text-text-secondary text-xs font-semibold">
-              {data.title}
+              {isMobile ? mobileTitle : title}
             </p>
             <div
-              className={twJoin(
-                "flex flex-col",
-                data.kind === "trend" && "p-1",
-              )}
+              className={twJoin("flex flex-col ", kind === "trend" && "lg:p-1")}
             >
-              {data.kind === "trend" ? (
+              {kind === "trend" ? (
                 <div className="flex flex-row items-center gap-0.5 font-semibold">
                   <PhilippinePeso size={16} className="self-center" />
                   <span className="text-lg">
-                    {formatToDecimal.format(data.amount)}
+                    {formatToDecimal.format(amount)}
                   </span>
                 </div>
               ) : (
@@ -56,7 +64,7 @@ function InfoCard({ data, gridCol }: HeaderProps) {
         </div>
         <div></div>
         <div>
-          {data.kind == "trend" ? (
+          {kind == "trend" ? (
             <div
               className={twJoin(
                 "text-xs flex flex-row",
@@ -78,7 +86,7 @@ function InfoCard({ data, gridCol }: HeaderProps) {
                     className="self-center"
                     strokeWidth={3}
                   />
-                  <span>{data.amount}</span>
+                  <span>{amount}</span>
                 </span>
                 <span>of</span>
                 <span className="flex flex-row">
@@ -99,12 +107,9 @@ function InfoCard({ data, gridCol }: HeaderProps) {
         </div>
       </div>
 
-      <div className="content-center hidden">
-        {data.chartData !== undefined && data.kind === "trend" && (
-          <DashboardHeaderGraph
-            data={data.chartData.data}
-            color={data.chartData.color}
-          />
+      <div className={twJoin("content-center hidden lg:block")}>
+        {chartData !== undefined && kind === "trend" && (
+          <DashboardHeaderGraph data={chartData.data} color={chartData.color} />
         )}
       </div>
     </div>

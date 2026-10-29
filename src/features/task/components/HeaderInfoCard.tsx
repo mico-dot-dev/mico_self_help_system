@@ -39,7 +39,6 @@ function HeaderInfoCard({ title, iconInfo, amount, kind }: HeaderCardModel) {
           )}
         >
           <ArrowIcon size={15} />
-          {/* <p>{statsAmount}% from last week</p> */}
         </span>
       </div>
       <div></div>

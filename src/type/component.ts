@@ -4,6 +4,7 @@ import { LineChartModel } from "@/src/type/chart";
 
 type BaseHeaderCardModel = {
   title: string;
+  mobileTitle?: string;
   iconInfo: IconContainerModel;
   amount: number;
   chartData?: {

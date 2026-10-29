@@ -78,9 +78,6 @@ export default function PieGraph({ data }: PieGraphProps) {
     [data],
   );
   const chart = useMemo(() => createPieChart(data, total), [data, total]);
-  if (data.length === 0 || total === 0) {
-    return <p className="text-sm text-text-muted">No expense data yet</p>;
-  }
 
   return (
     <div className="flex flex-row">

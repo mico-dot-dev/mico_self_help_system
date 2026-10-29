@@ -58,7 +58,6 @@ export default function DashboardHeaderGraph({
   data: LineChartModel[];
   color: string;
 }) {
-  console.log(color);
   return (
     <Chart
       ariaLabel="Task completion rate"

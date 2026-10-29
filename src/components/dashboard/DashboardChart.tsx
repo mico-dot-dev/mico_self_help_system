@@ -40,10 +40,6 @@ function CashFlowChart({ barData, pieData, g }: CashChartProps) {
     currentPage.points[currentPage.points.length - 1]?.date || new Date();
   const rangeDisplay = formatPageRange(firstPoint, lastPoint);
 
-  if (!barData || !pieData) {
-    return <p>No data Found</p>;
-  }
-
   if (!currentPage.points) {
     return <p>No data</p>;
   }
@@ -52,7 +48,6 @@ function CashFlowChart({ barData, pieData, g }: CashChartProps) {
     <div className="grid w-full ">
       {/* Bar */}
       <div className="flex flex-col card-base w-full">
-        {/* Header */}
         <div className="flex justify-between ">
           <div className="flex flex-row gap-5 items-center">
             <IconContainer
@@ -80,27 +75,32 @@ function CashFlowChart({ barData, pieData, g }: CashChartProps) {
             />
           </div>
         </div>
-
-        <div>
-          <div className="flex flex-row  text-xs text-text-secondary justify-self-end gap-3">
-            <div className="flex flex-row items-center gap-1">
-              <Square size={8} className="text-success " fill="#22c55e" />
-              <p>Money in</p>
+        {barData.length !== 0 ? (
+          <>
+            <div>
+              <div className="flex flex-row  text-xs text-text-secondary justify-self-end gap-3">
+                <div className="flex flex-row items-center gap-1">
+                  <Square size={8} className="text-success " />
+                  <p>Money in</p>
+                </div>
+                <div className="flex flex-row items-center gap-1">
+                  <Square size={8} className="text-error" />
+                  <p>Money Out</p>
+                </div>
+              </div>
             </div>
-            <div className="flex flex-row items-center gap-1">
-              <Square size={8} className="text-error" fill="#ef4444" />
-              <p>Money Out</p>
-            </div>
-          </div>
-        </div>
 
-        <div className="flex flex-col justify-between flex-1 min-h-0 ">
-          <div className="flex-1 h-full min-h-0">
-            {barData && (
-              <BarGraph data={currentPage.points} granularity={granularity} />
-            )}
-          </div>
-        </div>
+            <div className="flex flex-col justify-between flex-1 min-h-0 ">
+              <div className="flex-1 h-full min-h-0">
+                <BarGraph data={currentPage.points} granularity={granularity} />
+              </div>
+            </div>
+          </>
+        ) : (
+          <p className="text-sm text-text-muted">
+            No expense or income data yet
+          </p>
+        )}
       </div>
 
       {/* Pie */}
@@ -120,9 +120,14 @@ function CashFlowChart({ barData, pieData, g }: CashChartProps) {
             </p>
           </span>
         </div>
-        <div>
-          <PieGraph data={pieData} />
-        </div>
+
+        {pieData.length !== 0 ? (
+          <div>
+            <PieGraph data={pieData} />
+          </div>
+        ) : (
+          <p className="text-sm text-text-muted">No expense data yet</p>
+        )}
       </div>
     </div>
   );
