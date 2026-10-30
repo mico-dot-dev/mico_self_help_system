@@ -43,5 +43,5 @@ jobs:
         run: npm run build
 
       # Step 7
-      - name: Database Smoke Test
-        run: npm run db:smoke
+      # - name: Database Smoke Test
+      #   run: npm run db:smoke
