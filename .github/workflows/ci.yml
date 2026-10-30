@@ -44,4 +44,4 @@ jobs:
 
       # Step 7
       - name: Database Smoke Test
-        run: npm db:seed-demo
+        run: npm db:smoke
