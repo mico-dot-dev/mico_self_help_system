@@ -1,15 +1,21 @@
-"use server";
+import { config } from "dotenv";
+config({ path: ".env.local" }); // Next's convention; harmless if absent
+config(); // then .env
 
-import dotenv from "dotenv";
-import path from "path";
-import { prisma } from "@/lib/db/prisma-client";
-
-// Explicitly tell dotenv to look for .env.local in the root directory
-dotenv.config({ path: path.resolve(process.cwd(), ".env.local") });
-
-async function main() {
-  const count = await prisma.expense.count();
-  console.log("Expenses in DB:", count);
+export function requireEnv(name: string): string {
+  const v = process.env[name];
+  if (!v) throw new Error(`Missing env var: ${name}`);
+  return v;
 }
 
-main().finally(() => prisma.$disconnect());
+// Print where we're pointing so you never wonder "which DB was that?"
+export function assertSafeTarget() {
+  const host = new URL(requireEnv("DATABASE_URL")).host;
+  console.log(`Target DB host: ${host}`);
+  if (
+    process.env.NODE_ENV === "production" &&
+    !process.argv.includes("--yes")
+  ) {
+    throw new Error("Refusing to run in production without --yes");
+  }
+}

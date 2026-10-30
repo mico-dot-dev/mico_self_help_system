@@ -41,3 +41,7 @@ jobs:
       # Step 6: Ensure the app builds into production bundle without crashing
       - name: Build application
         run: npm run build
+
+      # Step 7
+      - name: Database Smoke Test
+        run: npm db:seed-demo

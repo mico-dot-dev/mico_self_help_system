@@ -45,9 +45,9 @@ function CashFlowChart({ barData, pieData, g }: CashChartProps) {
   }
 
   return (
-    <div className="grid w-full ">
+    <div className="grid w-full gap-3 grid-rows-2 grid-cols-1 lg:grid-cols-3 lg:grid-rows-1">
       {/* Bar */}
-      <div className="flex flex-col card-base w-full">
+      <div className="flex flex-col card-base w-full lg:col-span-2">
         <div className="flex justify-between ">
           <div className="flex flex-row gap-5 items-center">
             <IconContainer

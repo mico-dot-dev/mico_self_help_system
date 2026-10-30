@@ -41,12 +41,12 @@ async function page({ searchParams }: PageProps) {
   const granularityRange = getAvailableGranularities(dateRange);
 
   return (
-    <div className="flex flex-col w-full  h-full gap-3">
+    <div className="flex flex-col w-full h-full gap-3">
       <DashboardHeader
         data={headerData.success ? headerData.data : EMPTY_HEADER_STATS}
       />
 
-      <section className="lg:block sm:hidden">
+      <section className="lg:block">
         <Suspense>
           <CashFlowChart
             barData={barData.success ? barData.data : []}
