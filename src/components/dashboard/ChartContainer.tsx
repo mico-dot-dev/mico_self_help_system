@@ -18,7 +18,7 @@ interface CashChartProps {
   g: ChartGranularity[];
 }
 
-function CashFlowChart({ barData, pieData, g }: CashChartProps) {
+function ChartContainer({ barData, pieData, g }: CashChartProps) {
   const [granularity, setGranularity] = useState<ChartGranularity>("day");
 
   const pages = useMemo(
@@ -133,4 +133,4 @@ function CashFlowChart({ barData, pieData, g }: CashChartProps) {
   );
 }
 
-export default CashFlowChart;
+export default ChartContainer;
