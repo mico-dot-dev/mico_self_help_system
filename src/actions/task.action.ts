@@ -191,7 +191,7 @@ export async function updateTaskCompletion(
   });
 }
 
-export async function DeleteTask(taskId: string) {
+export async function archiveTask(taskId: string) {
   return withAuth(async (userId) => {
     try {
       // const task = await prisma.task.findUnique({
