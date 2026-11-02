@@ -194,13 +194,6 @@ export async function updateTaskCompletion(
 export async function archiveTask(taskId: string) {
   return withAuth(async (userId) => {
     try {
-      // const task = await prisma.task.findUnique({
-      //   select: { id: true },
-      //   where: { id: tasknum },
-      // });
-
-      // if (!task) {(`Task not found: ${taskID}`);}
-
       const res = await prisma.task.update({
         where: {
           id: taskId,
@@ -214,7 +207,7 @@ export async function archiveTask(taskId: string) {
       if (!res) {
         return {
           success: false,
-          error: "e",
+          error: "Task not found",
         };
       }
 
