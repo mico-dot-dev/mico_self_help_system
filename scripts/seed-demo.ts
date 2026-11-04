@@ -1,4 +1,4 @@
-import { prisma } from "@/src/lib/db/prisma-client";
+import { prisma } from "@/src/lib/db/prisma/prisma-client";
 import {
   DateRepeatType,
   ExpenseType,

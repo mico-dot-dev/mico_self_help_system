@@ -1,6 +1,6 @@
 "use client";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
-import { FORM_REGISTRY } from "./AddModal.config";
+import { FORM_REGISTRY } from "../../../config/form-registry";
 import ModalWrapper from "./ModalWrapper";
 import type { ModuleWithModals } from "@/src/type/module";
 

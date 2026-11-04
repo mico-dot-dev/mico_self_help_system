@@ -1,7 +1,7 @@
 "use server";
 
 import { ActionResponse } from "../schema/auth.schema";
-import { prisma } from "@/src/lib/db/prisma";
+import { prisma } from "@/src/lib/db/prisma/prisma";
 import { withAuth } from "../lib/auth/with-auth";
 import { ExpenseFrequency } from "@/src/type/chart";
 import {

@@ -8,7 +8,7 @@ import {
   incomeListModel,
   incomeInputModel,
 } from "../schema/income.schema";
-import { prisma } from "@/src/lib/db/prisma";
+import { prisma } from "@/src/lib/db/prisma/prisma";
 import { error } from "console";
 import { getErrorMessage } from "../lib/errors";
 

@@ -1,6 +1,6 @@
 "use server";
 
-import { prisma } from "../lib/db/prisma";
+import { prisma } from "../lib/db/prisma/prisma";
 import { ActionResponse } from "../schema/auth.schema";
 import {
   TransactionFormModel,

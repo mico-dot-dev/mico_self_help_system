@@ -1,6 +1,6 @@
 import "./lib/env"; // MUST be first: loads env before prisma-client
 import { assertSafeTarget } from "./lib/env";
-import { prisma } from "@/src/lib/db/prisma-client";
+import { prisma } from "@/src/lib/db/prisma/prisma-client";
 import { supabaseAdmin } from "./lib/supabase-admin";
 import { seedUserData, wipeUserData } from "./seed-demo";
 

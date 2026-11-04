@@ -1,5 +1,5 @@
 import React, { ReactNode, useState } from "react";
-import { FORM_REGISTRY } from "./AddModal.config";
+import { FORM_REGISTRY } from "../../../config/form-registry";
 import { ModuleWithModals } from "@/src/type/module";
 import ModalWrapper from "./ModalWrapper";
 

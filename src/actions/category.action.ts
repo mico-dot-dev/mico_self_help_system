@@ -7,7 +7,7 @@ import {
   CategoryListSchema,
   CategorySchema,
 } from "@/src/schema/category.schema";
-import { prisma } from "@/src/lib/db/prisma";
+import { prisma } from "@/src/lib/db/prisma/prisma";
 import { withAuth } from "@/src/lib/auth/with-auth";
 import { getErrorMessage } from "../lib/errors";
 
