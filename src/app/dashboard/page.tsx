@@ -57,19 +57,17 @@ async function page({ searchParams }: PageProps) {
       </section>
 
       <footer className=" grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 w-full">
-        <div className="flex flex-col p-5 card-base gap-2 col-span-2">
+        <div className="flex flex-col card-base gap-2 col-span-2">
           <div className="flex flex-row justify-between">
             <div>
-              <p className="self-end">Income History</p>
-              <p className="self-end text-sm text-text-muted ">
-                Your Money Deposits
-              </p>
+              <p className="self-end text-sm">Income History</p>
             </div>
           </div>
           <div className="">
             <DataListContainer module="income" searchParams={params} />
           </div>
         </div>
+
         <div className="flex flex-col gap-3">
           <QuickStartButtons />
           <div className="card-base flex-1">
