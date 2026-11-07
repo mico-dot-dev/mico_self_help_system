@@ -49,7 +49,7 @@ function TableData<T extends RowData>({ columns, data }: TableDataProps<T>) {
 
   return (
     <>
-      <table className="table table-auto ">
+      <table className="table table-auto">
         <thead className="">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
