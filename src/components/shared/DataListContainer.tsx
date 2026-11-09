@@ -23,7 +23,7 @@ function DataListContainer({
   return (
     <>
       {" "}
-      <div className="flex flex-col flex-1 bg-surface border border-border rounded-2xl p-5">
+      <div className="flex flex-col flex-1 rounded-2xl p-5">
         <div className="mb-4">
           <ToolBar
             module={module}

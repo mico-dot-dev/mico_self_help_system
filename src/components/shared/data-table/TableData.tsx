@@ -17,6 +17,15 @@ import { ChevronUp, ChevronDown } from "lucide-react";
 import { twJoin } from "tailwind-merge";
 import { AppModule } from "@/src/type/module";
 
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+
 interface TableDataProps<T extends RowData> {
   columns: Array<ColumnDef<any, T>>;
   data: T[];
@@ -49,12 +58,12 @@ function TableData<T extends RowData>({ columns, data }: TableDataProps<T>) {
 
   return (
     <>
-      <table className="table table-auto">
-        <thead className="">
+      <Table>
+        <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
+            <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <th key={header.id}>
+                <TableHead key={header.id}>
                   {header.isPlaceholder ? null : (
                     <div
                       className={twJoin(
@@ -71,36 +80,36 @@ function TableData<T extends RowData>({ columns, data }: TableDataProps<T>) {
                       }[header.column.getIsSorted() as string] ?? ""}
                     </div>
                   )}
-                </th>
+                </TableHead>
               ))}
-            </tr>
+            </TableRow>
           ))}
-        </thead>
-        <tbody>
+        </TableHeader>
+        <TableBody>
           {table.getRowModel().rows.length === 0 ? (
-            <tr>
-              <td
+            <TableRow>
+              <TableCell
                 colSpan={columns.length}
                 className="py-16 text-center text-text-muted"
               >
                 No recorded yet.
-              </td>
-            </tr>
+              </TableCell>
+            </TableRow>
           ) : (
             table.getRowModel().rows.map((row) => {
               return (
-                <tr key={row.id}>
+                <TableRow key={row.id}>
                   {row.getAllCells().map((cell) => (
-                    <td key={cell.id} className="text-left tabular-nums">
+                    <TableCell key={cell.id} className="text-left tabular-nums">
                       <table.FlexRender cell={cell} />
-                    </td>
+                    </TableCell>
                   ))}
-                </tr>
+                </TableRow>
               );
             })
           )}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
 
       <div className="flex flex-row justify-between">
         <button

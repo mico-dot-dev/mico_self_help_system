@@ -1,5 +1,5 @@
 import React from "react";
-import { GetUserExpenses } from "@/src/actions/expense.action";
+import { getExpense } from "@/src/actions/expense.action";
 import { ListParams } from "@/src/type/data-list";
 import { expenseColumns } from "../expense.column";
 import DataShowcase from "../../../components/shared/DataShowcase";
@@ -10,7 +10,7 @@ interface TaskListProps {
 }
 
 async function ExpenseList({ searchParams }: TaskListProps) {
-  const expenses = await GetUserExpenses({ ...searchParams });
+  const expenses = await getExpense({ ...searchParams });
   if (!expenses.success) {
     return <p>Expense Data Not Found</p>;
   }

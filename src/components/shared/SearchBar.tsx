@@ -3,6 +3,7 @@
 import React from "react";
 import { Search } from "lucide-react";
 import { useSearchParams, useRouter } from "next/navigation";
+import { Input } from "@base-ui/react";
 
 function SearchBar() {
   const searchParams = useSearchParams();
@@ -21,12 +22,12 @@ function SearchBar() {
         <Search className="h-5 w-5 text-muted-icon" aria-hidden="true" />
       </div>
 
-      <input
+      <Input
         type="text"
         placeholder="Search a task..."
         id="task-search"
         name="task-search"
-        className=" w-full h-ful pl-10 pr-4 text-md border input-base "
+        className=" w-full h-ful pl-10 pr-4 text-md border input-base bg-input"
         onChange={handleSearch}
       />
     </div>

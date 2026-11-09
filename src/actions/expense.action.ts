@@ -201,7 +201,7 @@ export async function CreateExpense(
   });
 }
 
-export async function GetUserExpenses({
+export async function getExpense({
   category,
   filter,
   groupBy,
