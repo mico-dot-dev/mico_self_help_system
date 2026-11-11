@@ -73,7 +73,7 @@ async function InfoCard({ data, gridCol }: HeaderProps) {
             >
               <span>
                 {data.status === "up" ? " +" : "-"}
-                {data.statsData}%{" "}
+                {formatToPercentage.format(data.statsData)}
                 <span className=" text-text-muted">vs last month</span>
               </span>
             </div>

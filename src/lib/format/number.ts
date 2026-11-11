@@ -5,5 +5,6 @@ export const formatToDecimal = new Intl.NumberFormat("en-US", {
 
 export const formatToPercentage = new Intl.NumberFormat("en-US", {
   style: "percent",
+  minimumFractionDigits: 2,
   maximumFractionDigits: 2,
 });

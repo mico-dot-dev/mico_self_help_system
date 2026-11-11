@@ -42,7 +42,7 @@ export async function getUserHeaderStatistics(
 
           UNION ALL
 
-          SELECT (t.created_at AT TIME ZONE 'Asia/Manila')::date,
+          SELECT (t.date_transact AT TIME ZONE 'Asia/Manila')::date as day,
                  t.price::float8, 'out'
           FROM public.expense e
           JOIN public."transaction" t ON t.expense_id = e.id
@@ -64,12 +64,12 @@ export async function getUserHeaderStatistics(
 
         totals AS (
           SELECT
-          COALESCE(SUM(amount) FILTER (WHERE transit = 'in'),  0) AS total_income,
-          COALESCE(SUM(amount) FILTER (WHERE transit = 'out'), 0) AS total_expense,
-          COALESCE(SUM(amount) FILTER (WHERE transit = 'in'  AND day BETWEEN ${from}::date AND ${to}::date), 0) AS period_income,
-          COALESCE(SUM(amount) FILTER (WHERE transit = 'out' AND day BETWEEN ${from}::date AND ${to}::date), 0) AS period_expense,
-          COALESCE(SUM(amount) FILTER (WHERE transit = 'in'  AND day BETWEEN ${prevRange.from}::date AND ${prevRange.to}::date), 0) AS prev_income,
-          COALESCE(SUM(amount) FILTER (WHERE transit = 'out' AND day BETWEEN ${prevRange.from}::date AND ${prevRange.to}::date), 0) AS prev_expense
+          COALESCE(SUM(amount::float8) FILTER (WHERE transit = 'in'),  0) AS total_income,
+          COALESCE(SUM(amount::float8) FILTER (WHERE transit = 'out'), 0) AS total_expense,
+          COALESCE(SUM(amount::float8) FILTER (WHERE transit = 'in'  AND day BETWEEN ${from}::date AND ${to}::date), 0) AS period_income,
+          COALESCE(SUM(amount::float8) FILTER (WHERE transit = 'out' AND day BETWEEN ${from}::date AND ${to}::date), 0) AS period_expense,
+          COALESCE(SUM(amount::float8) FILTER (WHERE transit = 'in'  AND day BETWEEN ${prevRange.from}::date AND ${prevRange.to}::date), 0) AS prev_income,
+          COALESCE(SUM(amount::float8) FILTER (WHERE transit = 'out' AND day BETWEEN ${prevRange.from}::date AND ${prevRange.to}::date), 0) AS prev_expense
           FROM flows
         )
         SELECT t.*,
@@ -101,7 +101,7 @@ export async function getUserBarStatistics(
       const res = await prisma.$queryRaw<CashFlowPointModel[]>`SELECT
       date_trunc('day', stats_data.created_at) as "date",
       stats_data.transit,
-      SUM(stats_data.amount) as total
+      SUM(stats_data.amount)::float8 as total
       FROM (
         SELECT amount, date_obtained as created_at, 'in' as transit FROM income i
         WHERE i.user_id::uuid = ${userId}::uuid
@@ -137,7 +137,7 @@ export async function getUserExpenseBreakdown(
     try {
       const res = await prisma.$queryRaw<ExpenseFrequency[]>`SELECT
     e.expense_type AS "type",
-    SUM(t.price) AS amount
+    SUM(t.price)::float8 AS amount
   FROM public.expense e
   JOIN public.transaction t
     ON t.expense_id = e.id

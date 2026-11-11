@@ -13,7 +13,7 @@ interface HeaderStatisticsProps {
 
 async function InfoCardHeader({ data }: HeaderStatisticsProps) {
   const pct = (curr: number, prev: number) =>
-    prev === 0 ? 0 : ((curr - prev) / prev) * 100;
+    prev === 0 ? 0 : (curr - prev) / prev;
 
   const incomeSeries: LineChartModel[] = data.weekly_statistics.map((w) => ({
     day: `Week ${w.week_index + 1}`,
@@ -35,7 +35,7 @@ async function InfoCardHeader({ data }: HeaderStatisticsProps) {
       },
       amount: data.total_income - data.total_expense,
       status: "up",
-      statsData: 12.5,
+      statsData: 0.12,
     },
 
     //Monthly Income
