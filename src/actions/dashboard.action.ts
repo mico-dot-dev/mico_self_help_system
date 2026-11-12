@@ -14,7 +14,6 @@ import { getErrorMessage } from "../lib/errors";
 import { DateRange } from "../type/date-range";
 import { subMonths } from "date-fns";
 import { format } from "date-fns";
-import { WeeklyStatisticsModel } from "../schema/dashboard.schema";
 
 export async function getUserHeaderStatistics(
   daterange: DateRangeModel,
@@ -108,7 +107,7 @@ export async function getUserBarStatistics(
 
         UNION ALL 
 
-        SELECT t.price as amount, t.created_at, 'out' as transit FROM expense e
+        SELECT t.price as amount, t.date_transact, 'out' as transit FROM expense e
         JOIN public.transaction t ON t.expense_id = e.id
         WHERE e.user_id::uuid = ${userId}::uuid
       ) as stats_data
