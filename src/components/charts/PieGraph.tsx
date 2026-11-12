@@ -11,6 +11,7 @@ import { ExpenseType } from "@/src/generated/prisma";
 import { upperCaseFormat } from "@/lib/format/string";
 import { formatToPercentage, formatToDecimal } from "@/lib/format/number";
 import { formatToPesoCompact } from "@/lib/format/currency";
+import { useElementWidth } from "@/src/hooks/use-element-width";
 
 const expenseColorScale = scaleOrdinal(Object.values(ExpenseType), [
   "var(--chart-bills)",
@@ -20,7 +21,10 @@ const expenseColorScale = scaleOrdinal(Object.values(ExpenseType), [
   "var(--chart-other)",
 ]);
 
-export const createPieChart = (data: ExpenseFrequency[], total: number) => {
+const MIN_SIZE = 140;
+const MAX_SIZE = 260;
+
+const createPieChart = (data: ExpenseFrequency[], total: number) => {
   const arcs = pie(data, {
     value: "amount",
   });
@@ -78,21 +82,26 @@ export default function PieGraph({ data }: PieGraphProps) {
     [data],
   );
   const chart = useMemo(() => createPieChart(data, total), [data, total]);
+  const { ref, width } = useElementWidth<HTMLDivElement>();
+  const size = Math.min(Math.max(width, MIN_SIZE), MAX_SIZE);
 
   return (
     <div className="flex flex-row">
-      <div className="relative shrink-0">
+      <div
+        className="relative mx-auto w-full max-w-fit shrink-0 h-fit"
+        ref={ref}
+      >
         <Chart
-          ariaLabel={"exampleAriaLabel"}
+          ariaLabel={""}
           definition={chart}
-          height={200}
-          width={200}
+          height={size}
+          width={size}
           className=""
         />
 
         <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
           <span className="text-xs text-text-muted">Total</span>
-          <span className="text-xl font-bold text-text-primary">
+          <span className="text-sm font-bold text-text-primary">
             {formatToPesoCompact.format(total)}
           </span>
         </div>
@@ -104,19 +113,19 @@ export default function PieGraph({ data }: PieGraphProps) {
           {data.map((d, i) => {
             return (
               <li
-                className="flex flex-row justify-between not-last:border-b border-border py-2 text-sm"
+                className="flex flex-row justify-between not-last:border-b border-border py-2 text-xs font-extralight"
                 key={i}
               >
                 <div className="flex flex-row gap-1.5">
                   <Circle
-                    size={10}
+                    size={8}
                     className="self-center"
                     fill={expenseColorScale(d.type)}
                     color={expenseColorScale(d.type)}
                   />
                   <p className="">{upperCaseFormat(d.type)}</p>
                 </div>
-                <div className="flex flex-row font-semibold gap-1">
+                <div className="flex flex-row  gap-1">
                   <PhilippinePeso
                     size={12}
                     className="self-center"

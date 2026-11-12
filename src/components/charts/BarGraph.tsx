@@ -10,12 +10,11 @@ import { createDateRange } from "@/lib/format/date";
 import { useElementWidth } from "@/src/hooks/use-element-width";
 
 const financeColors = ["#22c55e", "#ef4444"];
-// Layout constants live in one place instead of being magic numbers.
 const CHART_HEIGHT = 220;
-const MIN_WIDTH = 280; // never render narrower than this; the container scrolls instead
+const MIN_WIDTH = 280;
 const MOBILE_BREAKPOINT = 640;
 
-export const createBarChart = (
+const createBarChart = (
   data: CashFlowPointModel[],
   granularity: ChartGranularity,
 ) =>
