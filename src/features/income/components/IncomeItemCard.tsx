@@ -5,7 +5,7 @@ import { EllipsisVertical } from "lucide-react";
 
 function IncomeItemCard({ data }: ModuleCardProps<incomeListModel>) {
   return (
-    <li className="card-container-base">
+    <li className="card-base">
       <div className="flex flex-row m-5">
         <div className="self-start flex flex-col ml-3 flex-1">
           <p className="text-base flex w-full">{data.amount}</p>
