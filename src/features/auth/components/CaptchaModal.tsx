@@ -59,7 +59,11 @@ function CaptchaModal({ onClose, onRedirect }: ModalProps) {
   };
 
   return (
-    <DialogContent showCloseButton={false} className="sm:max-w-sm">
+    <DialogContent
+      showCloseButton={false}
+      className="sm:max-w-sm"
+      aria-describedby=""
+    >
       <DialogHeader className="items-center text-center">
         <DialogTitle>Complete the captcha to continue</DialogTitle>
         <DialogDescription>

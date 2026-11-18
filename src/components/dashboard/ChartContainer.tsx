@@ -104,8 +104,8 @@ function ChartContainer({ barData, pieData, g }: CashChartProps) {
       </div>
 
       {/* Pie */}
-      <div className="flex flex-col card-base ">
-        <div className="flex flex-row items-center gap-5">
+      <div className="flex flex-col card-base p-0">
+        <div className="flex flex-row items-center gap-5 px-5 pt-5">
           <IconContainer
             Icon={PieChart}
             size={"md"}
@@ -120,14 +120,13 @@ function ChartContainer({ barData, pieData, g }: CashChartProps) {
             </p>
           </span>
         </div>
-
-        {pieData.length !== 0 ? (
-          <div>
+        <div className="flex flex-1 items-center w-full ">
+          {pieData.length !== 0 ? (
             <PieGraph data={pieData} />
-          </div>
-        ) : (
-          <p className="text-sm text-text-muted">No expense data yet</p>
-        )}
+          ) : (
+            <p className="text-sm text-text-muted">No expense data yet</p>
+          )}
+        </div>
       </div>
     </div>
   );

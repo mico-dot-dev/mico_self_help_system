@@ -228,7 +228,11 @@ function AccountForm() {
       {/* Loading */}
 
       <Dialog open={busy}>
-        <DialogContent showCloseButton={false} className="sm:max-w-sm">
+        <DialogContent
+          showCloseButton={false}
+          className="sm:max-w-sm"
+          aria-describedby="Auth Form"
+        >
           <DialogHeader className="items-center text-center">
             <Loader2 className="size-8 animate-spin" />
             <DialogTitle>

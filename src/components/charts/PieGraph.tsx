@@ -86,7 +86,7 @@ export default function PieGraph({ data }: PieGraphProps) {
   const size = Math.min(Math.max(width, MIN_SIZE), MAX_SIZE);
 
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-row justify-between w-full">
       <div
         className="relative mx-auto w-full max-w-fit shrink-0 h-fit"
         ref={ref}
@@ -108,12 +108,12 @@ export default function PieGraph({ data }: PieGraphProps) {
       </div>
 
       {/* Legend */}
-      <div className=" flex-1">
-        <ul className=" flex flex-col w-full">
+      <div className=" flex-1 content-center pr-3">
+        <ul className=" flex flex-col w-full ">
           {data.map((d, i) => {
             return (
               <li
-                className="flex flex-row justify-between not-last:border-b border-border py-2 text-xs font-extralight"
+                className="flex flex-row justify-between not-last:border-b border-border py-1 text-xs font-extralight"
                 key={i}
               >
                 <div className="flex flex-row gap-1.5">
@@ -125,7 +125,7 @@ export default function PieGraph({ data }: PieGraphProps) {
                   />
                   <p className="">{upperCaseFormat(d.type)}</p>
                 </div>
-                <div className="flex flex-row  gap-1">
+                <div className="flex flex-row gap-1">
                   <PhilippinePeso
                     size={12}
                     className="self-center"
