@@ -27,8 +27,12 @@ export default function ChartControls({
   onGranularityChange,
 }: ChartControlsProps) {
   return (
-    <div className="flex flex-row w-full justify-end gap-3 ">
-      <div className="flex flex-row rounded-lg card-base p-0 items-center w-1/2 justify-between h-[80%] self-center">
+    <div
+      className="flex flex-col w-full gap-3 justify-center
+      lg:flex-row lg:justify-end 
+    "
+    >
+      <div className="lg:flex flex-row rounded-lg card-base p-0 items-center w-1/2 justify-between h-[80%] self-center sm:hidden">
         <Button
           type="button"
           disabled={!canPrev}
@@ -62,13 +66,13 @@ export default function ChartControls({
         </Button>
       </div>
 
-      <div className="flex flex-row border border-border rounded-md h-10">
+      <div className="flex flex-row border border-border rounded-md h-8 w-fit self-end lg:h-10">
         {options.map((key) => (
           <Button
             key={key}
             type="button"
             variant={granularity === key ? "default" : "ghost"}
-            className="h-full capitalize px-5"
+            className="h-full capitalize px-3 lg:px-5"
             onClick={() => onGranularityChange(key)}
           >
             {key}

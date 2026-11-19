@@ -58,11 +58,11 @@ function ChartContainer({ barData, pieData, g }: CashChartProps) {
               className="p-2"
             />
             <span>
-              <p className="text-sm">Cash Flow Overview</p>
+              <p className="text-xs lg:text-sm">Cash Flow Overview</p>
               <p className="text-text-muted text-xs">Income vs Expense</p>
             </span>
           </div>
-          <div className="flex flex-1 hidden lg:block">
+          <div className="flex flex-1 ">
             <ChartControls
               rangeLabel={rangeDisplay}
               canPrev={pageIndex > 0}
