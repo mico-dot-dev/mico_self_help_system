@@ -32,7 +32,10 @@ export default function ChartControls({
       lg:flex-row lg:justify-end 
     "
     >
-      <div className="lg:flex flex-row rounded-lg card-base p-0 items-center w-1/2 justify-between h-[80%] self-center sm:hidden">
+      <div
+        className="md:flex flex-row rounded-lg card-base p-0 items-center w-1/2 justify-between h-[80%] self-center 
+        hidden"
+      >
         <Button
           type="button"
           disabled={!canPrev}

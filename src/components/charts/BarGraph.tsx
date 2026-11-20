@@ -45,7 +45,6 @@ export const createCashFlowChart = (
 
       return {
         marks: [
-          // Areas first so the lines draw on top
           areaY(income, {
             id: "income-area",
             x: "date",

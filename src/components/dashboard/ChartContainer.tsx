@@ -80,11 +80,15 @@ function ChartContainer({ barData, pieData, g }: CashChartProps) {
             <div>
               <div className="flex flex-row  text-xs text-text-secondary justify-self-end gap-3">
                 <div className="flex flex-row items-center gap-1">
-                  <Square size={8} className="text-success " />
+                  <Square
+                    size={8}
+                    className="text-success"
+                    fill="var(--success)"
+                  />
                   <p>Money in</p>
                 </div>
                 <div className="flex flex-row items-center gap-1">
-                  <Square size={8} className="text-error" />
+                  <Square size={8} className="text-error" fill="var(--error)" />
                   <p>Money Out</p>
                 </div>
               </div>
